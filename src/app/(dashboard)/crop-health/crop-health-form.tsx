@@ -35,7 +35,7 @@ const initialState: CropHealthState = {
 
 const voices = [
     { value: 'Algenib', label: 'Voice 1 (English)' },
-    { value: 'Achernar', label: 'Voice 2 (English)' },
+    { value: 'hi-IN-Standard-A', label: 'आवाज 2 (हिन्दी)' },
     { value: 'Hadar', label: 'Voice 3 (English)' },
 ];
 
@@ -86,6 +86,7 @@ export function CropHealthForm() {
         });
       } else if (result.audioDataUri && audioRef.current) {
         audioRef.current.src = result.audioDataUri;
+        audioRef.current.play();
       }
     });
   };
@@ -170,7 +171,7 @@ export function CropHealthForm() {
             {state.report && state.audioDataUri && (
                 <div className="flex items-center gap-2">
                     <Select value={selectedVoice} onValueChange={handleVoiceChange}>
-                        <SelectTrigger className="w-[150px]">
+                        <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder="Select voice" />
                         </SelectTrigger>
                         <SelectContent>

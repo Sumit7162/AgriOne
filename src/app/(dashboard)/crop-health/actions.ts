@@ -2,6 +2,7 @@
 
 import { generateCropHealthReport } from '@/ai/flows/generate-crop-health-report';
 import { textToSpeech } from '@/ai/flows/text-to-speech';
+import { translateText } from '@/ai/flows/translate-text';
 import { z } from 'zod';
 
 export interface CropHealthState {
@@ -58,7 +59,13 @@ export async function getReportAudio(
   }
 
   try {
-    const { media } = await textToSpeech({ text: report, voiceName });
+    let textToSpeak = report;
+    if (voiceName.startsWith('hi-')) {
+        const { translatedText } = await translateText({ text: report, targetLanguage: 'hi' });
+        textToSpeak = translatedText;
+    }
+
+    const { media } = await textToSpeech({ text: textToSpeak, voiceName });
     return { audioDataUri: media };
   } catch (e) {
     console.error(e);
