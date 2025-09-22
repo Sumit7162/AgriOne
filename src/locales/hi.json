@@ -1,0 +1,40 @@
+{
+    "dashboard": {
+        "title": "डैशबोर्ड",
+        "crop_health_card_title": "फसल स्वास्थ्य एआई",
+        "crop_health_card_description": "अपनी फसलों में कीटों और बीमारियों का तुरंत पता लगाने के लिए एक छवि अपलोड करें।",
+        "farming_plans_card_title": "व्यक्तिगत खेती योजनाएं",
+        "farming_plans_card_description": "अपनी कृषि पद्धतियों को अनुकूलित करने और उपज बढ़ाने के लिए एआई-संचालित सलाह प्राप्त करें।",
+        "weather_alerts_card_title": "मौसम और कीट अलर्ट",
+        "weather_alerts_card_description": "हाइपरलोकल मौसम अपडेट और भविष्य कहनेवाला कीट/रोग अलर्ट प्राप्त करें।",
+        "marketplace_card_title": "किसान बाज़ार",
+        "marketplace_card_description": "बीज, उर्वरक और अन्य कृषि आदान खरीदें और बेचें।",
+        "forums_card_title": "सामुदायिक मंच",
+        "forums_card_description": "अन्य किसानों से जुड़ें, ज्ञान साझा करें और प्रश्न पूछें।",
+        "go_to_feature": "सुविधा पर जाएं"
+    },
+    "sidebar": {
+        "dashboard": "डैशबोर्ड",
+        "crop_health": "फसल स्वास्थ्य",
+        "farming_plans": "खेती योजनाएं",
+        "weather_alerts": "मौसम अलर्ट",
+        "marketplace": "बाज़ार",
+        "forums": "मंच",
+        "settings": "समायोजन"
+    },
+    "crop_health": {
+        "title": "फसल स्वास्थ्य"
+    },
+    "farming_plans": {
+        "title": "व्यक्तिगत खेती योजनाएं"
+    },
+    "weather_alerts": {
+        "title": "मौसम और कीट अलर्ट"
+    },
+    "marketplace": {
+        "title": "बाज़ार"
+    },
+    "forums": {
+        "title": "सामुदायिक मंच"
+    }
+}

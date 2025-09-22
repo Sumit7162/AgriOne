@@ -1,0 +1,40 @@
+{
+    "dashboard": {
+        "title": "Dashboard",
+        "crop_health_card_title": "Crop Health AI",
+        "crop_health_card_description": "Upload an image to detect pests and diseases in your crops instantly.",
+        "farming_plans_card_title": "Personalized Farming Plans",
+        "farming_plans_card_description": "Get AI-powered advice to optimize your farming practices and boost yield.",
+        "weather_alerts_card_title": "Weather & Pest Alerts",
+        "weather_alerts_card_description": "Receive hyperlocal weather updates and predictive pest/disease alerts.",
+        "marketplace_card_title": "Farmer Marketplace",
+        "marketplace_card_description": "Buy and sell seeds, fertilizers, and other agricultural inputs.",
+        "forums_card_title": "Community Forums",
+        "forums_card_description": "Connect with other farmers, share knowledge, and ask questions.",
+        "go_to_feature": "Go to feature"
+    },
+    "sidebar": {
+        "dashboard": "Dashboard",
+        "crop_health": "Crop Health",
+        "farming_plans": "Farming Plans",
+        "weather_alerts": "Weather Alerts",
+        "marketplace": "Marketplace",
+        "forums": "Forums",
+        "settings": "Settings"
+    },
+    "crop_health": {
+        "title": "Crop Health"
+    },
+    "farming_plans": {
+        "title": "Personalized Farming Plans"
+    },
+    "weather_alerts": {
+        "title": "Weather & Pest Alerts"
+    },
+    "marketplace": {
+        "title": "Marketplace"
+    },
+    "forums": {
+        "title": "Community Forums"
+    }
+}

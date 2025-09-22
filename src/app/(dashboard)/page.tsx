@@ -1,3 +1,4 @@
+'use client';
 import {
   Card,
   CardContent,
@@ -16,44 +17,48 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { Header } from '@/components/dashboard/header';
-
-const features = [
-  {
-    title: 'Crop Health AI',
-    description: 'Upload an image to detect pests and diseases in your crops instantly.',
-    href: '/crop-health',
-    icon: <Leaf className="h-8 w-8 text-primary" />,
-  },
-  {
-    title: 'Personalized Farming Plans',
-    description: 'Get AI-powered advice to optimize your farming practices and boost yield.',
-    href: '/farming-plans',
-    icon: <ClipboardList className="h-8 w-8 text-primary" />,
-  },
-  {
-    title: 'Weather & Pest Alerts',
-    description: 'Receive hyperlocal weather updates and predictive pest/disease alerts.',
-    href: '/weather-alerts',
-    icon: <CloudSun className="h-8 w-8 text-primary" />,
-  },
-  {
-    title: 'Farmer Marketplace',
-    description: 'Buy and sell seeds, fertilizers, and other agricultural inputs.',
-    href: '/marketplace',
-    icon: <Store className="h-8 w-8 text-primary" />,
-  },
-  {
-    title: 'Community Forums',
-    description: 'Connect with other farmers, share knowledge, and ask questions.',
-    href: '/forums',
-    icon: <MessageSquare className="h-8 w-8 text-primary" />,
-  },
-];
+import { useTranslation } from '@/context/language-context';
 
 export default function DashboardPage() {
+  const { t } = useTranslation();
+
+  const features = [
+    {
+      title: t('dashboard.crop_health_card_title'),
+      description: t('dashboard.crop_health_card_description'),
+      href: '/crop-health',
+      icon: <Leaf className="h-8 w-8 text-primary" />,
+    },
+    {
+      title: t('dashboard.farming_plans_card_title'),
+      description: t('dashboard.farming_plans_card_description'),
+      href: '/farming-plans',
+      icon: <ClipboardList className="h-8 w-8 text-primary" />,
+    },
+    {
+      title: t('dashboard.weather_alerts_card_title'),
+      description: t('dashboard.weather_alerts_card_description'),
+      href: '/weather-alerts',
+      icon: <CloudSun className="h-8 w-8 text-primary" />,
+    },
+    {
+      title: t('dashboard.marketplace_card_title'),
+      description: t('dashboard.marketplace_card_description'),
+      href: '/marketplace',
+      icon: <Store className="h-8 w-8 text-primary" />,
+    },
+    {
+      title: t('dashboard.forums_card_title'),
+      description: t('dashboard.forums_card_description'),
+      href: '/forums',
+      icon: <MessageSquare className="h-8 w-8 text-primary" />,
+    },
+  ];
+
+
   return (
     <>
-      <Header>Dashboard</Header>
+      <Header>{t('dashboard.title')}</Header>
       <div className="flex-1 p-4 md:p-8">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {features.map((feature) => (
@@ -75,7 +80,7 @@ export default function DashboardPage() {
                   href={feature.href}
                   className="flex items-center gap-2 text-sm font-semibold text-primary hover:text-accent-foreground"
                 >
-                  Go to feature <ArrowRight className="h-4 w-4" />
+                  {t('dashboard.go_to_feature')} <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </Card>

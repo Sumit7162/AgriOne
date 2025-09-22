@@ -19,18 +19,20 @@ import {
   Store,
   Tractor,
 } from 'lucide-react';
-
-const menuItems = [
-  { href: '/', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/crop-health', label: 'Crop Health', icon: Leaf },
-  { href: '/farming-plans', label: 'Farming Plans', icon: ClipboardList },
-  { href: '/weather-alerts', label: 'Weather Alerts', icon: CloudSun },
-  { href: '/marketplace', label: 'Marketplace', icon: Store },
-  { href: '/forums', label: 'Forums', icon: MessageSquare },
-];
+import { useTranslation } from '@/context/language-context';
 
 export function SidebarNav() {
   const pathname = usePathname();
+  const { t } = useTranslation();
+
+  const menuItems = [
+    { href: '/', label: t('sidebar.dashboard'), icon: LayoutDashboard },
+    { href: '/crop-health', label: t('sidebar.crop_health'), icon: Leaf },
+    { href: '/farming-plans', label: t('sidebar.farming_plans'), icon: ClipboardList },
+    { href: '/weather-alerts', label: t('sidebar.weather_alerts'), icon: CloudSun },
+    { href: '/marketplace', label: t('sidebar.marketplace'), icon: Store },
+    { href: '/forums', label: t('sidebar.forums'), icon: MessageSquare },
+  ];
 
   return (
     <Sidebar collapsible="icon">
@@ -61,10 +63,10 @@ export function SidebarNav() {
       <SidebarFooter className="p-2">
          <SidebarMenu>
             <SidebarMenuItem>
-                <SidebarMenuButton asChild tooltip="Settings">
+                <SidebarMenuButton asChild tooltip={t('sidebar.settings')}>
                     <Link href="#">
                         <Settings/>
-                        <span>Settings</span>
+                        <span>{t('sidebar.settings')}</span>
                     </Link>
                 </SidebarMenuButton>
             </SidebarMenuItem>
