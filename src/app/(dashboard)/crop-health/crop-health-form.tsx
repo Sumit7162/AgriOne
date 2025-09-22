@@ -28,6 +28,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslation } from "@/context/language-context";
 
 const initialState: CropHealthState = {
   formKey: 1,
@@ -47,6 +48,7 @@ export function CropHealthForm() {
   const [selectedVoice, setSelectedVoice] = useState(voices[0].value);
   const [isAudioLoading, startAudioTransition] = useTransition();
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -81,7 +83,7 @@ export function CropHealthForm() {
       if (result.error) {
         toast({
             variant: "destructive",
-            title: "Audio Error",
+            title: t('crop_health.audio_error_title'),
             description: result.error,
         });
       } else if (result.audioDataUri && audioRef.current) {
@@ -108,26 +110,25 @@ export function CropHealthForm() {
       <Card>
         <form key={state.formKey} action={handleFormAction}>
           <CardHeader>
-            <CardTitle className="font-headline">AI Crop Diagnostics</CardTitle>
+            <CardTitle className="font-headline">{t('crop_health.form_title')}</CardTitle>
             <CardDescription>
-              Upload a photo of a plant and add a description to get an
-              AI-generated health report.
+              {t('crop_health.form_description')}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="photo">Crop Photo</Label>
+              <Label htmlFor="photo">{t('crop_health.photo_label')}</Label>
               <div className="flex items-center justify-center w-full">
                 <label htmlFor="photo" className="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer bg-card hover:bg-muted/50">
                   {imagePreview ? (
                     <div className="relative w-full h-full">
-                      <Image src={imagePreview} alt="Crop preview" fill style={{ objectFit: "contain" }} className="rounded-lg p-2" />
+                      <Image src={imagePreview} alt={t('crop_health.image_preview_alt')} fill style={{ objectFit: "contain" }} className="rounded-lg p-2" />
                     </div>
                   ) : (
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
                       <ImageUp className="w-8 h-8 mb-4 text-muted-foreground" />
-                      <p className="mb-2 text-sm text-muted-foreground"><span className="font-semibold">Click to upload</span> or drag and drop</p>
-                      <p className="text-xs text-muted-foreground">PNG, JPG, or WEBP</p>
+                      <p className="mb-2 text-sm text-muted-foreground"><span className="font-semibold">{t('crop_health.upload_cta_strong')}</span>{t('crop_health.upload_cta_text')}</p>
+                      <p className="text-xs text-muted-foreground">{t('crop_health.upload_formats')}</p>
                     </div>
                   )}
                 </label>
@@ -135,17 +136,17 @@ export function CropHealthForm() {
               <Input id="photo" name="photo" type="file" className="sr-only" onChange={handleFileChange} accept="image/png, image/jpeg, image/webp" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="description">Description</Label>
+              <Label htmlFor="description">{t('crop_health.description_label')}</Label>
               <Textarea
                 id="description"
                 name="description"
-                placeholder="e.g., Yellow spots on leaves, wilting stems..."
+                placeholder={t('crop_health.description_placeholder')}
                 rows={4}
               />
             </div>
             {state?.error && (
               <Alert variant="destructive">
-                <AlertTitle>Error</AlertTitle>
+                <AlertTitle>{t('common.error')}</AlertTitle>
                 <AlertDescription>{state.error}</AlertDescription>
               </Alert>
             )}
@@ -153,7 +154,7 @@ export function CropHealthForm() {
           <CardFooter>
             <SubmitButton className="w-full">
               <ScanSearch />
-              Analyze Crop Health
+              {t('crop_health.submit_button')}
             </SubmitButton>
           </CardFooter>
         </form>
@@ -163,16 +164,16 @@ export function CropHealthForm() {
         <CardHeader>
           <div className="flex items-start flex-wrap justify-between gap-2">
             <div>
-              <CardTitle className="font-headline">Health Report</CardTitle>
+              <CardTitle className="font-headline">{t('crop_health.report_title')}</CardTitle>
               <CardDescription>
-                The analysis of your crop will appear here.
+                {t('crop_health.report_description')}
               </CardDescription>
             </div>
             {state.report && state.audioDataUri && (
                 <div className="flex items-center gap-2">
                     <Select value={selectedVoice} onValueChange={handleVoiceChange}>
                         <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select voice" />
+                            <SelectValue placeholder={t('crop_health.select_voice_placeholder')} />
                         </SelectTrigger>
                         <SelectContent>
                             {voices.map(voice => (
@@ -184,7 +185,7 @@ export function CropHealthForm() {
                     </Select>
                     <Button variant="ghost" size="icon" onClick={playAudio} disabled={isAudioLoading}>
                         {isAudioLoading ? <Loader2 className="animate-spin" /> : <Volume2 />}
-                        <span className="sr-only">Read report aloud</span>
+                        <span className="sr-only">{t('crop_health.read_aloud_sr')}</span>
                     </Button>
                 </div>
             )}
@@ -196,7 +197,7 @@ export function CropHealthForm() {
               <p className="whitespace-pre-wrap">{state.report}</p>
             ) : (
               <div className="flex items-center justify-center h-full text-muted-foreground">
-                <p>Awaiting analysis...</p>
+                <p>{t('crop_health.awaiting_analysis')}</p>
               </div>
             )}
           </ScrollArea>

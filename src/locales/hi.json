@@ -1,4 +1,7 @@
 {
+    "common": {
+        "error": "त्रुटि"
+    },
     "dashboard": {
         "title": "डैशबोर्ड",
         "crop_health_card_title": "फसल स्वास्थ्य एआई",
@@ -23,18 +26,108 @@
         "settings": "समायोजन"
     },
     "crop_health": {
-        "title": "फसल स्वास्थ्य"
+        "title": "फसल स्वास्थ्य",
+        "form_title": "एआई फसल निदान",
+        "form_description": "एआई-जनित स्वास्थ्य रिपोर्ट प्राप्त करने के लिए पौधे की एक तस्वीर अपलोड करें और विवरण जोड़ें।",
+        "photo_label": "फसल का फोटो",
+        "upload_cta_strong": "अपलोड करने के लिए क्लिक करें",
+        "upload_cta_text": " या खींचें और छोड़ें",
+        "upload_formats": "पीएनजी, जेपीजी, या वेबपी",
+        "image_preview_alt": "फसल पूर्वावलोकन",
+        "description_label": "विवरण",
+        "description_placeholder": "उदा., पत्तियों पर पीले धब्बे, मुरझाते तने...",
+        "submit_button": "फसल स्वास्थ्य का विश्लेषण करें",
+        "report_title": "स्वास्थ्य रिपोर्ट",
+        "report_description": "आपकी फसल का विश्लेषण यहां दिखाई देगा।",
+        "select_voice_placeholder": "आवाज चुनें",
+        "read_aloud_sr": "रिपोर्ट जोर से पढ़ें",
+        "awaiting_analysis": "विश्लेषण की प्रतीक्षा है...",
+        "audio_error_title": "ऑडियो त्रुटि"
     },
     "farming_plans": {
-        "title": "व्यक्तिगत खेती योजनाएं"
+        "title": "व्यक्तिगत खेती योजनाएं",
+        "form_title": "एआई खेती सलाहकार",
+        "form_description": "उपज को अनुकूलित करने और कचरे को कम करने के लिए एक व्यक्तिगत योजना प्राप्त करने के लिए अपने खेत के बारे में विवरण प्रदान करें।",
+        "farm_details_label": "खेत का विवरण",
+        "farm_details_placeholder": "उदा., पंजाब में 5 एकड़ का खेत, रेतीली दोमट मिट्टी, समशीतोष्ण जलवायु।",
+        "crop_type_label": "फसल का प्रकार",
+        "crop_type_placeholder": "उदा., गेहूं, चावल, कपास",
+        "current_practices_label": "वर्तमान प्रथाएं",
+        "current_practices_placeholder": "उदा., सप्ताह में दो बार बाढ़ सिंचाई, मैनुअल कीट नियंत्रण।",
+        "submit_button": "योजना बनाएं",
+        "plan_title": "व्यक्तिगत खेती योजना",
+        "plan_description": "आपकी एआई-जनित सिफारिशें यहां दिखाई देंगी।",
+        "yield_increase": "अपेक्षित उपज वृद्धि",
+        "waste_reduction": "संसाधन अपशिष्ट में कमी",
+        "irrigation": "सिंचाई",
+        "fertilization": "उर्वरीकरण",
+        "pest_control": "कीट नियंत्रण",
+        "awaiting_details": "आपके खेत के विवरण की प्रतीक्षा है..."
     },
     "weather_alerts": {
-        "title": "मौसम और कीट अलर्ट"
+        "title": "मौसम और कीट अलर्ट",
+        "form_title": "कीट और रोग अलर्ट प्राप्त करें",
+        "form_description": "एआई-संचालित भविष्य कहनेवाला अलर्ट प्राप्त करने के लिए अपना स्थान और फसल दर्ज करें।",
+        "location_label": "स्थान",
+        "location_placeholder": "उदा., चंडीगढ़, भारत",
+        "crop_type_label": "फसल का प्रकार",
+        "crop_type_placeholder": "उदा., मक्का",
+        "submit_button": "अलर्ट प्राप्त करें",
+        "forecast_title": "अलर्ट और पूर्वानुमान",
+        "forecast_description_dynamic": "{{location}} में {{cropType}} के लिए अलर्ट दिखा रहा है",
+        "forecast_description_static": "मौसम की जानकारी और अलर्ट यहां प्रदर्शित किए जाएंगे।",
+        "predictive_alerts_title": "भविष्य कहनेवाला अलर्ट",
+        "no_threats": "कोई तत्काल खतरा नहीं पाया गया।",
+        "submit_for_alerts": "अलर्ट देखने के लिए विवरण जमा करें।",
+        "hyperlocal_weather_title": "हाइपरलोकल मौसम",
+        "temperature": "तापमान",
+        "wind": "हवा",
+        "humidity": "नमी",
+        "precipitation": "वर्षा"
     },
     "marketplace": {
-        "title": "बाज़ार"
+        "title": "बाज़ार",
+        "product1_name": "हाइब्रिड मक्का के बीज",
+        "product1_price": "₹250 / किग्रा",
+        "category_seeds": "बीज",
+        "product2_name": "एनपीके 20-20-20 उर्वरक",
+        "product2_price": "₹1200 / 50 किग्रा बैग",
+        "category_fertilizers": "उर्वरक",
+        "product3_name": "जैविक नीम का तेल",
+        "product3_price": "₹450 / लीटर",
+        "category_pesticides": "कीटनाशक",
+        "product4_name": "स्टील का फावड़ा",
+        "product4_price": "₹300",
+        "category_tools": "उपकरण",
+        "product5_name": "वर्मीकम्पोस्ट",
+        "product5_price": "₹500 / 25 किग्रा",
+        "category_organic": "जैविक",
+        "product6_name": "ड्रिप सिंचाई किट",
+        "product6_price": "₹3500",
+        "category_equipment": "उपकरण",
+        "add_to_cart_button": "कार्ट में डालें"
     },
     "forums": {
-        "title": "सामुदायिक मंच"
+        "title": "सामुदायिक मंच",
+        "topic1_title": "शुष्क क्षेत्रों में गेहूं की खेती के लिए सर्वोत्तम अभ्यास?",
+        "topic1_excerpt": "मैं पानी की कुशल सिंचाई तकनीकों और सूखा प्रतिरोधी गेहूं की किस्मों पर सलाह की तलाश में हूं। कम वर्षा वाले क्षेत्रों में आप सभी के लिए क्या काम आया है? क्या मुझे किसी विशिष्ट सरकारी योजना पर ध्यान देना चाहिए?",
+        "topic2_title": "टमाटर के पौधों के लिए जैविक कीटनाशक की सिफारिशें",
+        "topic2_excerpt": "मेरी टमाटर की फसल सफेद मक्खी के संक्रमण से पीड़ित है। मैं रासायनिक कीटनाशकों से बचना चाहता हूं। क्या कोई प्रभावी जैविक समाधान सुझा सकता है? मैंने नीम के तेल के बारे में सुना है लेकिन और विकल्प जानना चाहूंगा।",
+        "topic3_title": "स्थानीय मंडी में उचित मूल्य कैसे प्राप्त करें?",
+        "topic3_excerpt": "मेरी आलू की फसल के लिए मुझे जो कीमतें दी जा रही हैं, वे बाजार दर की तुलना में बहुत कम लगती हैं। बेहतर मूल्य प्राप्त करने के लिए मैं सीधे खरीदारों से जुड़ने के लिए कौन सी बातचीत की रणनीति या प्लेटफॉर्म का उपयोग कर सकता हूं?",
+        "new_discussion_button": "नई चर्चा शुरू करें",
+        "by_author": "{{author}} द्वारा",
+        "replies": "उत्तर",
+        "likes": "पसंद",
+        "read_more_button": "और पढ़ें"
+    },
+    "login": {
+        "title": "वापसी पर स्वागत है",
+        "description": "साइन इन करने के लिए एक मैजिक लिंक प्राप्त करने के लिए अपना ईमेल दर्ज करें।",
+        "email_label": "ईमेल पता",
+        "email_placeholder": "name@example.com",
+        "submit_button": "मैजिक लिंक भेजें",
+        "success_title": "अपना इनबॉक्स जांचें",
+        "success_message": "यदि इस ईमेल वाला कोई खाता मौजूद है, तो आपके इनबॉक्स में एक मैजिक लिंक भेजा गया है।"
     }
 }

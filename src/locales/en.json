@@ -1,4 +1,7 @@
 {
+    "common": {
+        "error": "Error"
+    },
     "dashboard": {
         "title": "Dashboard",
         "crop_health_card_title": "Crop Health AI",
@@ -23,18 +26,108 @@
         "settings": "Settings"
     },
     "crop_health": {
-        "title": "Crop Health"
+        "title": "Crop Health",
+        "form_title": "AI Crop Diagnostics",
+        "form_description": "Upload a photo of a plant and add a description to get an AI-generated health report.",
+        "photo_label": "Crop Photo",
+        "upload_cta_strong": "Click to upload",
+        "upload_cta_text": " or drag and drop",
+        "upload_formats": "PNG, JPG, or WEBP",
+        "image_preview_alt": "Crop preview",
+        "description_label": "Description",
+        "description_placeholder": "e.g., Yellow spots on leaves, wilting stems...",
+        "submit_button": "Analyze Crop Health",
+        "report_title": "Health Report",
+        "report_description": "The analysis of your crop will appear here.",
+        "select_voice_placeholder": "Select voice",
+        "read_aloud_sr": "Read report aloud",
+        "awaiting_analysis": "Awaiting analysis...",
+        "audio_error_title": "Audio Error"
     },
     "farming_plans": {
-        "title": "Personalized Farming Plans"
+        "title": "Personalized Farming Plans",
+        "form_title": "AI Farming Advisor",
+        "form_description": "Provide details about your farm to receive a personalized plan for optimizing yield and reducing waste.",
+        "farm_details_label": "Farm Details",
+        "farm_details_placeholder": "e.g., 5-acre farm in Punjab, sandy loam soil, temperate climate.",
+        "crop_type_label": "Crop Type",
+        "crop_type_placeholder": "e.g., Wheat, Rice, Cotton",
+        "current_practices_label": "Current Practices",
+        "current_practices_placeholder": "e.g., Flood irrigation twice a week, manual pest control.",
+        "submit_button": "Generate Plan",
+        "plan_title": "Personalized Farming Plan",
+        "plan_description": "Your AI-generated recommendations will appear here.",
+        "yield_increase": "Expected Yield Increase",
+        "waste_reduction": "Resource Waste Reduction",
+        "irrigation": "Irrigation",
+        "fertilization": "Fertilization",
+        "pest_control": "Pest Control",
+        "awaiting_details": "Awaiting your farm details..."
     },
     "weather_alerts": {
-        "title": "Weather & Pest Alerts"
+        "title": "Weather & Pest Alerts",
+        "form_title": "Get Pest & Disease Alerts",
+        "form_description": "Enter your location and crop to get AI-powered predictive alerts.",
+        "location_label": "Location",
+        "location_placeholder": "e.g., Chandigarh, India",
+        "crop_type_label": "Crop Type",
+        "crop_type_placeholder": "e.g., Maize",
+        "submit_button": "Get Alerts",
+        "forecast_title": "Alerts & Forecast",
+        "forecast_description_dynamic": "Showing alerts for {{cropType}} in {{location}}",
+        "forecast_description_static": "Weather information and alerts will be displayed here.",
+        "predictive_alerts_title": "Predictive Alerts",
+        "no_threats": "No immediate threats detected.",
+        "submit_for_alerts": "Submit details to see alerts.",
+        "hyperlocal_weather_title": "Hyperlocal Weather",
+        "temperature": "Temperature",
+        "wind": "Wind",
+        "humidity": "Humidity",
+        "precipitation": "Precipitation"
     },
     "marketplace": {
-        "title": "Marketplace"
+        "title": "Marketplace",
+        "product1_name": "Hybrid Maize Seeds",
+        "product1_price": "₹250 / kg",
+        "category_seeds": "Seeds",
+        "product2_name": "NPK 20-20-20 Fertilizer",
+        "product2_price": "₹1200 / 50kg bag",
+        "category_fertilizers": "Fertilizers",
+        "product3_name": "Organic Neem Oil",
+        "product3_price": "₹450 / litre",
+        "category_pesticides": "Pesticides",
+        "product4_name": "Steel Shovel",
+        "product4_price": "₹300",
+        "category_tools": "Tools",
+        "product5_name": "Vermicompost",
+        "product5_price": "₹500 / 25kg",
+        "category_organic": "Organic",
+        "product6_name": "Drip Irrigation Kit",
+        "product6_price": "₹3500",
+        "category_equipment": "Equipment",
+        "add_to_cart_button": "Add to Cart"
     },
     "forums": {
-        "title": "Community Forums"
+        "title": "Community Forums",
+        "topic1_title": "Best practices for wheat cultivation in dry regions?",
+        "topic1_excerpt": "I'm looking for advice on water-efficient irrigation techniques and drought-resistant wheat varieties. What has worked for you all in areas with less rainfall? Any specific government schemes I should look into?",
+        "topic2_title": "Organic pesticide recommendations for tomato plants",
+        "topic2_excerpt": "My tomato crop is suffering from whitefly infestation. I want to avoid chemical pesticides. Can anyone suggest effective organic solutions? I've heard about neem oil but would like to know more options.",
+        "topic3_title": "How to get a fair price at the local mandi?",
+        "topic3_excerpt": "The prices I'm being offered for my potato harvest seem very low compared to the market rate. What are some negotiation strategies or platforms I can use to connect directly with buyers and get a better price?",
+        "new_discussion_button": "Start New Discussion",
+        "by_author": "by {{author}}",
+        "replies": "Replies",
+        "likes": "Likes",
+        "read_more_button": "Read More"
+    },
+    "login": {
+        "title": "Welcome Back",
+        "description": "Enter your email to receive a magic link to sign in.",
+        "email_label": "Email Address",
+        "email_placeholder": "name@example.com",
+        "submit_button": "Send Magic Link",
+        "success_title": "Check your inbox",
+        "success_message": "If an account with this email exists, a magic link has been sent to your inbox."
     }
 }
