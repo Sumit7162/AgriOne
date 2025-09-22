@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 import {
   Card,
   CardContent,
@@ -23,7 +23,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 const initialState: CropHealthState = {};
 
 export function CropHealthForm() {
-  const [state, formAction] = useFormState(getCropHealthReport, initialState);
+  const [state, formAction] = useActionState(getCropHealthReport, initialState);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [photoDataUri, setPhotoDataUri] = useState<string>('');
   const formRef = useRef<HTMLFormElement>(null);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 import {
   Card,
   CardContent,
@@ -19,7 +19,7 @@ import { BellRing, CloudDrizzle, CloudFog, CloudLightning, CloudRain, CloudSun, 
 const initialState: WeatherAlertState = {};
 
 export function WeatherAlertsForm() {
-  const [state, formAction] = useFormState(getWeatherAlerts, initialState);
+  const [state, formAction] = useActionState(getWeatherAlerts, initialState);
 
   return (
     <div className="grid gap-8 lg:grid-cols-3">

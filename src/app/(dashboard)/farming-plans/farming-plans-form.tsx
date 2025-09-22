@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 import {
   Card,
   CardContent,
@@ -22,7 +22,7 @@ import { Badge } from "@/components/ui/badge";
 const initialState: FarmingPlanState = {};
 
 export function FarmingPlansForm() {
-  const [state, formAction] = useFormState(getFarmingPlan, initialState);
+  const [state, formAction] = useActionState(getFarmingPlan, initialState);
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
