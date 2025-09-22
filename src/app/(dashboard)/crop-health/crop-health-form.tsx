@@ -15,10 +15,11 @@ import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { getCropHealthReport, type CropHealthState } from "./actions";
 import { SubmitButton } from "@/components/ui/submit-button";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { ImageUp, ScanSearch } from "lucide-react";
+import { ImageUp, ScanSearch, Volume2 } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
 
 const initialState: CropHealthState = {};
 
@@ -27,6 +28,7 @@ export function CropHealthForm() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [photoDataUri, setPhotoDataUri] = useState<string>('');
   const formRef = useRef<HTMLFormElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -45,6 +47,18 @@ export function CropHealthForm() {
     formData.append('photoDataUri', photoDataUri);
     formAction(formData);
   };
+
+  const playAudio = () => {
+    if (audioRef.current) {
+      audioRef.current.play();
+    }
+  };
+
+  useEffect(() => {
+    if (state.audioDataUri && audioRef.current) {
+      audioRef.current.src = state.audioDataUri;
+    }
+  }, [state.audioDataUri]);
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
@@ -104,10 +118,20 @@ export function CropHealthForm() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="font-headline">Health Report</CardTitle>
-          <CardDescription>
-            The analysis of your crop will appear here.
-          </CardDescription>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="font-headline">Health Report</CardTitle>
+              <CardDescription>
+                The analysis of your crop will appear here.
+              </CardDescription>
+            </div>
+            {state.report && state.audioDataUri && (
+                <Button variant="ghost" size="icon" onClick={playAudio}>
+                    <Volume2 />
+                    <span className="sr-only">Read report aloud</span>
+                </Button>
+            )}
+          </div>
         </CardHeader>
         <CardContent>
           <ScrollArea className="h-[400px] w-full p-4 border rounded-md bg-muted/20">
@@ -121,6 +145,7 @@ export function CropHealthForm() {
           </ScrollArea>
         </CardContent>
       </Card>
+      {state.audioDataUri && <audio ref={audioRef} src={state.audioDataUri} className="hidden" />}
     </div>
   );
 }
