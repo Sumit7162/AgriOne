@@ -48,12 +48,6 @@ const features = [
     href: '/forums',
     icon: <MessageSquare className="h-8 w-8 text-primary" />,
   },
-  {
-    title: 'Developer API Keys',
-    description: 'Generate API keys to integrate our services into your own applications.',
-    href: '/api-keys',
-    icon: <KeyRound className="h-8 w-8 text-primary" />,
-  },
 ];
 
 export default function DashboardPage() {

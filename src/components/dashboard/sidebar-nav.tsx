@@ -12,7 +12,6 @@ import { usePathname } from 'next/navigation';
 import {
   ClipboardList,
   CloudSun,
-  KeyRound,
   LayoutDashboard,
   Leaf,
   MessageSquare,
@@ -28,7 +27,6 @@ const menuItems = [
   { href: '/weather-alerts', label: 'Weather Alerts', icon: CloudSun },
   { href: '/marketplace', label: 'Marketplace', icon: Store },
   { href: '/forums', label: 'Forums', icon: MessageSquare },
-  { href: '/api-keys', label: 'API Keys', icon: KeyRound },
 ];
 
 export function SidebarNav() {
