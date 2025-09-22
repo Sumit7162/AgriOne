@@ -1,3 +1,40 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "seeds",
+      "description": "A variety of high-quality seeds.",
+      "imageUrl": "https://picsum.photos/seed/seeds/400/300",
+      "imageHint": "seeds packet"
+    },
+    {
+      "id": "fertilizers",
+      "description": "Nutrient-rich fertilizers for healthy crops.",
+      "imageUrl": "https://picsum.photos/seed/fertilizer/400/300",
+      "imageHint": "fertilizer bag"
+    },
+    {
+      "id": "pesticides",
+      "description": "Effective pesticides to protect your plants.",
+      "imageUrl": "https://picsum.photos/seed/pesticide/400/300",
+      "imageHint": "pesticide bottle"
+    },
+    {
+      "id": "tools",
+      "description": "Durable and efficient farming tools.",
+      "imageUrl": "https://picsum.photos/seed/tools/400/300",
+      "imageHint": "farming tools"
+    },
+    {
+      "id": "organic-compost",
+      "description": "Organic compost for sustainable farming.",
+      "imageUrl": "https://picsum.photos/seed/compost/400/300",
+      "imageHint": "compost pile"
+    },
+    {
+      "id": "irrigation-system",
+      "description": "Modern irrigation systems for efficient water use.",
+      "imageUrl": "https://picsum.photos/seed/irrigation/400/300",
+      "imageHint": "irrigation system"
+    }
+  ]
 }
