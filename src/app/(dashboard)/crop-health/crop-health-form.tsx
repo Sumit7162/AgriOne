@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useTransition } from "react";
 import {
   Card,
   CardContent,
@@ -13,22 +13,40 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { getCropHealthReport, type CropHealthState } from "./actions";
+import { getCropHealthReport, getReportAudio, type CropHealthState } from "./actions";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { ImageUp, ScanSearch, Volume2 } from "lucide-react";
+import { ImageUp, ScanSearch, Volume2, Loader2 } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
 
-const initialState: CropHealthState = {};
+const initialState: CropHealthState = {
+  formKey: 1,
+};
+
+const voices = [
+    { value: 'Algenib', label: 'Voice 1 (English)' },
+    { value: 'Achernar', label: 'Voice 2 (English)' },
+    { value: 'Hadar', label: 'Voice 3 (English)' },
+];
 
 export function CropHealthForm() {
   const [state, formAction] = useActionState(getCropHealthReport, initialState);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [photoDataUri, setPhotoDataUri] = useState<string>('');
-  const formRef = useRef<HTMLFormElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [selectedVoice, setSelectedVoice] = useState(voices[0].value);
+  const [isAudioLoading, startAudioTransition] = useTransition();
+  const { toast } = useToast();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -49,9 +67,27 @@ export function CropHealthForm() {
   };
 
   const playAudio = () => {
-    if (audioRef.current) {
+    if (audioRef.current?.src) {
       audioRef.current.play();
     }
+  };
+
+  const handleVoiceChange = async (voice: string) => {
+    setSelectedVoice(voice);
+    if (!state.report) return;
+
+    startAudioTransition(async () => {
+      const result = await getReportAudio(state.report!, voice);
+      if (result.error) {
+        toast({
+            variant: "destructive",
+            title: "Audio Error",
+            description: result.error,
+        });
+      } else if (result.audioDataUri && audioRef.current) {
+        audioRef.current.src = result.audioDataUri;
+      }
+    });
   };
 
   useEffect(() => {
@@ -60,10 +96,16 @@ export function CropHealthForm() {
     }
   }, [state.audioDataUri]);
 
+  // Reset image preview when form is successfully submitted
+  useEffect(() => {
+    setImagePreview(null);
+    setPhotoDataUri('');
+  }, [state.formKey]);
+
   return (
     <div className="grid gap-8 lg:grid-cols-2">
       <Card>
-        <form ref={formRef} action={handleFormAction}>
+        <form key={state.formKey} action={handleFormAction}>
           <CardHeader>
             <CardTitle className="font-headline">AI Crop Diagnostics</CardTitle>
             <CardDescription>
@@ -118,7 +160,7 @@ export function CropHealthForm() {
 
       <Card>
         <CardHeader>
-          <div className="flex items-center justify-between">
+          <div className="flex items-start flex-wrap justify-between gap-2">
             <div>
               <CardTitle className="font-headline">Health Report</CardTitle>
               <CardDescription>
@@ -126,10 +168,24 @@ export function CropHealthForm() {
               </CardDescription>
             </div>
             {state.report && state.audioDataUri && (
-                <Button variant="ghost" size="icon" onClick={playAudio}>
-                    <Volume2 />
-                    <span className="sr-only">Read report aloud</span>
-                </Button>
+                <div className="flex items-center gap-2">
+                    <Select value={selectedVoice} onValueChange={handleVoiceChange}>
+                        <SelectTrigger className="w-[150px]">
+                            <SelectValue placeholder="Select voice" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {voices.map(voice => (
+                                <SelectItem key={voice.value} value={voice.value}>
+                                    {voice.label}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                    <Button variant="ghost" size="icon" onClick={playAudio} disabled={isAudioLoading}>
+                        {isAudioLoading ? <Loader2 className="animate-spin" /> : <Volume2 />}
+                        <span className="sr-only">Read report aloud</span>
+                    </Button>
+                </div>
             )}
           </div>
         </CardHeader>

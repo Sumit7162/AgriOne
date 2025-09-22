@@ -8,6 +8,7 @@ export interface CropHealthState {
   report?: string;
   audioDataUri?: string;
   error?: string;
+  formKey?: number;
 }
 
 const CropHealthSchema = z.object({
@@ -27,23 +28,40 @@ export async function getCropHealthReport(
   if (!validatedFields.success) {
     return {
       error: validatedFields.error.flatten().fieldErrors.description?.[0] || validatedFields.error.flatten().fieldErrors.photoDataUri?.[0],
+      formKey: prevState.formKey,
     };
   }
   
   try {
     const { report } = await generateCropHealthReport(validatedFields.data);
     
-    // Generate audio in parallel, but don't block the response for it
-    const audioPromise = textToSpeech(report);
+    // Default audio generation on report creation
+    const { media } = await textToSpeech({ text: report, voiceName: 'Algenib' });
 
-    // To avoid making the user wait, we can return the report first, 
-    // and then handle the audio generation on the client-side in a separate action
-    // For simplicity here, we'll wait for both.
-    const { media } = await audioPromise;
-
-    return { report, audioDataUri: media };
+    return { report, audioDataUri: media, formKey: (prevState.formKey || 0) + 1 };
   } catch (e) {
     console.error(e);
-    return { error: 'Failed to generate crop health report. Please try again.' };
+    return { error: 'Failed to generate crop health report. Please try again.', formKey: prevState.formKey };
+  }
+}
+
+
+export async function getReportAudio(
+  report: string,
+  voiceName: string
+): Promise<{ audioDataUri?: string; error?: string }> {
+  if (!report) {
+    return { error: 'Report text is missing.' };
+  }
+  if (!voiceName) {
+    return { error: 'Voice selection is missing.' };
+  }
+
+  try {
+    const { media } = await textToSpeech({ text: report, voiceName });
+    return { audioDataUri: media };
+  } catch (e) {
+    console.error(e);
+    return { error: 'Failed to generate audio. Please try again.' };
   }
 }

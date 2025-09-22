@@ -3,7 +3,7 @@
 /**
  * @fileOverview Converts text to speech using a Genkit flow.
  *
- * - textToSpeech - A function that takes a string of text and returns audio.
+ * - textToSpeech - A function that takes a string of text and a voice name and returns audio.
  */
 
 import { ai } from '@/ai/genkit';
@@ -38,6 +38,13 @@ async function toWav(
   });
 }
 
+const TextToSpeechInputSchema = z.object({
+    text: z.string(),
+    voiceName: z.string().default('Algenib'),
+});
+export type TextToSpeechInput = z.infer<typeof TextToSpeechInputSchema>;
+
+
 const TextToSpeechOutputSchema = z.object({
   media: z.string().describe('The audio data as a base64 encoded data URI.'),
 });
@@ -45,17 +52,17 @@ const TextToSpeechOutputSchema = z.object({
 const textToSpeechFlow = ai.defineFlow(
   {
     name: 'textToSpeechFlow',
-    inputSchema: z.string(),
+    inputSchema: TextToSpeechInputSchema,
     outputSchema: TextToSpeechOutputSchema,
   },
-  async (text) => {
+  async ({ text, voiceName }) => {
     const { media } = await ai.generate({
       model: googleAI.model('gemini-2.5-flash-preview-tts'),
       config: {
         responseModalities: ['AUDIO'],
         speechConfig: {
           voiceConfig: {
-            prebuiltVoiceConfig: { voiceName: 'Algenib' },
+            prebuiltVoiceConfig: { voiceName: voiceName || 'Algenib' },
           },
         },
       },
@@ -79,6 +86,6 @@ const textToSpeechFlow = ai.defineFlow(
   }
 );
 
-export async function textToSpeech(text: string): Promise<z.infer<typeof TextToSpeechOutputSchema>> {
-  return textToSpeechFlow(text);
+export async function textToSpeech(input: TextToSpeechInput): Promise<z.infer<typeof TextToSpeechOutputSchema>> {
+  return textToSpeechFlow(input);
 }
