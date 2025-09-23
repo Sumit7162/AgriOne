@@ -11,6 +11,8 @@
         "farming_plans_card_description": "Get AI-powered advice to optimize your farming practices and boost yield.",
         "weather_alerts_card_title": "Weather & Pest Alerts",
         "weather_alerts_card_description": "Receive hyperlocal weather updates and predictive pest/disease alerts.",
+        "fasal_price_card_title": "Commodity Prices",
+        "fasal_price_card_description": "Get live commodity prices from your local markets (mandis).",
         "marketplace_card_title": "Farmer Marketplace",
         "marketplace_card_description": "Buy and sell seeds, fertilizers, and other agricultural inputs.",
         "forums_card_title": "Community Forums",
@@ -22,6 +24,7 @@
         "crop_health": "Crop Health",
         "farming_plans": "Farming Plans",
         "weather_alerts": "Weather Alerts",
+        "fasal_price": "Commodity Prices",
         "marketplace": "Marketplace",
         "forums": "Forums",
         "settings": "Settings"
@@ -85,6 +88,22 @@
         "wind": "Wind",
         "humidity": "Humidity",
         "precipitation": "Precipitation"
+    },
+    "fasal_price": {
+        "title": "Commodity Prices",
+        "form_title": "Live Market Prices",
+        "form_description": "Enter a market name to get the latest commodity prices.",
+        "market_label": "Market Name",
+        "market_placeholder": "e.g., MP_Bhopal, MH_Nagpur",
+        "submit_button": "Search Prices",
+        "results_title": "Prices for {{market}}",
+        "results_description": "Latest prices reported from the market.",
+        "table_commodity": "Commodity",
+        "table_min_price": "Min Price",
+        "table_max_price": "Max Price",
+        "table_modal_price": "Modal Price",
+        "table_unit": "Unit",
+        "no_data": "No commodity data found for this market."
     },
     "marketplace": {
         "title": "Marketplace",

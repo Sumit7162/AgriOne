@@ -15,6 +15,7 @@ import {
   MessageSquare,
   Store,
   ArrowRight,
+  Landmark,
 } from 'lucide-react';
 import { Header } from '@/components/dashboard/header';
 import { useTranslation } from '@/context/language-context';
@@ -40,6 +41,12 @@ export default function DashboardPage() {
       description: t('dashboard.weather_alerts_card_description'),
       href: '/weather-alerts',
       icon: <CloudSun className="h-8 w-8 text-primary" />,
+    },
+    {
+      title: t('dashboard.fasal_price_card_title'),
+      description: t('dashboard.fasal_price_card_description'),
+      href: '/fasal-price',
+      icon: <Landmark className="h-8 w-8 text-primary" />,
     },
     {
       title: t('dashboard.marketplace_card_title'),

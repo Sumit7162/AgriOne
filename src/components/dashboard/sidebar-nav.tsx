@@ -18,6 +18,7 @@ import {
   Settings,
   Store,
   Tractor,
+  Landmark,
 } from 'lucide-react';
 import { useTranslation } from '@/context/language-context';
 
@@ -30,6 +31,7 @@ export function SidebarNav() {
     { href: '/crop-health', label: t('sidebar.crop_health'), icon: Leaf },
     { href: '/farming-plans', label: t('sidebar.farming_plans'), icon: ClipboardList },
     { href: '/weather-alerts', label: t('sidebar.weather_alerts'), icon: CloudSun },
+    { href: '/fasal-price', label: t('sidebar.fasal_price'), icon: Landmark },
     { href: '/marketplace', label: t('sidebar.marketplace'), icon: Store },
     { href: '/forums', label: t('sidebar.forums'), icon: MessageSquare },
   ];
