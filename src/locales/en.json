@@ -122,12 +122,23 @@
         "read_more_button": "Read More"
     },
     "login": {
-        "title": "Welcome Back",
-        "description": "Enter your email to receive a magic link to sign in.",
+        "email_tab": "Email",
+        "phone_tab": "Phone",
+        "email_title": "Sign in with Email",
+        "phone_title": "Sign in with Phone",
+        "email_description": "Enter your email to receive a magic link.",
+        "phone_description": "Enter your phone to receive an OTP.",
         "email_label": "Email Address",
         "email_placeholder": "name@example.com",
         "submit_button": "Send Magic Link",
+        "phone_label": "Mobile Number",
+        "phone_placeholder": "e.g., 9876543210",
+        "send_otp_button": "Send OTP",
+        "otp_label": "Enter OTP",
+        "otp_placeholder": "6-digit code",
+        "verify_otp_button": "Verify OTP",
         "success_title": "Check your inbox",
-        "success_message": "If an account with this email exists, a magic link has been sent to your inbox."
+        "success_message": "If an account with this email exists, a magic link has been sent to your inbox.",
+        "otp_sent_title": "Check your messages"
     }
 }
