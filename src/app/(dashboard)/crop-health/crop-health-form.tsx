@@ -136,9 +136,11 @@ export function CropHealthForm() {
 
   // Reset image preview when form is successfully submitted
   useEffect(() => {
-    setImagePreview(null);
-    setPhotoDataUri('');
-  }, [state.formKey]);
+    if(state.report) {
+      setImagePreview(null);
+      setPhotoDataUri('');
+    }
+  }, [state.formKey, state.report]);
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">

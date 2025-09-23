@@ -1,7 +1,6 @@
 'use server';
 
-import { getPersonalizedFarmingAdvice } from '@/ai/flows/get-personalized-farming-advice';
-import type { PersonalizedFarmingAdviceOutput } from '@/ai/flows/get-personalized-farming-advice';
+import { getPersonalizedFarmingAdvice, type PersonalizedFarmingAdviceOutput } from '@/ai/flows/get-personalized-farming-advice';
 import { z } from 'zod';
 
 export interface FarmingPlanState {
