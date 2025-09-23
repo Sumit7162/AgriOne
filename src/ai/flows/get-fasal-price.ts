@@ -42,11 +42,10 @@ const getFasalPriceTool = ai.defineTool(
   },
   async ({ market }) => {
     console.log(`Fetching commodity prices for ${market}...`);
-    // Note: The Fasal API key is stored in the GEMINI_API_KEY env variable to satisfy Genkit's requirements.
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = process.env.FASAL_API_KEY;
 
     if (!apiKey || apiKey === '<YOUR_API_KEY>') {
-      console.warn('GEMINI_API_KEY is not set for Fasal API. Using mock data.');
+      console.warn('FASAL_API_KEY is not set. Using mock data.');
       return {
         commodities: [
             { commodity: 'Soya Bean', min_price: 4500, max_price: 4650, modal_price: 4600, unit: 'Quintal' },
