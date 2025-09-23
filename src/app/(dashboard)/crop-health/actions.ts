@@ -9,7 +9,6 @@ export interface CropHealthState {
   report?: string;
   audioDataUri?: string;
   error?: string;
-  formKey?: number;
 }
 
 const CropHealthSchema = z.object({
@@ -31,7 +30,6 @@ export async function getCropHealthReport(
     const error = fieldErrors.description?.[0] || fieldErrors.photoDataUri?.[0]
     return {
       error,
-      formKey: prevState.formKey,
     };
   }
   
@@ -48,11 +46,11 @@ export async function getCropHealthReport(
     }
     const { media } = audioResult;
 
-    return { report, audioDataUri: media, formKey: (prevState.formKey || 0) + 1 };
+    return { report, audioDataUri: media };
   } catch (e) {
     console.error(e);
     const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred.';
-    return { error: `Failed to generate crop health report: ${errorMessage}`, formKey: prevState.formKey };
+    return { error: `Failed to generate crop health report: ${errorMessage}` };
   }
 }
 

@@ -31,9 +31,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { useTranslation } from "@/context/language-context";
 
-const initialState: CropHealthState = {
-  formKey: 1,
-};
+const initialState: CropHealthState = {};
 
 const voices = [
     { value: 'Algenib', label: 'Voice 1 (English)', lang: 'en' },
@@ -59,6 +57,7 @@ const languages = [
 ];
 
 export function CropHealthForm() {
+  const formRef = useRef<HTMLFormElement>(null);
   const [state, formAction] = useActionState(getCropHealthReport, initialState);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [photoDataUri, setPhotoDataUri] = useState<string>('');
@@ -138,6 +137,10 @@ export function CropHealthForm() {
     if (state.report) {
         setDisplayedReport(state.report);
         setSelectedLanguage('en');
+        // Reset form on success
+        formRef.current?.reset();
+        setImagePreview(null);
+        setPhotoDataUri('');
     }
   }, [state.report]);
 
@@ -147,18 +150,11 @@ export function CropHealthForm() {
     }
   }, [state.audioDataUri]);
 
-  // Reset image preview when form is successfully submitted
-  useEffect(() => {
-    if(state.report) {
-      setImagePreview(null);
-      setPhotoDataUri('');
-    }
-  }, [state.formKey, state.report]);
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
       <Card>
-        <form key={state.formKey} action={handleFormAction}>
+        <form ref={formRef} action={handleFormAction}>
           <CardHeader>
             <CardTitle className="font-headline">{t('crop_health.form_title')}</CardTitle>
             <CardDescription>
