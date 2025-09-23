@@ -1,18 +1,25 @@
 
 "use client";
 
+import { useState } from "react";
 import { Header } from "@/components/dashboard/header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
 import { useTranslation } from "@/context/language-context";
-import { Bell, Edit, User } from "lucide-react";
+import { Bell, Edit, User, Save } from "lucide-react";
 
 export default function SettingsPage() {
     const { t } = useTranslation();
+    const [isEditing, setIsEditing] = useState(false);
+    const [name, setName] = useState("Ramesh Kumar");
+    const [email, setEmail] = useState("ramesh.k@example.com");
+
+    const handleEditToggle = () => {
+        setIsEditing(!isEditing);
+    };
 
     return (
         <>
@@ -31,17 +38,17 @@ export default function SettingsPage() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="space-y-2">
                                     <Label htmlFor="name">{t('settings.name_label')}</Label>
-                                    <Input id="name" defaultValue="Ramesh Kumar" disabled />
+                                    <Input id="name" value={name} onChange={(e) => setName(e.target.value)} disabled={!isEditing} />
                                 </div>
                                 <div className="space-y-2">
                                     <Label htmlFor="email">{t('settings.email_label')}</Label>
-                                    <Input id="email" type="email" defaultValue="ramesh.k@example.com" disabled />
+                                    <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} disabled={!isEditing} />
                                 </div>
                             </div>
                              <div className="flex justify-end">
-                                <Button>
-                                    <Edit className="mr-2 h-4 w-4" />
-                                    {t('settings.edit_profile_button')}
+                                <Button onClick={handleEditToggle}>
+                                    {isEditing ? <Save className="mr-2 h-4 w-4" /> : <Edit className="mr-2 h-4 w-4" />}
+                                    {isEditing ? t('settings.save_changes_button') : t('settings.edit_profile_button')}
                                 </Button>
                             </div>
                         </CardContent>

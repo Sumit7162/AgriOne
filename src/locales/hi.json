@@ -149,6 +149,7 @@
         "name_label": "नाम",
         "email_label": "ईमेल पता",
         "edit_profile_button": "प्रोफ़ाइल संपादित करें",
+        "save_changes_button": "बदलाव सहेजें",
         "notifications_title": "सूचनाएं",
         "notifications_description": "चुनें कि आप कैसे सूचित होना चाहते हैं।",
         "pest_alerts_label": "कीट और रोग अलर्ट",
