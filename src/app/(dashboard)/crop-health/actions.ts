@@ -47,10 +47,11 @@ export async function getCropHealthReport(
 }
 
 
-export async function getReportAudio(
+export async function getReportAudioAndTranslation(
   report: string,
-  voiceName: string
-): Promise<{ audioDataUri?: string; error?: string }> {
+  voiceName: string,
+  languageCode: string
+): Promise<{ audioDataUri?: string; translatedText?: string; error?: string }> {
   if (!report) {
     return { error: 'Report text is missing.' };
   }
@@ -60,13 +61,16 @@ export async function getReportAudio(
 
   try {
     let textToSpeak = report;
-    if (voiceName.startsWith('hi-')) {
-        const { translatedText } = await translateText({ text: report, targetLanguage: 'hi' });
-        textToSpeak = translatedText;
+    let translatedText = report;
+
+    if (languageCode !== 'en') {
+        const result = await translateText({ text: report, targetLanguage: languageCode });
+        textToSpeak = result.translatedText;
+        translatedText = result.translatedText;
     }
 
     const { media } = await textToSpeech({ text: textToSpeak, voiceName });
-    return { audioDataUri: media };
+    return { audioDataUri: media, translatedText };
   } catch (e) {
     console.error(e);
     return { error: 'Failed to generate audio. Please try again.' };

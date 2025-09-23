@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { getCropHealthReport, getReportAudio, type CropHealthState } from "./actions";
+import { getCropHealthReport, getReportAudioAndTranslation, type CropHealthState } from "./actions";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
@@ -35,9 +35,9 @@ const initialState: CropHealthState = {
 };
 
 const voices = [
-    { value: 'Algenib', label: 'Voice 1 (English)' },
-    { value: 'hi-IN-Standard-A', label: 'आवाज 2 (हिन्दी)' },
-    { value: 'Hadar', label: 'Voice 3 (English)' },
+    { value: 'Algenib', label: 'Voice 1 (English)', lang: 'en' },
+    { value: 'hi-IN-Standard-A', label: 'आवाज 2 (हिन्दी)', lang: 'hi' },
+    { value: 'Hadar', label: 'Voice 3 (English)', lang: 'en' },
 ];
 
 export function CropHealthForm() {
@@ -47,6 +47,7 @@ export function CropHealthForm() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [selectedVoice, setSelectedVoice] = useState(voices[0].value);
   const [isAudioLoading, startAudioTransition] = useTransition();
+  const [displayedReport, setDisplayedReport] = useState<string | undefined>(undefined);
   const { toast } = useToast();
   const { t } = useTranslation();
 
@@ -74,24 +75,38 @@ export function CropHealthForm() {
     }
   };
 
-  const handleVoiceChange = async (voice: string) => {
-    setSelectedVoice(voice);
+  const handleVoiceChange = async (voiceValue: string) => {
+    setSelectedVoice(voiceValue);
     if (!state.report) return;
 
+    const selectedVoiceConfig = voices.find(v => v.value === voiceValue);
+    if (!selectedVoiceConfig) return;
+
     startAudioTransition(async () => {
-      const result = await getReportAudio(state.report!, voice);
+      const result = await getReportAudioAndTranslation(state.report!, voiceValue, selectedVoiceConfig.lang);
       if (result.error) {
         toast({
             variant: "destructive",
             title: t('crop_health.audio_error_title'),
             description: result.error,
         });
-      } else if (result.audioDataUri && audioRef.current) {
-        audioRef.current.src = result.audioDataUri;
-        audioRef.current.play();
+      } else {
+        if (result.audioDataUri && audioRef.current) {
+          audioRef.current.src = result.audioDataUri;
+          audioRef.current.play();
+        }
+        if (result.translatedText) {
+          setDisplayedReport(result.translatedText);
+        }
       }
     });
   };
+
+  useEffect(() => {
+    if (state.report) {
+        setDisplayedReport(state.report);
+    }
+  }, [state.report]);
 
   useEffect(() => {
     if (state.audioDataUri && audioRef.current) {
@@ -193,8 +208,8 @@ export function CropHealthForm() {
         </CardHeader>
         <CardContent>
           <ScrollArea className="h-[400px] w-full p-4 border rounded-md bg-muted/20">
-            {state.report ? (
-              <p className="whitespace-pre-wrap">{state.report}</p>
+            {displayedReport ? (
+              <p className="whitespace-pre-wrap">{displayedReport}</p>
             ) : (
               <div className="flex items-center justify-center h-full text-muted-foreground">
                 <p>{t('crop_health.awaiting_analysis')}</p>
