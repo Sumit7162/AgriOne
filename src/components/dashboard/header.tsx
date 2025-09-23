@@ -28,6 +28,8 @@ export const Header: FC<PropsWithChildren> = ({ children }) => {
         return t('marketplace.title');
       case 'Community Forums':
         return t('forums.title');
+      case 'Settings':
+        return t('settings.title');
       default:
         return title;
     }

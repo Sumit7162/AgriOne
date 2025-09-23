@@ -1,3 +1,4 @@
+
 {
     "common": {
         "error": "Error"
@@ -140,5 +141,19 @@
         "success_title": "Check your inbox",
         "success_message": "If an account with this email exists, a magic link has been sent to your inbox.",
         "otp_sent_title": "Check your messages"
+    },
+    "settings": {
+        "title": "Settings",
+        "profile_title": "Profile",
+        "profile_description": "Manage your personal information.",
+        "name_label": "Name",
+        "email_label": "Email Address",
+        "edit_profile_button": "Edit Profile",
+        "notifications_title": "Notifications",
+        "notifications_description": "Choose how you want to be notified.",
+        "pest_alerts_label": "Pest & Disease Alerts",
+        "weather_warnings_label": "Severe Weather Warnings",
+        "marketplace_updates_label": "Marketplace Updates & Promotions",
+        "save_preferences_button": "Save Preferences"
     }
 }

@@ -63,8 +63,8 @@ export function SidebarNav() {
       <SidebarFooter className="p-2">
          <SidebarMenu>
             <SidebarMenuItem>
-                <SidebarMenuButton asChild tooltip={t('sidebar.settings')}>
-                    <Link href="#">
+                <SidebarMenuButton asChild tooltip={t('sidebar.settings')} isActive={pathname === '/settings'}>
+                    <Link href="/settings">
                         <Settings/>
                         <span>{t('sidebar.settings')}</span>
                     </Link>

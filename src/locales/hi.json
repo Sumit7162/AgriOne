@@ -1,3 +1,4 @@
+
 {
     "common": {
         "error": "त्रुटि"
@@ -140,5 +141,19 @@
         "success_title": "अपना इनबॉक्स जांचें",
         "success_message": "यदि इस ईमेल वाला कोई खाता मौजूद है, तो आपके इनबॉक्स में एक मैजिक लिंक भेजा गया है।",
         "otp_sent_title": "अपने संदेश जांचें"
+    },
+    "settings": {
+        "title": "समायोजन",
+        "profile_title": "प्रोफ़ाइल",
+        "profile_description": "अपनी व्यक्तिगत जानकारी प्रबंधित करें।",
+        "name_label": "नाम",
+        "email_label": "ईमेल पता",
+        "edit_profile_button": "प्रोफ़ाइल संपादित करें",
+        "notifications_title": "सूचनाएं",
+        "notifications_description": "चुनें कि आप कैसे सूचित होना चाहते हैं।",
+        "pest_alerts_label": "कीट और रोग अलर्ट",
+        "weather_warnings_label": "गंभीर मौसम की चेतावनी",
+        "marketplace_updates_label": "बाज़ार अपडेट और प्रचार",
+        "save_preferences_button": "प्राथमिकताएं सहेजें"
     }
 }
