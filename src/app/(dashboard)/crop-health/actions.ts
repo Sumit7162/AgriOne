@@ -36,15 +36,24 @@ export async function getCropHealthReport(
   }
   
   try {
-    const { report } = await generateCropHealthReport(validatedFields.data);
+    const reportResult = await generateCropHealthReport(validatedFields.data);
+    if (!reportResult || !reportResult.report) {
+        throw new Error("AI failed to generate a report.");
+    }
+    const { report } = reportResult;
     
     // Default audio generation on report creation
-    const { media } = await textToSpeech({ text: report, voiceName: 'Algenib' });
+    const audioResult = await textToSpeech({ text: report, voiceName: 'Algenib' });
+     if (!audioResult || !audioResult.media) {
+        throw new Error("AI failed to generate audio for the report.");
+    }
+    const { media } = audioResult;
 
     return { report, audioDataUri: media, formKey: (prevState.formKey || 0) + 1 };
   } catch (e) {
     console.error(e);
-    return { error: 'Failed to generate crop health report. Please try again.', formKey: prevState.formKey };
+    const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred.';
+    return { error: `Failed to generate crop health report: ${errorMessage}`, formKey: prevState.formKey };
   }
 }
 
