@@ -47,12 +47,11 @@ export async function getCropHealthReport(
 }
 
 
-export async function getReportAudioAndTranslation(
-  report: string,
-  voiceName: string,
-  languageCode: string
-): Promise<{ audioDataUri?: string; translatedText?: string; error?: string }> {
-  if (!report) {
+export async function getReportAudio(
+  text: string,
+  voiceName: string
+): Promise<{ audioDataUri?: string; error?: string }> {
+  if (!text) {
     return { error: 'Report text is missing.' };
   }
   if (!voiceName) {
@@ -60,19 +59,29 @@ export async function getReportAudioAndTranslation(
   }
 
   try {
-    let textToSpeak = report;
-    let translatedText = report;
-
-    if (languageCode !== 'en') {
-        const result = await translateText({ text: report, targetLanguage: languageCode });
-        textToSpeak = result.translatedText;
-        translatedText = result.translatedText;
-    }
-
-    const { media } = await textToSpeech({ text: textToSpeak, voiceName });
-    return { audioDataUri: media, translatedText };
+    const { media } = await textToSpeech({ text, voiceName });
+    return { audioDataUri: media };
   } catch (e) {
     console.error(e);
     return { error: 'Failed to generate audio. Please try again.' };
+  }
+}
+
+export async function getTranslatedReport(
+  report: string,
+  languageCode: string
+): Promise<{ translatedText?: string; error?: string }> {
+  if (!report) {
+    return { error: 'Report text is missing.' };
+  }
+  if (languageCode === 'en') {
+    return { translatedText: report };
+  }
+  try {
+    const { translatedText } = await translateText({ text: report, targetLanguage: languageCode });
+    return { translatedText };
+  } catch (e) {
+    console.error(e);
+    return { error: 'Failed to translate report. Please try again.' };
   }
 }

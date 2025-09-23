@@ -13,11 +13,11 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { getCropHealthReport, getReportAudioAndTranslation, type CropHealthState } from "./actions";
+import { getCropHealthReport, getReportAudio, getTranslatedReport, type CropHealthState } from "./actions";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { ImageUp, ScanSearch, Volume2, Loader2 } from "lucide-react";
+import { ImageUp, ScanSearch, Volume2, Loader2, Languages } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import {
@@ -40,6 +40,11 @@ const voices = [
     { value: 'Hadar', label: 'Voice 3 (English)', lang: 'en' },
 ];
 
+const languages = [
+    { value: 'en', label: 'English' },
+    { value: 'hi', label: 'हिन्दी (Hindi)' },
+];
+
 export function CropHealthForm() {
   const [state, formAction] = useActionState(getCropHealthReport, initialState);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -47,7 +52,9 @@ export function CropHealthForm() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [selectedVoice, setSelectedVoice] = useState(voices[0].value);
   const [isAudioLoading, startAudioTransition] = useTransition();
+  const [isTranslationLoading, startTranslationTransition] = useTransition();
   const [displayedReport, setDisplayedReport] = useState<string | undefined>(undefined);
+  const [selectedLanguage, setSelectedLanguage] = useState(languages[0].value);
   const { toast } = useToast();
   const { t } = useTranslation();
 
@@ -74,17 +81,14 @@ export function CropHealthForm() {
       audioRef.current.play();
     }
   };
-
+  
   const handleVoiceChange = async (voiceValue: string) => {
     setSelectedVoice(voiceValue);
-    if (!state.report) return;
-
-    const selectedVoiceConfig = voices.find(v => v.value === voiceValue);
-    if (!selectedVoiceConfig) return;
-
+    if (!displayedReport) return;
+    
     startAudioTransition(async () => {
-      const result = await getReportAudioAndTranslation(state.report!, voiceValue, selectedVoiceConfig.lang);
-      if (result.error) {
+      const result = await getReportAudio(displayedReport, voiceValue);
+       if (result.error) {
         toast({
             variant: "destructive",
             title: t('crop_health.audio_error_title'),
@@ -95,16 +99,32 @@ export function CropHealthForm() {
           audioRef.current.src = result.audioDataUri;
           audioRef.current.play();
         }
-        if (result.translatedText) {
-          setDisplayedReport(result.translatedText);
-        }
       }
     });
+  };
+
+  const handleLanguageChange = async (languageCode: string) => {
+      setSelectedLanguage(languageCode);
+      if (!state.report) return;
+
+      startTranslationTransition(async () => {
+          const result = await getTranslatedReport(state.report!, languageCode);
+          if (result.error) {
+              toast({
+                  variant: "destructive",
+                  title: "Translation Error",
+                  description: result.error,
+              });
+          } else if (result.translatedText) {
+              setDisplayedReport(result.translatedText);
+          }
+      });
   };
 
   useEffect(() => {
     if (state.report) {
         setDisplayedReport(state.report);
+        setSelectedLanguage('en');
     }
   }, [state.report]);
 
@@ -186,6 +206,23 @@ export function CropHealthForm() {
             </div>
             {state.report && state.audioDataUri && (
                 <div className="flex items-center gap-2">
+                    <Select value={selectedLanguage} onValueChange={handleLanguageChange}>
+                        <SelectTrigger className="w-auto">
+                            <SelectValue>
+                                <div className="flex items-center gap-2">
+                                    <Languages className="h-4 w-4" />
+                                    <span>{languages.find(l => l.value === selectedLanguage)?.label}</span>
+                                </div>
+                            </SelectValue>
+                        </SelectTrigger>
+                        <SelectContent>
+                            {languages.map(lang => (
+                                <SelectItem key={lang.value} value={lang.value}>
+                                    {lang.label}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
                     <Select value={selectedVoice} onValueChange={handleVoiceChange}>
                         <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder={t('crop_health.select_voice_placeholder')} />
@@ -208,7 +245,12 @@ export function CropHealthForm() {
         </CardHeader>
         <CardContent>
           <ScrollArea className="h-[400px] w-full p-4 border rounded-md bg-muted/20">
-            {displayedReport ? (
+            {isTranslationLoading ? (
+                <div className="flex items-center justify-center h-full text-muted-foreground">
+                    <Loader2 className="animate-spin mr-2"/>
+                    <p>Translating...</p>
+                </div>
+            ) : displayedReport ? (
               <p className="whitespace-pre-wrap">{displayedReport}</p>
             ) : (
               <div className="flex items-center justify-center h-full text-muted-foreground">
