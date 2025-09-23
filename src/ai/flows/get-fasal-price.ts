@@ -76,14 +76,6 @@ const getFasalPriceTool = ai.defineTool(
   }
 );
 
-const prompt = ai.definePrompt({
-  name: 'fasalPricePrompt',
-  input: { schema: GetFasalPriceInputSchema },
-  output: { schema: GetFasalPriceOutputSchema },
-  tools: [getFasalPriceTool],
-  prompt: `Get the commodity prices for the {{market}} market.`,
-});
-
 const getFasalPriceFlow = ai.defineFlow(
   {
     name: 'getFasalPriceFlow',
@@ -91,8 +83,9 @@ const getFasalPriceFlow = ai.defineFlow(
     outputSchema: GetFasalPriceOutputSchema,
   },
   async (input) => {
-    const { output } = await prompt(input);
-    return output!;
+    // Directly call the tool logic instead of invoking an AI prompt.
+    // This avoids the need for a Gemini API key for this specific feature.
+    return await getFasalPriceTool.run(input);
   }
 );
 
