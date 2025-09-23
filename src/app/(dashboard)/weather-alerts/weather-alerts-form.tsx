@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { getWeatherAlerts, type WeatherAlertState } from "./actions";
 import { SubmitButton } from "@/components/ui/submit-button";
-import { BellRing, CloudDrizzle, CloudFog, CloudLightning, CloudRain, CloudSun, Siren, Snowflake, Sun, Thermometer, Wind } from "lucide-react";
+import { BellRing, CloudDrizzle, CloudRain, CloudSun, Siren, Thermometer, Wind } from "lucide-react";
 import { useTranslation } from "@/context/language-context";
 
 const initialState: WeatherAlertState = {};
@@ -96,22 +96,22 @@ export function WeatherAlertsForm() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                     <Card className="p-4 bg-card/50">
                         <Thermometer className="mx-auto h-8 w-8 text-primary mb-2"/>
-                        <p className="font-bold text-xl">28°C</p>
+                        <p className="font-bold text-xl">{state.weather?.temperature || '...'}</p>
                         <p className="text-muted-foreground text-sm">{t('weather_alerts.temperature')}</p>
                     </Card>
                     <Card className="p-4 bg-card/50">
                         <Wind className="mx-auto h-8 w-8 text-primary mb-2"/>
-                        <p className="font-bold text-xl">12 km/h</p>
+                        <p className="font-bold text-xl">{state.weather?.wind || '...'}</p>
                         <p className="text-muted-foreground text-sm">{t('weather_alerts.wind')}</p>
                     </Card>
                     <Card className="p-4 bg-card/50">
                         <CloudDrizzle className="mx-auto h-8 w-8 text-primary mb-2"/>
-                        <p className="font-bold text-xl">78%</p>
+                        <p className="font-bold text-xl">{state.weather?.humidity || '...'}</p>
                         <p className="text-muted-foreground text-sm">{t('weather_alerts.humidity')}</p>
                     </Card>
                      <Card className="p-4 bg-card/50">
                         <CloudRain className="mx-auto h-8 w-8 text-primary mb-2"/>
-                        <p className="font-bold text-xl">15%</p>
+                        <p className="font-bold text-xl">{state.weather?.precipitation || '...'}</p>
                         <p className="text-muted-foreground text-sm">{t('weather_alerts.precipitation')}</p>
                     </Card>
                 </div>
