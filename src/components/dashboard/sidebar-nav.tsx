@@ -40,7 +40,7 @@ export function SidebarNav() {
         <div className="flex items-center gap-2 p-2">
           <Tractor className="w-8 h-8 text-primary" />
           <span className="font-headline text-2xl group-data-[collapsible=icon]:hidden">
-            AgriSuper
+            AgriNova
           </span>
         </div>
       </SidebarHeader>

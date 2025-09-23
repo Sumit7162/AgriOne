@@ -20,7 +20,7 @@ function LoginPageContent() {
             <div className="flex items-center gap-2 mb-4">
                 <Tractor className="w-10 h-10 text-primary" />
                 <span className="font-headline text-4xl">
-                    AgriSuper
+                    AgriNova
                 </span>
             </div>
             <CardTitle className="font-headline text-2xl">{t('login.title')}</CardTitle>

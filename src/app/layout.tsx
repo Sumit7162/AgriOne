@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'AgriSuper',
+  title: 'AgriNova',
   description: 'The All-in-One AI-Powered Agriculture Super App',
 };
 
