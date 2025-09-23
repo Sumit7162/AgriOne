@@ -1,0 +1,29 @@
+
+{
+    "common": {
+        "error": "ତ୍ରୁଟି"
+    },
+    "dashboard": {
+        "title": "ଡ୍ୟାଶବୋର୍ଡ",
+        "crop_health_card_title": "ଫସଲ ସ୍ୱାସ୍ଥ୍ୟ AI",
+        "crop_health_card_description": "ଆପଣଙ୍କ ଫସଲରେ କୀଟ ଏବଂ ରୋଗ ଚିହ୍ନଟ କରିବାକୁ ଏକ ଛବି ଅପଲୋଡ୍ କରନ୍ତୁ |",
+        "farming_plans_card_title": "ବ୍ୟକ୍ତିଗତ ଚାଷ ଯୋଜନା",
+        "farming_plans_card_description": "ଆପଣଙ୍କ ଚାଷ ଅଭ୍ୟାସକୁ ଅପ୍ଟିମାଇଜ୍ କରିବା ଏବଂ ଅମଳ ବୃଦ୍ଧି ପାଇଁ AI- ଚାଳିତ ପରାମର୍ଶ ପାଆନ୍ତୁ |",
+        "weather_alerts_card_title": "ପାଣିପାଗ ଏବଂ କୀଟନାଶକ ସତର୍କତା",
+        "weather_alerts_card_description": "ହାଇପରଲୋକାଲ୍ ପାଣିପାଗ ଅଦ୍ୟତନ ଏବଂ ଭବିଷ୍ୟବାଣୀକାରୀ କୀଟ / ରୋଗ ସତର୍କତା ଗ୍ରହଣ କରନ୍ତୁ |",
+        "marketplace_card_title": "କୃଷକ ବଜାର",
+        "marketplace_card_description": "ବିହନ, ସାର ଏବଂ ଅନ୍ୟାନ୍ୟ କୃଷି ସାମଗ୍ରୀ କିଣନ୍ତୁ ଏବଂ ବିକ୍ରୟ କରନ୍ତୁ |",
+        "forums_card_title": "କମ୍ୟୁନିଟି ଫୋରମ୍",
+        "forums_card_description": "ଅନ୍ୟ କୃଷକମାନଙ୍କ ସହିତ ସଂଯୋଗ କରନ୍ତୁ, ଜ୍ଞାନ ବାଣ୍ଟନ୍ତୁ ଏବଂ ପ୍ରଶ୍ନ ପଚାରନ୍ତୁ |",
+        "go_to_feature": "ଫିଚର୍ କୁ ଯାଆନ୍ତୁ |"
+    },
+    "sidebar": {
+        "dashboard": "ଡ୍ୟାଶବୋର୍ଡ",
+        "crop_health": "ଫସଲ ସ୍ୱାସ୍ଥ୍ୟ",
+        "farming_plans": "ଚାଷ ଯୋଜନା",
+        "weather_alerts": "ପାଣିପାଗ ସତର୍କତା",
+        "marketplace": "ବଜାର",
+        "forums": "ଫୋରମ୍",
+        "settings": "ସେଟିଂସ"
+    }
+}

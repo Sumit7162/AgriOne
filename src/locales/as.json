@@ -1,0 +1,29 @@
+
+{
+    "common": {
+        "error": "ত্রুটি"
+    },
+    "dashboard": {
+        "title": "ডেশ্বৰ্ড",
+        "crop_health_card_title": "শস্য স্বাস্থ্য AI",
+        "crop_health_card_description": "আপোনাৰ শস্যৰ পোক-পৰুৱা আৰু ৰোগ চিনাক্ত কৰিবলৈ এখন ছবি আপলোড কৰক।",
+        "farming_plans_card_title": "ব্যক্তিগতকৃত কৃষি আঁচনি",
+        "farming_plans_card_description": "আপোনাৰ কৃষি পদ্ধতি অনুকূল কৰিবলৈ আৰু উৎপাদন বৃদ্ধি কৰিবলৈ AI-চালিত পৰামৰ্শ লাভ কৰক।",
+        "weather_alerts_card_title": "বতৰ আৰু পোক-পৰুৱা সতৰ্কবাণী",
+        "weather_alerts_card_description": "হাইপাৰলোকেল বতৰৰ আপডেট আৰু ভৱিষ্যদ্বাণীমূলক পোক-পৰুৱা/ৰোগৰ সতৰ্কবাণী লাভ কৰক।",
+        "marketplace_card_title": "কৃষকৰ বজাৰ",
+        "marketplace_card_description": "বীজ, সাৰ, আৰু অন্যান্য কৃষি সামগ্ৰী ক্ৰয় আৰু বিক্ৰী কৰক।",
+        "forums_card_title": "सामुदायिक মঞ্চ",
+        "forums_card_description": "আন কৃষকসকলৰ সৈতে সংযোগ স্থাপন কৰক, জ্ঞান ভাগ-বতৰা কৰক, আৰু প্ৰশ্ন সোধক।",
+        "go_to_feature": " বৈশিষ্ট্যলৈ যাওক"
+    },
+    "sidebar": {
+        "dashboard": "ডেশ্বৰ্ড",
+        "crop_health": "শস্য স্বাস্থ্য",
+        "farming_plans": "কৃষি আঁচনি",
+        "weather_alerts": "বতৰ সতৰ্কবাণী",
+        "marketplace": "বজাৰ",
+        "forums": "মঞ্চ",
+        "settings": "ছেটিংছ"
+    }
+}

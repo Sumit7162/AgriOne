@@ -1,0 +1,29 @@
+
+{
+    "common": {
+        "error": "त्रुटी"
+    },
+    "dashboard": {
+        "title": "डॅशबोर्ड",
+        "crop_health_card_title": "पीक आरोग्य AI",
+        "crop_health_card_description": "तुमच्या पिकांमधील कीटक आणि रोग ओळखण्यासाठी एक प्रतिमा अपलोड करा.",
+        "farming_plans_card_title": "वैयक्तिकृत शेती योजना",
+        "farming_plans_card_description": "तुमच्या शेती पद्धतींना ऑप्टिमाइझ करण्यासाठी आणि उत्पन्न वाढवण्यासाठी AI-शक्तीवर आधारित सल्ला मिळवा.",
+        "weather_alerts_card_title": "हवामान आणि कीटक सूचना",
+        "weather_alerts_card_description": "हायपरलोकल हवामान अद्यतने आणि भविष्यवाणी कीटक/रोग सूचना प्राप्त करा.",
+        "marketplace_card_title": "शेतकरी बाजारपेठ",
+        "marketplace_card_description": "बियाणे, खते आणि इतर कृषी निविष्ठा खरेदी आणि विक्री करा.",
+        "forums_card_title": "समुदाय मंच",
+        "forums_card_description": "इतर शेतकऱ्यांशी संपर्क साधा, ज्ञान सामायिक करा आणि प्रश्न विचारा.",
+        "go_to_feature": "वैशिष्ट्यावर जा"
+    },
+    "sidebar": {
+        "dashboard": "डॅशबोर्ड",
+        "crop_health": "पीक आरोग्य",
+        "farming_plans": "शेती योजना",
+        "weather_alerts": "हवामान सूचना",
+        "marketplace": "बाजारपेठ",
+        "forums": "मंच",
+        "settings": "सेटिंग्ज"
+    }
+}
