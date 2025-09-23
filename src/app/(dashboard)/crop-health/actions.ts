@@ -27,9 +27,9 @@ export async function getCropHealthReport(
 
   if (!validatedFields.success) {
     const fieldErrors = validatedFields.error.flatten().fieldErrors;
-    const error = fieldErrors.description?.[0] || fieldErrors.photoDataUri?.[0]
+    const error = fieldErrors.description?.[0] || fieldErrors.photoDataUri?.[0];
     return {
-      error,
+      error: error,
     };
   }
   
