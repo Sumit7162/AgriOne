@@ -42,7 +42,6 @@ export async function getCropHealthReport(
     }
     const { report } = reportResult;
     
-    // Default audio generation on report creation
     const audioResult = await textToSpeech({ text: report, voiceName: 'Algenib' });
      if (!audioResult || !audioResult.media) {
         throw new Error("AI failed to generate audio for the report.");
