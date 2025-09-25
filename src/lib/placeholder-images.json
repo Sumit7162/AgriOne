@@ -1,1 +1,37 @@
-{}
+{
+  "cropHealth": {
+    "src": "https://picsum.photos/seed/crop/600/400",
+    "width": 600,
+    "height": 400,
+    "alt": "A healthy green leaf, symbolizing crop health.",
+    "data-ai-hint": "crop leaf"
+  },
+  "weather": {
+    "src": "https://picsum.photos/seed/weather/600/400",
+    "width": 600,
+    "height": 400,
+    "alt": "Sun shining through clouds, representing weather alerts.",
+    "data-ai-hint": "weather farm"
+  },
+  "mandi": {
+    "src": "https://picsum.photos/seed/mandi/600/400",
+    "width": 600,
+    "height": 400,
+    "alt": "A bustling market scene, representing mandi prices.",
+    "data-ai-hint": "market produce"
+  },
+  "farmingPlans": {
+    "src": "https://picsum.photos/seed/plans/600/400",
+    "width": 600,
+    "height": 400,
+    "alt": "A farmer looking over a field, symbolizing personalized farming plans.",
+    "data-ai-hint": "farmer field"
+  },
+  "forums": {
+    "src": "https://picsum.photos/seed/forums/600/400",
+    "width": 600,
+    "height": 400,
+    "alt": "A group of people talking, representing community forums.",
+    "data-ai-hint": "community discussion"
+  }
+}
