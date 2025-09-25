@@ -13,8 +13,6 @@ import {
 } from 'lucide-react';
 import { Header } from '@/components/dashboard/header';
 import { useTranslation } from '@/context/language-context';
-import Image from 'next/image';
-import images from '@/lib/placeholder-images';
 
 export default function DashboardPage() {
   const { t } = useTranslation();
@@ -24,31 +22,26 @@ export default function DashboardPage() {
       title: t('dashboard.crop_health_card_title'),
       description: t('dashboard.crop_health_card_description'),
       href: '/crop-health',
-      image: images.cropHealth,
     },
     {
       title: t('dashboard.weather_alerts_card_title'),
       description: t('dashboard.weather_alerts_card_description'),
       href: '/weather-alerts',
-      image: images.weather,
     },
     {
       title: t('dashboard.mandi_prices_card_title'),
       description: t('dashboard.mandi_prices_card_description'),
       href: '/mandi-prices',
-      image: images.mandi,
     },
     {
       title: t('dashboard.farming_plans_card_title'),
       description: t('dashboard.farming_plans_card_description'),
       href: '/farming-plans',
-      image: images.farmingPlans,
     },
     {
       title: t('dashboard.forums_card_title'),
       description: t('dashboard.forums_card_description'),
       href: '/forums',
-      image: images.forums,
     },
   ];
 
@@ -61,17 +54,8 @@ export default function DashboardPage() {
           {features.map((feature) => (
             <Card
               key={feature.href}
-              className="flex flex-col transition-all hover:shadow-lg hover:-translate-y-1 overflow-hidden"
+              className="flex flex-col transition-all hover:shadow-lg hover:-translate-y-1"
             >
-              <div className="relative w-full h-40">
-                <Image
-                  src={feature.image.src}
-                  alt={feature.image.alt}
-                  fill
-                  style={{ objectFit: 'cover' }}
-                  data-ai-hint={feature.image['data-ai-hint']}
-                />
-              </div>
               <CardHeader className="pb-4">
                 <CardTitle className="font-headline">{feature.title}</CardTitle>
               </CardHeader>
