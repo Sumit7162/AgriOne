@@ -236,23 +236,34 @@ export function CropHealthForm() {
   }
 
   if (state.report && displayedReport) {
-    const AccordionHeader = ({ section, title, text, icon: Icon }: { section: 'info' | 'diagnosis' | 'solution', title: string, text: string, icon: React.ElementType }) => (
-        <div className="flex items-center justify-between w-full">
-             <div className="flex items-center">
+    const renderAccordionItem = (section: 'info' | 'diagnosis' | 'solution', title: string, text: string, icon: React.ElementType) => {
+      const Icon = icon;
+      return (
+        <AccordionItem value={section}>
+          <div className="flex items-center w-full">
+            <AccordionTrigger className="flex-1">
+              <div className="flex items-center">
                 <Icon className="mr-2 text-primary" />
                 <span className="text-lg font-semibold">{title}</span>
-            </div>
+              </div>
+            </AccordionTrigger>
             <Button
-                variant="ghost"
-                size="icon"
-                onClick={(e) => { e.stopPropagation(); playSectionAudio(section, text); }}
-                disabled={isAudioLoading}
-                className="mr-4"
+              variant="ghost"
+              size="icon"
+              onClick={(e) => {
+                e.stopPropagation();
+                playSectionAudio(section, text);
+              }}
+              disabled={isAudioLoading}
+              className="mr-2"
             >
-                {isAudioLoading && loadingAudioSection === section ? <Loader2 className="animate-spin" /> : <Volume2 />}
+              {isAudioLoading && loadingAudioSection === section ? <Loader2 className="animate-spin" /> : <Volume2 />}
             </Button>
-        </div>
-    );
+          </div>
+          <AccordionContent className="text-base pl-2 whitespace-pre-wrap">{text}</AccordionContent>
+        </AccordionItem>
+      );
+    };
 
     return (
         <Card className="max-w-2xl mx-auto w-full">
@@ -311,24 +322,9 @@ export function CropHealthForm() {
                     </div>
                 ) : (
                     <Accordion type="single" collapsible defaultValue="diagnosis" className="w-full">
-                        <AccordionItem value="info">
-                            <AccordionTrigger>
-                                <AccordionHeader section="info" title="Plant Information" text={displayedReport.plantInfo} icon={Info} />
-                            </AccordionTrigger>
-                            <AccordionContent className="text-base pl-2 whitespace-pre-wrap">{displayedReport.plantInfo}</AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="diagnosis">
-                            <AccordionTrigger>
-                                <AccordionHeader section="diagnosis" title="Disease Diagnosis" text={displayedReport.diseaseDiagnosis} icon={Bug} />
-                            </AccordionTrigger>
-                            <AccordionContent className="text-base pl-2 whitespace-pre-wrap">{displayedReport.diseaseDiagnosis}</AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="solution">
-                            <AccordionTrigger>
-                               <AccordionHeader section="solution" title="Solution" text={displayedReport.solution} icon={CheckCircle} />
-                            </AccordionTrigger>
-                            <AccordionContent className="text-base pl-2 whitespace-pre-wrap">{displayedReport.solution}</AccordionContent>
-                        </AccordionItem>
+                        {renderAccordionItem("info", "Plant Information", displayedReport.plantInfo, Info)}
+                        {renderAccordionItem("diagnosis", "Disease Diagnosis", displayedReport.diseaseDiagnosis, Bug)}
+                        {renderAccordionItem("solution", "Solution", displayedReport.solution, CheckCircle)}
                     </Accordion>
                 )}
             </CardContent>
