@@ -27,7 +27,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { useLanguage, useTranslation } from "@/context/language-context";
+import { useTranslation } from "@/context/language-context";
 import type { GenerateCropHealthReportOutput } from "@/ai/flows/generate-crop-health-report";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
@@ -62,7 +62,6 @@ export function CropHealthForm() {
   const [isTranslationLoading, startTranslationTransition] = useTransition();
   const [isResetting, startResetTransition] = useTransition();
   const [displayedReport, setDisplayedReport] = useState<GenerateCropHealthReportOutput | undefined>(undefined);
-  const { language, setLanguage } = useLanguage();
   const { toast } = useToast();
   const { t } = useTranslation();
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -70,6 +69,7 @@ export function CropHealthForm() {
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [reportLanguage, setReportLanguage] = useState('en');
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -149,13 +149,13 @@ export function CropHealthForm() {
   useEffect(() => {
     if (state.report) {
         setDisplayedReport(state.report);
-        setLanguage('en');
+        setReportLanguage('en');
         setAudioDataUri(undefined); 
     }
     if (state.error || state.report) {
         setIsSubmitting(false);
     }
-  }, [state.report, state.error, setLanguage]);
+  }, [state.report, state.error]);
 
   useEffect(() => {
     if (audioDataUri && audioRef.current) {
@@ -188,7 +188,7 @@ export function CropHealthForm() {
   const handleLanguageChange = (languageCode: string) => {
     if (!state.report) return;
 
-    setLanguage(languageCode as any);
+    setReportLanguage(languageCode);
 
     startTranslationTransition(async () => {
         const result = await getTranslatedReport(state.report!, languageCode);
@@ -268,12 +268,12 @@ export function CropHealthForm() {
                         <CardTitle className="font-headline text-2xl">{t('crop_health.report_title')}</CardTitle>
                     </div>
                     <div className="flex items-center gap-2">
-                        <Select value={language} onValueChange={handleLanguageChange}>
+                        <Select value={reportLanguage} onValueChange={handleLanguageChange}>
                             <SelectTrigger className="w-auto">
                                 <SelectValue>
                                     <div className="flex items-center gap-2">
                                         <Languages className="h-4 w-4" />
-                                        <span>{languages.find(l => l.value === language)?.label}</span>
+                                        <span>{languages.find(l => l.value === reportLanguage)?.label}</span>
                                     </div>
                                 </SelectValue>
                             </SelectTrigger>
