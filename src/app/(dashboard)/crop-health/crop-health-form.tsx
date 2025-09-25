@@ -65,6 +65,7 @@ export function CropHealthForm() {
   const [audioDataUri, setAudioDataUri] = useState<string | undefined>(undefined);
   const [selectedVoice, setSelectedVoice] = useState(voices[0].value);
   const [isAudioLoading, startAudioTransition] = useTransition();
+  const [loadingAudioSection, setLoadingAudioSection] = useState<string | null>(null);
   const [isTranslationLoading, startTranslationTransition] = useTransition();
   const [isResetting, startResetTransition] = useTransition();
   const [displayedReport, setDisplayedReport] = useState<GenerateCropHealthReportOutput | undefined>(undefined);
@@ -170,34 +171,23 @@ export function CropHealthForm() {
     }
   }, [audioDataUri]);
   
-  const playAudio = () => {
-    if (audioRef.current?.src && !isAudioLoading) {
-      audioRef.current.play().catch(e => console.error("Audio play failed:", e));
-    } else {
-      // If no audio is loaded yet, generate it
-      handleVoiceChange(selectedVoice);
-    }
-  };
-  
 
-  const handleVoiceChange = async (voiceValue: string) => {
-    setSelectedVoice(voiceValue);
-    if (!displayedReport) return;
-
-    const fullReportText = `Plant Information: ${displayedReport.plantInfo}. Disease Diagnosis: ${displayedReport.diseaseDiagnosis}. Solution: ${displayedReport.solution}`;
-
+  const playSectionAudio = (section: 'info' | 'diagnosis' | 'solution', text: string) => {
+    if (isAudioLoading) return;
+    setLoadingAudioSection(section);
     startAudioTransition(async () => {
-      const result = await getReportAudio(fullReportText, voiceValue);
-       if (result.error) {
+      const result = await getReportAudio(text, selectedVoice);
+      if (result.error) {
         toast({
-            variant: "destructive",
-            title: t('crop_health.audio_error_title'),
-            description: result.error,
+          variant: "destructive",
+          title: t('crop_health.audio_error_title'),
+          description: result.error,
         });
         setAudioDataUri(undefined);
       } else {
         setAudioDataUri(result.audioDataUri);
       }
+      setLoadingAudioSection(null);
     });
   };
 
@@ -246,14 +236,65 @@ export function CropHealthForm() {
   }
 
   if (state.report && displayedReport) {
+    const AccordionHeader = ({ section, title, text, icon: Icon }: { section: 'info' | 'diagnosis' | 'solution', title: string, text: string, icon: React.ElementType }) => (
+        <div className="flex items-center justify-between w-full">
+             <div className="flex items-center">
+                <Icon className="mr-2 text-primary" />
+                <span className="text-lg font-semibold">{title}</span>
+            </div>
+            <Button
+                variant="ghost"
+                size="icon"
+                onClick={(e) => { e.stopPropagation(); playSectionAudio(section, text); }}
+                disabled={isAudioLoading}
+                className="mr-4"
+            >
+                {isAudioLoading && loadingAudioSection === section ? <Loader2 className="animate-spin" /> : <Volume2 />}
+            </Button>
+        </div>
+    );
+
     return (
         <Card className="max-w-2xl mx-auto w-full">
             <CardHeader>
-                <div className="flex items-center justify-between gap-2">
-                    <CardTitle className="font-headline text-2xl">Health Report</CardTitle>
-                    <Button variant="outline" onClick={handleReset} disabled={isResetting}>
-                        {isResetting ? <Loader2 className="animate-spin" /> : 'Analyze Another'}
-                    </Button>
+                 <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div className="flex items-center justify-between gap-2">
+                        <CardTitle className="font-headline text-2xl">Health Report</CardTitle>
+                    </div>
+                    <div className="flex items-center gap-2">
+                         <Select value={selectedLanguage} onValueChange={handleLanguageChange}>
+                            <SelectTrigger className="w-auto">
+                                <SelectValue>
+                                    <div className="flex items-center gap-2">
+                                        <Languages className="h-4 w-4" />
+                                        <span>{languages.find(l => l.value === selectedLanguage)?.label}</span>
+                                    </div>
+                                </SelectValue>
+                            </SelectTrigger>
+                            <SelectContent>
+                                {languages.map(lang => (
+                                    <SelectItem key={lang.value} value={lang.value}>
+                                        {lang.label}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                        <Select value={selectedVoice} onValueChange={setSelectedVoice}>
+                            <SelectTrigger className="w-auto">
+                                <SelectValue placeholder="Select voice" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {voices.map(voice => (
+                                    <SelectItem key={voice.value} value={voice.value} disabled={selectedLanguage !== voice.lang && selectedLanguage !== 'en'}>
+                                        {voice.label}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                         <Button variant="outline" onClick={handleReset} disabled={isResetting}>
+                            {isResetting ? <Loader2 className="animate-spin" /> : 'Analyze Another'}
+                        </Button>
+                    </div>
                 </div>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -262,40 +303,6 @@ export function CropHealthForm() {
                          <Image src={imagePreview} alt="Analyzed crop" fill style={{ objectFit: "cover" }} />
                     </div>
                 )}
-                 <div className="flex items-center justify-end gap-2">
-                    <Select value={selectedLanguage} onValueChange={handleLanguageChange}>
-                        <SelectTrigger className="w-auto">
-                            <SelectValue>
-                                <div className="flex items-center gap-2">
-                                    <Languages className="h-4 w-4" />
-                                    <span>{languages.find(l => l.value === selectedLanguage)?.label}</span>
-                                </div>
-                            </SelectValue>
-                        </SelectTrigger>
-                        <SelectContent>
-                            {languages.map(lang => (
-                                <SelectItem key={lang.value} value={lang.value}>
-                                    {lang.label}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                    <Select value={selectedVoice} onValueChange={handleVoiceChange}>
-                        <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select voice" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {voices.map(voice => (
-                                <SelectItem key={voice.value} value={voice.value}>
-                                    {voice.label}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                    <Button variant="ghost" size="icon" onClick={playAudio} disabled={isAudioLoading}>
-                        {isAudioLoading ? <Loader2 className="animate-spin" /> : <Volume2 />}
-                    </Button>
-                </div>
                 
                 {isTranslationLoading ? (
                      <div className="flex items-center justify-center h-[200px] border rounded-md bg-muted/20 text-muted-foreground">
@@ -305,16 +312,22 @@ export function CropHealthForm() {
                 ) : (
                     <Accordion type="single" collapsible defaultValue="diagnosis" className="w-full">
                         <AccordionItem value="info">
-                        <AccordionTrigger className="text-lg font-semibold"><Info className="mr-2 text-primary" /> Plant Information</AccordionTrigger>
-                        <AccordionContent className="text-base pl-2 whitespace-pre-wrap">{displayedReport.plantInfo}</AccordionContent>
+                            <AccordionTrigger>
+                                <AccordionHeader section="info" title="Plant Information" text={displayedReport.plantInfo} icon={Info} />
+                            </AccordionTrigger>
+                            <AccordionContent className="text-base pl-2 whitespace-pre-wrap">{displayedReport.plantInfo}</AccordionContent>
                         </AccordionItem>
                         <AccordionItem value="diagnosis">
-                        <AccordionTrigger className="text-lg font-semibold"><Bug className="mr-2 text-primary" /> Disease Diagnosis</AccordionTrigger>
-                        <AccordionContent className="text-base pl-2 whitespace-pre-wrap">{displayedReport.diseaseDiagnosis}</AccordionContent>
+                            <AccordionTrigger>
+                                <AccordionHeader section="diagnosis" title="Disease Diagnosis" text={displayedReport.diseaseDiagnosis} icon={Bug} />
+                            </AccordionTrigger>
+                            <AccordionContent className="text-base pl-2 whitespace-pre-wrap">{displayedReport.diseaseDiagnosis}</AccordionContent>
                         </AccordionItem>
                         <AccordionItem value="solution">
-                        <AccordionTrigger className="text-lg font-semibold"><CheckCircle className="mr-2 text-primary" /> Solution</AccordionTrigger>
-                        <AccordionContent className="text-base pl-2 whitespace-pre-wrap">{displayedReport.solution}</AccordionContent>
+                            <AccordionTrigger>
+                               <AccordionHeader section="solution" title="Solution" text={displayedReport.solution} icon={CheckCircle} />
+                            </AccordionTrigger>
+                            <AccordionContent className="text-base pl-2 whitespace-pre-wrap">{displayedReport.solution}</AccordionContent>
                         </AccordionItem>
                     </Accordion>
                 )}
