@@ -52,25 +52,25 @@ export default function DashboardPage() {
       <div className="flex-1 p-4 md:p-8">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {features.map((feature) => (
-            <Card
-              key={feature.href}
-              className="flex flex-col transition-all hover:shadow-lg hover:-translate-y-1"
-            >
-              <CardHeader className="pb-4">
-                <CardTitle className="font-headline">{feature.title}</CardTitle>
-              </CardHeader>
-              <CardContent className="flex-grow">
-                <CardDescription>{feature.description}</CardDescription>
-              </CardContent>
-              <div className="p-6 pt-0">
-                <Link
-                  href={feature.href}
-                  className="flex items-center gap-2 text-sm font-semibold text-primary hover:text-accent-foreground"
+             <Link href={feature.href} key={feature.href} className="group">
+                <Card
+                className="flex flex-col h-full transition-all group-hover:shadow-lg group-hover:-translate-y-1"
                 >
-                  {t('dashboard.go_to_feature')} <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-            </Card>
+                <CardHeader className="pb-4">
+                    <CardTitle className="font-headline">{feature.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                    <CardDescription>{feature.description}</CardDescription>
+                </CardContent>
+                <div className="p-6 pt-0">
+                    <div
+                    className="flex items-center gap-2 text-sm font-semibold text-primary opacity-0 transition-opacity group-hover:opacity-100"
+                    >
+                    {t('dashboard.go_to_feature')} <ArrowRight className="h-4 w-4" />
+                    </div>
+                </div>
+                </Card>
+            </Link>
           ))}
         </div>
       </div>
