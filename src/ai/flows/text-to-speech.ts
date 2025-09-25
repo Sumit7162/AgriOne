@@ -56,6 +56,11 @@ const textToSpeechFlow = ai.defineFlow(
     outputSchema: TextToSpeechOutputSchema,
   },
   async ({ text, voiceName }) => {
+    if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY === '<YOUR_API_KEY>') {
+        console.warn("GEMINI_API_KEY is not set. Skipping text-to-speech generation.");
+        return { media: '' };
+    }
+
     const { media } = await ai.generate({
       model: googleAI.model('gemini-2.5-flash-preview-tts'),
       config: {

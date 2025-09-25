@@ -40,9 +40,6 @@ export async function getCropHealthReport(
     const fullReportText = `Plant Information: ${report.plantInfo}. Disease Diagnosis: ${report.diseaseDiagnosis}. Solution: ${report.solution}`;
     
     const audioResult = await textToSpeech({ text: fullReportText, voiceName: 'Algenib' });
-     if (!audioResult || !audioResult.media) {
-        throw new Error("AI failed to generate audio for the report.");
-    }
     const { media } = audioResult;
 
     return { report, audioDataUri: media };
@@ -67,6 +64,9 @@ export async function getReportAudio(
 
   try {
     const { media } = await textToSpeech({ text, voiceName });
+     if (!media) {
+      return { error: 'Audio generation is disabled. Please set your Gemini API key.' };
+    }
     return { audioDataUri: media };
   } catch (e) {
     console.error(e);
