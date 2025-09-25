@@ -34,9 +34,26 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 const initialState: CropHealthState = {};
 
 const voices = [
-    { value: 'Algenib', label: 'Voice 1 (English)', lang: 'en' },
-    { value: 'hi-IN-Standard-A', label: 'आवाज 2 (हिन्दी)', lang: 'hi' },
-    { value: 'Hadar', label: 'Voice 3 (English)', lang: 'en' },
+    { value: 'Algenib', label: 'Voice 1 (English)' },
+    { value: 'hi-IN-Standard-A', label: 'आवाज 2 (हिन्दी)' },
+    { value: 'Hadar', label: 'Voice 3 (English)' },
+];
+
+const languages = [
+    { value: 'en', label: 'English' },
+    { value: 'hi', label: 'हिन्दी (Hindi)' },
+    { value: 'bn', label: 'বাংলা (Bengali)' },
+    { value: 'te', label: 'తెలుగు (Telugu)' },
+    { value: 'mr', label: 'मराठी (Marathi)' },
+    { value: 'ta', label: 'தமிழ் (Tamil)' },
+    { value: 'ur', label: 'اردو (Urdu)' },
+    { value: 'gu', label: 'ગુજરાતી (Gujarati)' },
+    { value: 'kn', label: 'ಕನ್ನಡ (Kannada)' },
+    { value: 'or', label: 'ଓଡ଼ିଆ (Odia)' },
+    { value: 'pa', label: 'ਪੰਜਾਬੀ (Punjabi)' },
+    { value: 'ml', label: 'മലയാളം (Malayalam)' },
+    { value: 'as', label: 'অসমীয়া (Assamese)' },
+    { value: 'mai', label: 'मैथिली (Maithili)' },
 ];
 
 export function CropHealthForm() {
@@ -52,7 +69,7 @@ export function CropHealthForm() {
   const [isTranslationLoading, startTranslationTransition] = useTransition();
   const [isResetting, startResetTransition] = useTransition();
   const [displayedReport, setDisplayedReport] = useState<GenerateCropHealthReportOutput | undefined>(undefined);
-  const { setLanguage } = useLanguage();
+  const { language, setLanguage } = useLanguage();
   const { toast } = useToast();
   const { t } = useTranslation();
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -175,13 +192,10 @@ export function CropHealthForm() {
     });
   };
 
-  const handleVoiceAndLanguageChange = (voiceValue: string) => {
-    const selected = voices.find(v => v.value === voiceValue);
-    if (!selected || !state.report) return;
+  const handleLanguageChange = (languageCode: string) => {
+    if (!state.report) return;
 
-    setSelectedVoice(voiceValue);
-    const languageCode = selected.lang as any;
-    setLanguage(languageCode);
+    setLanguage(languageCode as any);
 
     startTranslationTransition(async () => {
         const result = await getTranslatedReport(state.report!, languageCode);
@@ -199,7 +213,7 @@ export function CropHealthForm() {
   };
   
   const handleReset = () => {
-    startTransition(() => {
+    startResetTransition(() => {
         formRef.current?.reset();
         setImagePreview(null);
         setPhotoDataUri('');
@@ -261,14 +275,26 @@ export function CropHealthForm() {
                         <CardTitle className="font-headline text-2xl">{t('crop_health.report_title')}</CardTitle>
                     </div>
                     <div className="flex items-center gap-2">
-                        <Select value={selectedVoice} onValueChange={handleVoiceAndLanguageChange}>
+                        <Select value={language} onValueChange={handleLanguageChange}>
                             <SelectTrigger className="w-auto">
                                 <SelectValue>
                                     <div className="flex items-center gap-2">
                                         <Languages className="h-4 w-4" />
-                                        <span>{voices.find(v => v.value === selectedVoice)?.label}</span>
+                                        <span>{languages.find(l => l.value === language)?.label}</span>
                                     </div>
                                 </SelectValue>
+                            </SelectTrigger>
+                            <SelectContent>
+                                {languages.map(lang => (
+                                    <SelectItem key={lang.value} value={lang.value}>
+                                        {lang.label}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                        <Select value={selectedVoice} onValueChange={setSelectedVoice}>
+                            <SelectTrigger className="w-auto">
+                                <SelectValue placeholder={t('crop_health.select_voice_placeholder')} />
                             </SelectTrigger>
                             <SelectContent>
                                 {voices.map(voice => (
@@ -278,9 +304,6 @@ export function CropHealthForm() {
                                 ))}
                             </SelectContent>
                         </Select>
-                         <Button variant="outline" onClick={handleReset} disabled={isResetting}>
-                            {isResetting ? <Loader2 className="animate-spin" /> : t('crop_health.analyze_another_button')}
-                        </Button>
                     </div>
                 </div>
             </CardHeader>
@@ -304,6 +327,11 @@ export function CropHealthForm() {
                     </Accordion>
                 )}
             </CardContent>
+            <CardFooter>
+                 <Button variant="outline" onClick={handleReset} disabled={isResetting} className="w-full">
+                    {isResetting ? <Loader2 className="animate-spin" /> : t('crop_health.analyze_another_button')}
+                </Button>
+            </CardFooter>
             {audioDataUri && <audio ref={audioRef} src={audioDataUri} className="hidden" />}
         </Card>
     );
