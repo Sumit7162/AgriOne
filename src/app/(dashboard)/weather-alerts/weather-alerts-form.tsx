@@ -183,7 +183,7 @@ export function WeatherAlertsForm() {
                         {displayedAlerts.map((item, index) => (
                             <AccordionItem value={`item-${index}`} key={index}>
                                 <AccordionTrigger className="text-left">{item.alert}</AccordionTrigger>
-                                <AccordionContent className="whitespace-pre-wrap">
+                                <AccordionContent className="whitespace-pre-wrap text-primary-foreground bg-primary/80 p-3 rounded-md">
                                     {item.solution}
                                 </AccordionContent>
                             </AccordionItem>
