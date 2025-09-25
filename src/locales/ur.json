@@ -7,8 +7,6 @@
         "title": "ڈیش بورڈ",
         "crop_health_card_title": "فصل کی صحت AI",
         "crop_health_card_description": "اپنی فصلوں میں کیڑوں اور بیماریوں کا پتہ لگانے کے لیے ایک تصویر اپ لوڈ کریں۔",
-        "farming_plans_card_title": "ذاتی کاشتکاری کے منصوبے",
-        "farming_plans_card_description": "اپنے کاشتکاری کے طریقوں کو بہتر بنانے اور پیداوار بڑھانے کے لیے AI سے چلنے والے مشورے حاصل کریں۔",
         "weather_alerts_card_title": "موسم اور کیڑوں کے انتباہات",
         "weather_alerts_card_description": "ہائپر لوکل موسم کی تازہ ترین معلومات اور پیشن گوئی کیڑوں/بیماریوں کے انتباہات حاصل کریں۔",
         "marketplace_card_title": "کسان بازار",
@@ -18,9 +16,8 @@
         "go_to_feature": "فیچر پر جائیں"
     },
     "sidebar": {
-        "dashboard": "ڈیش بورڈ",
+        "dashboard": "ڈیش بورড",
         "crop_health": "فصل کی صحت",
-        "farming_plans": "کاشتکاری کے منصوبے",
         "weather_alerts": "موسمی انتباہات",
         "marketplace": "بازار",
         "forums": "فورمز",

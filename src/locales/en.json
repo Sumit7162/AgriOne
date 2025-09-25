@@ -7,8 +7,6 @@
         "title": "Dashboard",
         "crop_health_card_title": "Crop Health AI",
         "crop_health_card_description": "Upload an image to detect pests and diseases in your crops instantly.",
-        "farming_plans_card_title": "Personalized Farming Plans",
-        "farming_plans_card_description": "Get AI-powered advice to optimize your farming practices and boost yield.",
         "weather_alerts_card_title": "Weather & Pest Alerts",
         "weather_alerts_card_description": "Receive hyperlocal weather updates and predictive pest/disease alerts.",
         "fasal_price_card_title": "Commodity Prices",
@@ -22,7 +20,6 @@
     "sidebar": {
         "dashboard": "Dashboard",
         "crop_health": "Crop Health",
-        "farming_plans": "Farming Plans",
         "weather_alerts": "Weather Alerts",
         "fasal_price": "Commodity Prices",
         "marketplace": "Marketplace",
@@ -47,26 +44,6 @@
         "read_aloud_sr": "Read report aloud",
         "awaiting_analysis": "Awaiting analysis...",
         "audio_error_title": "Audio Error"
-    },
-    "farming_plans": {
-        "title": "Personalized Farming Plans",
-        "form_title": "AI Farming Advisor",
-        "form_description": "Provide details about your farm to receive a personalized plan for optimizing yield and reducing waste.",
-        "farm_details_label": "Farm Details",
-        "farm_details_placeholder": "e.g., 5-acre farm in Punjab, sandy loam soil, temperate climate.",
-        "crop_type_label": "Crop Type",
-        "crop_type_placeholder": "e.g., Wheat, Rice, Cotton",
-        "current_practices_label": "Current Practices",
-        "current_practices_placeholder": "e.g., Flood irrigation twice a week, manual pest control.",
-        "submit_button": "Generate Plan",
-        "plan_title": "Personalized Farming Plan",
-        "plan_description": "Your AI-generated recommendations will appear here.",
-        "yield_increase": "Expected Yield Increase",
-        "waste_reduction": "Resource Waste Reduction",
-        "irrigation": "Irrigation",
-        "fertilization": "Fertilization",
-        "pest_control": "Pest Control",
-        "awaiting_details": "Awaiting your farm details..."
     },
     "weather_alerts": {
         "title": "Weather & Pest Alerts",

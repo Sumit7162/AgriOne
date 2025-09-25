@@ -31,12 +31,6 @@ export default function DashboardPage() {
       icon: <Leaf className="h-8 w-8 text-primary" />,
     },
     {
-      title: t('dashboard.farming_plans_card_title'),
-      description: t('dashboard.farming_plans_card_description'),
-      href: '/farming-plans',
-      icon: <ClipboardList className="h-8 w-8 text-primary" />,
-    },
-    {
       title: t('dashboard.weather_alerts_card_title'),
       description: t('dashboard.weather_alerts_card_description'),
       href: '/weather-alerts',

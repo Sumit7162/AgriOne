@@ -7,8 +7,6 @@
         "title": "ડેશબોર્ડ",
         "crop_health_card_title": "પાક આરોગ્ય AI",
         "crop_health_card_description": "તમારા પાકમાં જીવાતો અને રોગો શોધવા માટે એક છબી અપલોડ કરો.",
-        "farming_plans_card_title": "વ્યક્તિગત ખેતી યોજનાઓ",
-        "farming_plans_card_description": "તમારી ખેતી પદ્ધતિઓને શ્રેષ્ઠ બનાવવા અને ઉપજ વધારવા માટે AI-સંચાલિત સલાહ મેળવો.",
         "weather_alerts_card_title": "હવામાન અને જીવાત ચેતવણીઓ",
         "weather_alerts_card_description": "હાઇપરલોકલ હવામાન અપડેટ્સ અને આગાહીયુક્ત જીવાત/રોગ ચેતવણીઓ મેળવો.",
         "marketplace_card_title": "ખેડૂત બજાર",
@@ -20,7 +18,6 @@
     "sidebar": {
         "dashboard": "ડેશબોર્ડ",
         "crop_health": "પાક આરોગ્ય",
-        "farming_plans": "ખેતી યોજનાઓ",
         "weather_alerts": "હવામાન ચેતવણીઓ",
         "marketplace": "બજાર",
         "forums": "ફોરમ",

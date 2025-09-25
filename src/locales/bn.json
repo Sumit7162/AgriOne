@@ -7,8 +7,6 @@
         "title": "ড্যাশবোর্ড",
         "crop_health_card_title": "ফসল স্বাস্থ্য এআই",
         "crop_health_card_description": "আপনার ফসলের কীটপতঙ্গ এবং রোগ সনাক্ত করতে একটি ছবি আপলোড করুন।",
-        "farming_plans_card_title": "ব্যক্তিগত চাষ পরিকল্পনা",
-        "farming_plans_card_description": "আপনার চাষ পদ্ধতি অপ্টিমাইজ করতে এবং ফলন বাড়াতে এআই-চালিত পরামর্শ পান।",
         "weather_alerts_card_title": "আবহাওয়া এবং কীটপতঙ্গ সতর্কতা",
         "weather_alerts_card_description": "হাইপারলোকাল আবহাওয়ার আপডেট এবং ভবিষ্যদ্বাণীমূলক কীটপতঙ্গ/রোগের সতর্কতা পান।",
         "marketplace_card_title": "কৃষক মার্কেটপ্লেস",
@@ -20,7 +18,6 @@
     "sidebar": {
         "dashboard": "ড্যাশবোর্ড",
         "crop_health": "ফসল স্বাস্থ্য",
-        "farming_plans": "চাষ পরিকল্পনা",
         "weather_alerts": "আবহাওয়ার সতর্কতা",
         "marketplace": "মার্কেটপ্লেস",
         "forums": "ফোরাম",

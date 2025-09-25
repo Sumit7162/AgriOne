@@ -7,8 +7,6 @@
         "title": "ਡੈਸ਼ਬੋਰਡ",
         "crop_health_card_title": "ਫਸਲ ਸਿਹਤ ਏਆਈ",
         "crop_health_card_description": "ਆਪਣੀਆਂ ਫਸਲਾਂ ਵਿੱਚ ਕੀੜਿਆਂ ਅਤੇ ਬਿਮਾਰੀਆਂ ਦਾ ਪਤਾ ਲਗਾਉਣ ਲਈ ਇੱਕ ਚਿੱਤਰ ਅਪਲੋਡ ਕਰੋ।",
-        "farming_plans_card_title": "ਨਿੱਜੀ ਖੇਤੀ ਯੋਜਨਾਵਾਂ",
-        "farming_plans_card_description": "ਆਪਣੇ ਖੇਤੀ ਅਭਿਆਸਾਂ ਨੂੰ ਅਨੁਕੂਲ ਬਣਾਉਣ ਅਤੇ ਝਾੜ ਵਧਾਉਣ ਲਈ ਏਆਈ-ਸੰਚਾਲਿਤ ਸਲਾਹ ਪ੍ਰਾਪਤ ਕਰੋ।",
         "weather_alerts_card_title": "ਮੌਸਮ ਅਤੇ ਕੀਟ ਚੇਤਾਵਨੀਆਂ",
         "weather_alerts_card_description": "ਹਾਈਪਰਲੋਕਲ ਮੌਸਮ ਅਪਡੇਟਸ ਅਤੇ ਭਵਿੱਖਬਾਣੀ ਕੀਟ/ਬਿਮਾਰੀ ਚੇਤਾਵਨੀਆਂ ਪ੍ਰਾਪਤ ਕਰੋ।",
         "marketplace_card_title": "ਕਿਸਾਨ ਮਾਰਕੀਟਪਲੇਸ",
@@ -20,7 +18,6 @@
     "sidebar": {
         "dashboard": "ਡੈਸ਼ਬੋਰਡ",
         "crop_health": "ਫਸਲ ਸਿਹਤ",
-        "farming_plans": "ਖੇਤੀ ਯੋਜਨਾਵਾਂ",
         "weather_alerts": "ਮੌਸਮ ਚੇਤਾਵਨੀਆਂ",
         "marketplace": "ਮਾਰਕੀਟਪਲੇਸ",
         "forums": "ਫੋਰਮ",

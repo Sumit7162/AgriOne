@@ -7,8 +7,6 @@
         "title": "डैशबोर्ड",
         "crop_health_card_title": "फसल स्वास्थ्य AI",
         "crop_health_card_description": "अपन फसल मे कीट आ रोगक पता लगाबय लेल एकटा छवि अपलोड करू।",
-        "farming_plans_card_title": "व्यक्तिगत खेती योजना",
-        "farming_plans_card_description": "अपन खेती के प्रथा के अनुकूलित करय आ उपज बढ़ाबय लेल AI-संचालित सलाह प्राप्त करू।",
         "weather_alerts_card_title": "मौसम आ कीट चेतावनी",
         "weather_alerts_card_description": "हाइपरलोकल मौसम अपडेट आ ভবিষ্যद्वाणी कीट/रोग चेतावनी प्राप्त करू।",
         "marketplace_card_title": "किसान बजार",
@@ -20,7 +18,6 @@
     "sidebar": {
         "dashboard": "डैशबोर्ड",
         "crop_health": "फसल स्वास्थ्य",
-        "farming_plans": "खेती योजना",
         "weather_alerts": "मौसम चेतावनी",
         "marketplace": "बजार",
         "forums": "मंच",

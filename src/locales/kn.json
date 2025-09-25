@@ -7,8 +7,6 @@
         "title": "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
         "crop_health_card_title": "ಬೆಳೆ ಆರೋಗ್ಯ AI",
         "crop_health_card_description": "ನಿಮ್ಮ ಬೆಳೆಗಳಲ್ಲಿನ ಕೀಟಗಳು ಮತ್ತು ರೋಗಗಳನ್ನು ಪತ್ತೆಹಚ್ಚಲು ಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ.",
-        "farming_plans_card_title": "ವೈಯಕ್ತಿಕಗೊಳಿಸಿದ ಕೃಷಿ ಯೋಜನೆಗಳು",
-        "farming_plans_card_description": "ನಿಮ್ಮ ಕೃಷಿ ಪದ್ಧತಿಗಳನ್ನು ಉತ್ತಮಗೊಳಿಸಲು ಮತ್ತು ಇಳುವರಿಯನ್ನು ಹೆಚ್ಚಿಸಲು AI-ಚಾಲಿತ ಸಲಹೆ ಪಡೆಯಿರಿ.",
         "weather_alerts_card_title": "ಹವಾಮಾನ ಮತ್ತು ಕೀಟ ಎಚ್ಚರಿಕೆಗಳು",
         "weather_alerts_card_description": "ಹೈಪರ್‌ಲೋಕಲ್ ಹವಾಮಾನ ನವೀಕರಣಗಳು ಮತ್ತು ಮುನ್ಸೂಚಕ ಕೀಟ/ರೋಗ ಎಚ್ಚರಿಕೆಗಳನ್ನು ಸ್ವೀಕರಿಸಿ.",
         "marketplace_card_title": "ರೈತ ಮಾರುಕಟ್ಟೆ",
@@ -20,7 +18,6 @@
     "sidebar": {
         "dashboard": "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
         "crop_health": "ಬೆಳೆ ಆರೋಗ್ಯ",
-        "farming_plans": "ಕೃಷಿ ಯೋಜನೆಗಳು",
         "weather_alerts": "ಹವಾಮಾನ ಎಚ್ಚರಿಕೆಗಳು",
         "marketplace": "ಮಾರುಕಟ್ಟೆ",
         "forums": "ವೇದಿಕೆಗಳು",

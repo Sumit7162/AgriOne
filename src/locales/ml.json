@@ -7,8 +7,6 @@
         "title": "ഡാഷ്ബോർഡ്",
         "crop_health_card_title": "വിള ആരോഗ്യ AI",
         "crop_health_card_description": "നിങ്ങളുടെ വിളകളിലെ കീടങ്ങളെയും രോഗങ്ങളെയും കണ്ടെത്താൻ ഒരു ചിത്രം അപ്‌ലോഡ് ചെയ്യുക.",
-        "farming_plans_card_title": "വ്യക്തിഗതമാക്കിയ കാർഷിക പദ്ധതികൾ",
-        "farming_plans_card_description": "നിങ്ങളുടെ കാർഷിക രീതികൾ ഒപ്റ്റിമൈസ് ചെയ്യാനും വിളവ് വർദ്ധിപ്പിക്കാനും AI- പവർ ചെയ്ത ഉപദേശം നേടുക.",
         "weather_alerts_card_title": "കാലാവസ്ഥയും കീടങ്ങളും സംബന്ധിച്ച മുന്നറിയിപ്പുകൾ",
         "weather_alerts_card_description": "ഹൈപ്പർലോക്കൽ കാലാവസ്ഥാ അപ്‌ഡേറ്റുകളും പ്രവചനാത്മക കീട/രോഗ മുന്നറിയിപ്പുകളും സ്വീകരിക്കുക.",
         "marketplace_card_title": "കർഷക വിപണി",
@@ -20,7 +18,6 @@
     "sidebar": {
         "dashboard": "ഡാഷ്ബോർഡ്",
         "crop_health": "വിള ആരോഗ്യം",
-        "farming_plans": "കാർഷിക പദ്ധതികൾ",
         "weather_alerts": "കാലാവസ്ഥാ മുന്നറിയിപ്പുകൾ",
         "marketplace": "വിപണി",
         "forums": "ഫോറങ്ങൾ",

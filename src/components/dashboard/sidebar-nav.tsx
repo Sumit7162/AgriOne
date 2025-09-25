@@ -29,7 +29,6 @@ export function SidebarNav() {
   const menuItems = [
     { href: '/', label: t('sidebar.dashboard'), icon: LayoutDashboard },
     { href: '/crop-health', label: t('sidebar.crop_health'), icon: Leaf },
-    { href: '/farming-plans', label: t('sidebar.farming_plans'), icon: ClipboardList },
     { href: '/weather-alerts', label: t('sidebar.weather_alerts'), icon: CloudSun },
     { href: '/fasal-price', label: t('sidebar.fasal_price'), icon: Landmark },
     { href: '/marketplace', label: t('sidebar.marketplace'), icon: Store },

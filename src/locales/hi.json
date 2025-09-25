@@ -7,8 +7,6 @@
         "title": "डैशबोर्ड",
         "crop_health_card_title": "फसल स्वास्थ्य एआई",
         "crop_health_card_description": "अपनी फसलों में कीटों और बीमारियों का तुरंत पता लगाने के लिए एक छवि अपलोड करें।",
-        "farming_plans_card_title": "व्यक्तिगत खेती योजनाएं",
-        "farming_plans_card_description": "अपनी कृषि पद्धतियों को अनुकूलित करने और उपज बढ़ाने के लिए एआई-संचालित सलाह प्राप्त करें।",
         "weather_alerts_card_title": "मौसम और कीट अलर्ट",
         "weather_alerts_card_description": "हाइपरलोकल मौसम अपडेट और भविष्य कहनेवाला कीट/रोग अलर्ट प्राप्त करें।",
         "fasal_price_card_title": "कमोडिटी की कीमतें",
@@ -22,7 +20,6 @@
     "sidebar": {
         "dashboard": "डैशबोर्ड",
         "crop_health": "फसल स्वास्थ्य",
-        "farming_plans": "खेती योजनाएं",
         "weather_alerts": "मौसम अलर्ट",
         "fasal_price": "कमोडिटी की कीमतें",
         "marketplace": "बाज़ार",
@@ -47,26 +44,6 @@
         "read_aloud_sr": "रिपोर्ट जोर से पढ़ें",
         "awaiting_analysis": "विश्लेषण की प्रतीक्षा है...",
         "audio_error_title": "ऑडियो त्रुटि"
-    },
-    "farming_plans": {
-        "title": "व्यक्तिगत खेती योजनाएं",
-        "form_title": "एआई खेती सलाहकार",
-        "form_description": "उपज को अनुकूलित करने और कचरे को कम करने के लिए एक व्यक्तिगत योजना प्राप्त करने के लिए अपने खेत के बारे में विवरण प्रदान करें।",
-        "farm_details_label": "खेत का विवरण",
-        "farm_details_placeholder": "उदा., पंजाब में 5 एकड़ का खेत, रेतीली दोमट मिट्टी, समशीतोष्ण जलवायु।",
-        "crop_type_label": "फसल का प्रकार",
-        "crop_type_placeholder": "उदा., गेहूं, चावल, कपास",
-        "current_practices_label": "वर्तमान प्रथाएं",
-        "current_practices_placeholder": "उदा., सप्ताह में दो बार बाढ़ सिंचाई, मैनुअल कीट नियंत्रण।",
-        "submit_button": "योजना बनाएं",
-        "plan_title": "व्यक्तिगत खेती योजना",
-        "plan_description": "आपकी एआई-जनित सिफारिशें यहां दिखाई देंगी।",
-        "yield_increase": "अपेक्षित उपज वृद्धि",
-        "waste_reduction": "संसाधन अपशिष्ट में कमी",
-        "irrigation": "सिंचाई",
-        "fertilization": "उर्वरीकरण",
-        "pest_control": "कीट नियंत्रण",
-        "awaiting_details": "आपके खेत के विवरण की प्रतीक्षा है..."
     },
     "weather_alerts": {
         "title": "मौसम और कीट अलर्ट",
