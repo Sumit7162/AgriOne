@@ -1,7 +1,8 @@
 
 {
     "common": {
-        "error": "خرابی"
+        "error": "خرابی",
+        "app_name": "AgriOne"
     },
     "dashboard": {
         "title": "ڈیش بورڈ",
@@ -13,19 +14,16 @@
         "mandi_prices_card_description": "اپنی مقامی منڈیوں سے براہ راست اجناس کی قیمتیں حاصل کریں۔",
         "farming_plans_card_title": "ذاتی نوعیت کے کاشتکاری کے منصوبے",
         "farming_plans_card_description": "آبپاشی، کھاد اور کیڑوں پر قابو پانے کو بہتر بنانے کے لیے AI سے چلنے والی سفارشات حاصل کریں۔",
-        "marketplace_card_title": "کسان بازار",
-        "marketplace_card_description": "بیج، کھادیں اور دیگر زرعی آدان خریدیں اور فروخت کریں۔",
         "forums_card_title": "کمیونٹی فورمز",
         "forums_card_description": "دوسرے کسانوں سے جڑیں، علم کا اشتراک کریں، اور سوالات پوچھیں۔",
         "go_to_feature": "فیچر پر جائیں"
     },
     "sidebar": {
-        "dashboard": "ڈیش بورড",
+        "dashboard": "ڈیش بورڈ",
         "crop_health": "فصل کی صحت",
         "weather_alerts": "موسمی انتباہات",
         "mandi_prices": "منڈی کی قیمتیں",
         "farming_plans": "کاشتکاری کے منصوبے",
-        "marketplace": "بازار",
         "forums": "فورمز",
         "settings": "ترتیبات"
     },
@@ -119,28 +117,6 @@
         "pest_control": "کیڑوں پر قابو پانے کی سفارشات",
         "translation_error_title": "ترجمے کی خرابی"
     },
-    "marketplace": {
-        "title": "بازار",
-        "product1_name": "ہائبرڈ مکئی کے بیج",
-        "product1_price": "₹۲۵۰ / کلوگرام",
-        "category_seeds": "بیج",
-        "product2_name": "NPK ۲۰-۲۰-۲۰ کھاد",
-        "product2_price": "₹۱۲۰۰ / ۵۰ کلوگرام بیگ",
-        "category_fertilizers": "کھادیں",
-        "product3_name": "نامیاتی نیم کا تیل",
-        "product3_price": "₹۴۵۰ / لیٹر",
-        "category_pesticides": "کیڑے مار ادویات",
-        "product4_name": "اسٹیل کا بیلچہ",
-        "product4_price": "₹۳۰۰",
-        "category_tools": "اوزار",
-        "product5_name": "ورمی کمپوسٹ",
-        "product5_price": "₹۵۰۰ / ۲۵ کلوگرام",
-        "category_organic": "نامیاتی",
-        "product6_name": "ڈرپ ایریگیشن کٹ",
-        "product6_price": "₹۳۵۰۰",
-        "category_equipment": "سازوسامان",
-        "add_to_cart_button": "کارٹ میں شامل کریں"
-    },
     "forums": {
         "title": "کمیونٹی فورمز",
         "topic1_title": "خشک علاقوں میں گندم کی کاشت کے لیے بہترین طریقے؟",
@@ -191,4 +167,3 @@
         "save_preferences_button": "ترجیحات محفوظ کریں"
     }
 }
-

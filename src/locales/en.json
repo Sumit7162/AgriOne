@@ -1,7 +1,8 @@
 
 {
     "common": {
-        "error": "Error"
+        "error": "Error",
+        "app_name": "AgriOne"
     },
     "dashboard": {
         "title": "Dashboard",
@@ -13,8 +14,6 @@
         "mandi_prices_card_description": "Get live commodity prices from your local markets (mandis).",
         "farming_plans_card_title": "Personalized Farming Plans",
         "farming_plans_card_description": "Get AI-powered recommendations to optimize irrigation, fertilization, and pest control.",
-        "marketplace_card_title": "Farmer Marketplace",
-        "marketplace_card_description": "Buy and sell seeds, fertilizers, and other agricultural inputs.",
         "forums_card_title": "Community Forums",
         "forums_card_description": "Connect with other farmers, share knowledge, and ask questions.",
         "go_to_feature": "Go to feature"
@@ -25,7 +24,6 @@
         "weather_alerts": "Weather Alerts",
         "mandi_prices": "Mandi Prices",
         "farming_plans": "Farming Plans",
-        "marketplace": "Marketplace",
         "forums": "Forums",
         "settings": "Settings"
     },
@@ -118,28 +116,6 @@
         "fertilization": "Fertilization Recommendations",
         "pest_control": "Pest Control Recommendations",
         "translation_error_title": "Translation Error"
-    },
-    "marketplace": {
-        "title": "Marketplace",
-        "product1_name": "Hybrid Maize Seeds",
-        "product1_price": "₹250 / kg",
-        "category_seeds": "Seeds",
-        "product2_name": "NPK 20-20-20 Fertilizer",
-        "product2_price": "₹1200 / 50kg bag",
-        "category_fertilizers": "Fertilizers",
-        "product3_name": "Organic Neem Oil",
-        "product3_price": "₹450 / litre",
-        "category_pesticides": "Pesticides",
-        "product4_name": "Steel Shovel",
-        "product4_price": "₹300",
-        "category_tools": "Tools",
-        "product5_name": "Vermicompost",
-        "product5_price": "₹500 / 25kg",
-        "category_organic": "Organic",
-        "product6_name": "Drip Irrigation Kit",
-        "product6_price": "₹3500",
-        "category_equipment": "Equipment",
-        "add_to_cart_button": "Add to Cart"
     },
     "forums": {
         "title": "Community Forums",

@@ -1,7 +1,8 @@
 
 {
     "common": {
-        "error": "പിശക്"
+        "error": "പിശക്",
+        "app_name": "AgriOne"
     },
     "dashboard": {
         "title": "ഡാഷ്ബോർഡ്",
@@ -13,8 +14,6 @@
         "mandi_prices_card_description": "നിങ്ങളുടെ പ്രാദേശിക മാർക്കറ്റുകളിൽ (മണ്ഡികൾ) നിന്ന് തത്സമയ ചരക്ക് വിലകൾ നേടുക.",
         "farming_plans_card_title": "വ്യക്തിഗതമാക്കിയ കൃഷി പദ്ധതികൾ",
         "farming_plans_card_description": "ജലസേചനം, വളപ്രയോഗം, കീടനിയന്ത്രണം എന്നിവ ഒപ്റ്റിമൈസ് ചെയ്യുന്നതിന് AI- പവർ ശുപാർശകൾ നേടുക.",
-        "marketplace_card_title": "കർഷക വിപണി",
-        "marketplace_card_description": "വിത്തുകൾ, വളങ്ങൾ, മറ്റ് കാർഷിക ഇൻപുട്ടുകൾ എന്നിവ വാങ്ങുകയും വിൽക്കുകയും ചെയ്യുക.",
         "forums_card_title": "കമ്മ്യൂണിറ്റി ഫോറങ്ങൾ",
         "forums_card_description": "മറ്റ് കർഷകരുമായി ബന്ധപ്പെടുക, അറിവ് പങ്കിടുക, ചോദ്യങ്ങൾ ചോദിക്കുക.",
         "go_to_feature": "ഫീച്ചറിലേക്ക് പോകുക"
@@ -25,7 +24,6 @@
         "weather_alerts": "കാലാവസ്ഥാ മുന്നറിയിപ്പുകൾ",
         "mandi_prices": "മണ്ഡി വിലകൾ",
         "farming_plans": "കൃഷി പദ്ധതികൾ",
-        "marketplace": "വിപണി",
         "forums": "ഫോറങ്ങൾ",
         "settings": "ക്രമീകരണങ്ങൾ"
     },
@@ -119,28 +117,6 @@
         "pest_control": "കീടനിയന്ത്രണ ശുപാർശകൾ",
         "translation_error_title": "വിവർത്തന പിശക്"
     },
-    "marketplace": {
-        "title": "വിപണി",
-        "product1_name": "ഹൈബ്രിഡ് ചോള വിത്തുകൾ",
-        "product1_price": "₹೨೫೦ / കിലോ",
-        "category_seeds": "വിത്തുകൾ",
-        "product2_name": "NPK ೨೦-೨೦-೨೦ വളം",
-        "product2_price": "₹೧೨೦೦ / ೫೦ കിലോ ബാഗ്",
-        "category_fertilizers": "വളങ്ങൾ",
-        "product3_name": "ഓർഗാനിക് വേപ്പെണ്ണ",
-        "product3_price": "₹೪೫೦ / ലിറ്റർ",
-        "category_pesticides": "കീടനാശിനികൾ",
-        "product4_name": "സ്റ്റീൽ കോരിക",
-        "product4_price": "₹೩೦೦",
-        "category_tools": "ഉപകരണങ്ങൾ",
-        "product5_name": "വെർമികമ്പോസ്റ്റ്",
-        "product5_price": "₹೫೦೦ / ೨೫ കിലോ",
-        "category_organic": "ഓർഗാനിക്",
-        "product6_name": "ഡ്രിപ്പ് ഇറിഗേഷൻ കിറ്റ്",
-        "product6_price": "₹೩೫೦೦",
-        "category_equipment": "ഉപകരണങ്ങൾ",
-        "add_to_cart_button": "കാർട്ടിലേക്ക് ചേർക്കുക"
-    },
     "forums": {
         "title": "കമ്മ്യൂണിറ്റി ഫോറങ്ങൾ",
         "topic1_title": "വരണ്ട പ്രദേശങ്ങളിൽ ഗോതമ്പ് കൃഷിക്കുള്ള മികച്ച രീതികൾ?",
@@ -191,4 +167,3 @@
         "save_preferences_button": "മുൻഗണനകൾ സംരക്ഷിക്കുക"
     }
 }
-

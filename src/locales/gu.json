@@ -1,7 +1,8 @@
 
 {
     "common": {
-        "error": "ભૂલ"
+        "error": "ભૂલ",
+        "app_name": "AgriOne"
     },
     "dashboard": {
         "title": "ડેશબોર્ડ",
@@ -13,8 +14,6 @@
         "mandi_prices_card_description": "તમારા સ્થાનિક બજારો (મંડીઓ) માંથી જીવંત કોમોડિટીના ભાવ મેળવો.",
         "farming_plans_card_title": "વ્યક્તિગત ખેતી યોજનાઓ",
         "farming_plans_card_description": "સિંચાઈ, ગર્ભાધાન અને જંતુ નિયંત્રણને શ્રેષ્ઠ બનાવવા માટે AI-સંચાલિત ભલામણો મેળવો.",
-        "marketplace_card_title": "ખેડૂત બજાર",
-        "marketplace_card_description": "બીજ, ખાતરો અને અન્ય કૃષિ ઇનપુટ્સ ખરીદો અને વેચો.",
         "forums_card_title": "સમુદાય ફોરમ",
         "forums_card_description": "અન્ય ખેડૂતો સાથે જોડાઓ, જ્ઞાન શેર કરો અને પ્રશ્નો પૂછો.",
         "go_to_feature": "સુવિધા પર જાઓ"
@@ -25,7 +24,6 @@
         "weather_alerts": "હવામાન ચેતવણીઓ",
         "mandi_prices": "મંડીના ભાવ",
         "farming_plans": "ખેતી યોજનાઓ",
-        "marketplace": "બજાર",
         "forums": "ફોરમ",
         "settings": "સેટિંગ્સ"
     },
@@ -119,28 +117,6 @@
         "pest_control": "જંતુ નિયંત્રણ ભલામણો",
         "translation_error_title": "અનુવાદ ભૂલ"
     },
-    "marketplace": {
-        "title": "બજાર",
-        "product1_name": "હાઇબ્રિડ મકાઈના બીજ",
-        "product1_price": "₹૨૫૦ / કિલો",
-        "category_seeds": "બીજ",
-        "product2_name": "NPK ૨૦-૨૦-૨૦ ખાતર",
-        "product2_price": "₹૧૨૦૦ / ૫૦ કિલો બેગ",
-        "category_fertilizers": "ખાતરો",
-        "product3_name": "ઓર્ગેનિક લીમડાનું તેલ",
-        "product3_price": "₹૪૫૦ / લિટર",
-        "category_pesticides": "જંતુનાશકો",
-        "product4_name": "સ્ટીલનો પાવડો",
-        "product4_price": "₹૩૦૦",
-        "category_tools": "સાધનો",
-        "product5_name": "વર્મિકમ્પોસ્ટ",
-        "product5_price": "₹૫૦૦ / ૨૫ કિલો",
-        "category_organic": "ઓર્ગેનિક",
-        "product6_name": "ડ્રિપ સિંચાઈ કીટ",
-        "product6_price": "₹૩૫૦૦",
-        "category_equipment": "સાધનો",
-        "add_to_cart_button": "કાર્ટમાં ઉમેરો"
-    },
     "forums": {
         "title": "સમુદાય ફોરમ",
         "topic1_title": "સૂકા પ્રદેશોમાં ઘઉંની ખેતી માટે શ્રેષ્ઠ પદ્ધતિઓ?",
@@ -191,4 +167,3 @@
         "save_preferences_button": "પસંદગીઓ સાચવો"
     }
 }
-

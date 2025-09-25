@@ -1,7 +1,8 @@
 
 {
     "common": {
-        "error": "त्रुटि"
+        "error": "त्रुटि",
+        "app_name": "AgriOne"
     },
     "dashboard": {
         "title": "डैशबोर्ड",
@@ -13,8 +14,6 @@
         "mandi_prices_card_description": "अपन स्थानीय बाजार (मंडी) सँ लाइव वस्तु के दाम प्राप्त करू।",
         "farming_plans_card_title": "व्यक्तिगत खेती योजना",
         "farming_plans_card_description": "सिंचाई, उर्वरक, आ कीट नियंत्रण के अनुकूल बनाबय लेल AI-संचालित सिफारिश प्राप्त करू।",
-        "marketplace_card_title": "किसान बजार",
-        "marketplace_card_description": "बीज, उर्वरक, आ अन्य कृषि इनपुट किनू आ बेचू।",
         "forums_card_title": "सामुदायिक मंच",
         "forums_card_description": "अन्य किसान सँ जुड़ू, ज्ञान साझा करू, आ प्रश्न पूछू।",
         "go_to_feature": "सुविधा पर जाउ"
@@ -25,7 +24,6 @@
         "weather_alerts": "मौसम चेतावनी",
         "mandi_prices": "मंडी के दाम",
         "farming_plans": "खेती योजना",
-        "marketplace": "बजार",
         "forums": "मंच",
         "settings": "सेटिंग्स"
     },
@@ -119,28 +117,6 @@
         "pest_control": "कीट नियंत्रण सिफारिश",
         "translation_error_title": "अनुवाद त्रुटि"
     },
-    "marketplace": {
-        "title": "बजार",
-        "product1_name": "हाइब्रिड मकई के बीज",
-        "product1_price": "₹२५० / किलो",
-        "category_seeds": "बीज",
-        "product2_name": "एनपीके २०-२०-२० उर्वरक",
-        "product2_price": "₹१२०० / ५० किलो बैग",
-        "category_fertilizers": "उर्वरक",
-        "product3_name": "जैविक नीम तेल",
-        "product3_price": "₹४५० / लीटर",
-        "category_pesticides": "कीटनाशक",
-        "product4_name": "स्टीलक कुदाल",
-        "product4_price": "₹३००",
-        "category_tools": "उपकरण",
-        "product5_name": "वर्मीकम्पोस्ट",
-        "product5_price": "₹५०० / २५ किलो",
-        "category_organic": "जैविक",
-        "product6_name": "ड्रिप सिंचाई किट",
-        "product6_price": "₹३५००",
-        "category_equipment": "उपकरण",
-        "add_to_cart_button": "कार्ट मे जोड़ू"
-    },
     "forums": {
         "title": "सामुदायिक मंच",
         "topic1_title": "शुष्क क्षेत्र मे गेहूं के खेती के लेल सर्वश्रेष्ठ अभ्यास?",
@@ -166,7 +142,7 @@
         "email_placeholder": "name@example.com",
         "submit_button": "मैजिक लिंक पठाउ",
         "phone_label": "मोबाइल नंबर",
-        "phone_placeholder": "उदा., ९८७६५४३२१०",
+        "phone_placeholder": "उदा., ९८७೬೫೪೩೨೧೦",
         "send_otp_button": "ओटीपी पठाउ",
         "otp_label": "ओटीपी दर्ज करू",
         "otp_placeholder": "६-अंकीय कोड",
@@ -191,4 +167,3 @@
         "save_preferences_button": "वरीयता सहेजू"
     }
 }
-

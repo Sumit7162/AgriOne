@@ -1,7 +1,8 @@
 
 {
     "common": {
-        "error": "ਗਲਤੀ"
+        "error": "ਗਲਤੀ",
+        "app_name": "AgriOne"
     },
     "dashboard": {
         "title": "ਡੈਸ਼ਬੋਰਡ",
@@ -13,8 +14,6 @@
         "mandi_prices_card_description": "ਆਪਣੇ ਸਥਾਨਕ ਬਾਜ਼ਾਰਾਂ (ਮੰਡੀਆਂ) ਤੋਂ ਲਾਈਵ ਵਸਤੂਆਂ ਦੀਆਂ ਕੀਮਤਾਂ ਪ੍ਰਾਪਤ ਕਰੋ।",
         "farming_plans_card_title": "ਵਿਅਕਤੀਗਤ ਖੇਤੀ ਯੋਜਨਾਵਾਂ",
         "farming_plans_card_description": "ਸਿੰਚਾਈ, ਖਾਦ ਅਤੇ ਕੀਟ ਨਿਯੰਤਰਣ ਨੂੰ ਅਨੁਕੂਲ ਬਣਾਉਣ ਲਈ ਏਆਈ-ਸੰਚਾਲਿਤ ਸਿਫਾਰਸ਼ਾਂ ਪ੍ਰਾਪਤ ਕਰੋ।",
-        "marketplace_card_title": "ਕਿਸਾਨ ਮਾਰਕੀਟਪਲੇਸ",
-        "marketplace_card_description": "ਬੀਜ, ਖਾਦਾਂ ਅਤੇ ਹੋਰ ਖੇਤੀਬਾੜੀ ਇਨਪੁਟਸ ਖਰੀਦੋ ਅਤੇ ਵੇਚੋ।",
         "forums_card_title": "ਕਮਿਊਨਿਟੀ ਫੋਰਮ",
         "forums_card_description": "ਹੋਰ ਕਿਸਾਨਾਂ ਨਾਲ ਜੁੜੋ, ਗਿਆਨ ਸਾਂਝਾ ਕਰੋ, ਅਤੇ ਸਵਾਲ ਪੁੱਛੋ।",
         "go_to_feature": "ਵਿਸ਼ੇਸ਼ਤਾ ਤੇ ਜਾਓ"
@@ -25,7 +24,6 @@
         "weather_alerts": "ਮੌਸਮ ਚੇਤਾਵਨੀਆਂ",
         "mandi_prices": "ਮੰਡੀ ਦੀਆਂ ਕੀਮਤਾਂ",
         "farming_plans": "ਖੇਤੀ ਯੋਜਨਾਵਾਂ",
-        "marketplace": "ਮਾਰਕੀਟਪਲੇਸ",
         "forums": "ਫੋਰਮ",
         "settings": "ਸੈਟਿੰਗਾਂ"
     },
@@ -119,28 +117,6 @@
         "pest_control": "ਕੀਟ ਨਿਯੰਤਰਣ ਸਿਫਾਰਸ਼ਾਂ",
         "translation_error_title": "ਅਨੁਵਾਦ ਗਲਤੀ"
     },
-    "marketplace": {
-        "title": "ਮਾਰਕੀਟਪਲੇਸ",
-        "product1_name": "ਹਾਈਬ੍ਰਿਡ ਮੱਕੀ ਦੇ ਬੀਜ",
-        "product1_price": "₹੨੫੦ / ਕਿਲੋਗ੍ਰਾਮ",
-        "category_seeds": "ਬੀਜ",
-        "product2_name": "NPK ੨੦-੨੦-੨੦ ਖਾਦ",
-        "product2_price": "₹੧੨੦੦ / ੫੦ ਕਿਲੋਗ੍ਰਾਮ ਬੈਗ",
-        "category_fertilizers": "ਖਾਦਾਂ",
-        "product3_name": "ਜੈਵਿਕ ਨਿੰਮ ਦਾ ਤੇਲ",
-        "product3_price": "₹੪੫੦ / ਲੀਟਰ",
-        "category_pesticides": "ਕੀਟਨਾਸ਼ਕ",
-        "product4_name": "ਸਟੀਲ ਦਾ ਬੇਲਚਾ",
-        "product4_price": "₹੩੦੦",
-        "category_tools": "ਸੰਦ",
-        "product5_name": "ਵਰਮੀਕੰਪੋਸਟ",
-        "product5_price": "₹੫੦੦ / ੨੫ ਕਿਲੋਗ੍ਰਾਮ",
-        "category_organic": "ਜੈਵਿਕ",
-        "product6_name": "ਡਰਿਪ ਸਿੰਚਾਈ ਕਿੱਟ",
-        "product6_price": "₹੩੫੦੦",
-        "category_equipment": "ਉਪਕਰਣ",
-        "add_to_cart_button": "ਕਾਰਟ ਵਿੱਚ ਸ਼ਾਮਲ ਕਰੋ"
-    },
     "forums": {
         "title": "ਕਮਿਊਨਿਟੀ ਫੋਰਮ",
         "topic1_title": "ਸੁੱਕੇ ਇਲਾਕਿਆਂ ਵਿੱਚ ਕਣਕ ਦੀ ਕਾਸ਼ਤ ਲਈ ਸਭ ਤੋਂ ਵਧੀਆ ਅਭਿਆਸ?",
@@ -191,4 +167,3 @@
         "save_preferences_button": "ਤਰਜੀਹਾਂ ਸੁਰੱਖਿਅਤ ਕਰੋ"
     }
 }
-

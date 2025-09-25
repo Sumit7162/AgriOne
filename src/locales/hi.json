@@ -1,7 +1,8 @@
 
 {
     "common": {
-        "error": "त्रुटि"
+        "error": "त्रुटि",
+        "app_name": "AgriOne"
     },
     "dashboard": {
         "title": "डैशबोर्ड",
@@ -13,8 +14,6 @@
         "mandi_prices_card_description": "अपने स्थानीय बाजारों (मंडियों) से लाइव कमोडिटी की कीमतें प्राप्त करें।",
         "farming_plans_card_title": "व्यक्तिगत खेती की योजनाएँ",
         "farming_plans_card_description": "सिंचाई, उर्वरीकरण और कीट नियंत्रण को अनुकूलित करने के लिए एआई-संचालित सिफारिशें प्राप्त करें।",
-        "marketplace_card_title": "किसान बाज़ार",
-        "marketplace_card_description": "बीज, उर्वरक और अन्य कृषि आदान खरीदें और बेचें।",
         "forums_card_title": "सामुदायिक मंच",
         "forums_card_description": "अन्य किसानों से जुड़ें, ज्ञान साझा करें और प्रश्न पूछें।",
         "go_to_feature": "सुविधा पर जाएं"
@@ -25,7 +24,6 @@
         "weather_alerts": "मौसम अलर्ट",
         "mandi_prices": "मंडी की कीमतें",
         "farming_plans": "खेती की योजनाएँ",
-        "marketplace": "बाज़ार",
         "forums": "मंच",
         "settings": "समायोजन"
     },
@@ -118,28 +116,6 @@
         "fertilization": "उर्वरीकरण सिफारिशें",
         "pest_control": "कीट नियंत्रण सिफारिशें",
         "translation_error_title": "अनुवाद त्रुटि"
-    },
-    "marketplace": {
-        "title": "बाज़ार",
-        "product1_name": "हाइब्रिड मक्का के बीज",
-        "product1_price": "₹250 / किग्रा",
-        "category_seeds": "बीज",
-        "product2_name": "एनपीके 20-20-20 उर्वरक",
-        "product2_price": "₹1200 / 50 किग्रा बैग",
-        "category_fertilizers": "उर्वरक",
-        "product3_name": "जैविक नीम का तेल",
-        "product3_price": "₹450 / लीटर",
-        "category_pesticides": "कीटनाशक",
-        "product4_name": "स्टील का फावड़ा",
-        "product4_price": "₹300",
-        "category_tools": "उपकरण",
-        "product5_name": "वर्मीकम्पोस्ट",
-        "product5_price": "₹500 / 25 किग्रा",
-        "category_organic": "जैविक",
-        "product6_name": "ड्रिप सिंचाई किट",
-        "product6_price": "₹3500",
-        "category_equipment": "उपकरण",
-        "add_to_cart_button": "कार्ट में डालें"
     },
     "forums": {
         "title": "सामुदायिक मंच",

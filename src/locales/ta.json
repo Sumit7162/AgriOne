@@ -1,7 +1,8 @@
 
 {
     "common": {
-        "error": "பிழை"
+        "error": "பிழை",
+        "app_name": "AgriOne"
     },
     "dashboard": {
         "title": "டாஷ்போர்டு",
@@ -13,8 +14,6 @@
         "mandi_prices_card_description": "உங்கள் உள்ளூர் சந்தைகளிலிருந்து (மண்டிகள்) நேரடி சரக்கு விலைகளைப் பெறுங்கள்.",
         "farming_plans_card_title": "தனிப்பயனாக்கப்பட்ட விவசாயத் திட்டங்கள்",
         "farming_plans_card_description": "நீர்ப்பாசனம், உரமிடுதல் மற்றும் பூச்சி નિયନ୍ତ્રణத்தை மேம்படுத்த AI-இயங்கும் பரிந்துரைகளைப் பெறுங்கள்.",
-        "marketplace_card_title": "விவசாயி சந்தை",
-        "marketplace_card_description": "விதைகள், உரங்கள் மற்றும் பிற விவசாய உள்ளீடுகளை வாங்கவும் விற்கவும்.",
         "forums_card_title": "சமூக மன்றங்கள்",
         "forums_card_description": "மற்ற விவசாயிகளுடன் இணையுங்கள், அறிவைப் பகிர்ந்து கொள்ளுங்கள், கேள்விகளைக் கேளுங்கள்.",
         "go_to_feature": "அம்சத்திற்குச் செல்லவும்"
@@ -25,7 +24,6 @@
         "weather_alerts": "வானிலை எச்சரிக்கைகள்",
         "mandi_prices": "மண்டி விலைகள்",
         "farming_plans": "விவசாயத் திட்டங்கள்",
-        "marketplace": "சந்தை",
         "forums": "மன்றங்கள்",
         "settings": "அமைப்புகள்"
     },
@@ -119,28 +117,6 @@
         "pest_control": "பூச்சி નિયନ୍ତ્રణப் பரிந்துரைகள்",
         "translation_error_title": "மொழிபெயர்ப்பு பிழை"
     },
-    "marketplace": {
-        "title": "சந்தை",
-        "product1_name": "கலப்பின மக்காச்சோள விதைகள்",
-        "product1_price": "₹೨೫೦ / கிலோ",
-        "category_seeds": "விதைகள்",
-        "product2_name": "NPK ೨೦-೨೦-೨೦ உரம்",
-        "product2_price": "₹೧೨೦೦ / ೫೦ கிலோ மூட்டை",
-        "category_fertilizers": "உரங்கள்",
-        "product3_name": "கரிம வேப்பெண்ணெய்",
-        "product3_price": "₹೪೫೦ / லிட்டர்",
-        "category_pesticides": "பூச்சிக்கொல்லிகள்",
-        "product4_name": "எஃகு மண்வெட்டி",
-        "product4_price": "₹೩೦೦",
-        "category_tools": "கருவிகள்",
-        "product5_name": "மண்புழு உரம்",
-        "product5_price": "₹೫೦೦ / ೨೫ கிலோ",
-        "category_organic": "கரிம",
-        "product6_name": "சொட்டு நீர்ப்பாசனக் கருவி",
-        "product6_price": "₹೩೫೦೦",
-        "category_equipment": "உபகரணங்கள்",
-        "add_to_cart_button": "வண்டியில் சேர்"
-    },
     "forums": {
         "title": "சமூக மன்றங்கள்",
         "topic1_title": "வறண்ட பகுதிகளில் கோதுமை சாகுபடிக்கு சிறந்த நடைமுறைகள்?",
@@ -166,7 +142,7 @@
         "email_placeholder": "name@example.com",
         "submit_button": "மந்திர இணைப்பை அனுப்பு",
         "phone_label": "கைபேசி எண்",
-        "phone_placeholder": "எ.கா., ೯೮೭೬೫೪೩೨೧೦",
+        "phone_placeholder": "எ.கா., ೯೮೭೬೫೪೩೨೧０",
         "send_otp_button": "OTP ஐ அனுப்பு",
         "otp_label": "OTP ஐ உள்ளிடவும்",
         "otp_placeholder": "೬-இலக்கக் குறியீடு",
@@ -191,4 +167,3 @@
         "save_preferences_button": "விருப்பங்களைச் சேமி"
     }
 }
-

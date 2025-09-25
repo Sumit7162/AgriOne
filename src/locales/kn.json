@@ -1,7 +1,8 @@
 
 {
     "common": {
-        "error": "ದೋಷ"
+        "error": "ದೋಷ",
+        "app_name": "AgriOne"
     },
     "dashboard": {
         "title": "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
@@ -12,9 +13,7 @@
         "mandi_prices_card_title": "ಮಂಡಿ ಬೆಲೆಗಳು",
         "mandi_prices_card_description": "ನಿಮ್ಮ ಸ್ಥಳೀಯ ಮಾರುಕಟ್ಟೆಗಳಿಂದ (ಮಂಡಿಗಳು) ನೇರ ಸರಕು ಬೆಲೆಗಳನ್ನು ಪಡೆಯಿರಿ.",
         "farming_plans_card_title": "ವೈಯಕ್ತಿಕಗೊಳಿಸಿದ ಕೃಷಿ ಯೋಜನೆಗಳು",
-        "farming_plans_card_description": "ನೀರಾವರಿ, ಗೊಬ್ಬರ ಮತ್ತು ಕೀಟ ನಿಯಂತ್ರಣವನ್ನು ಉತ್ತಮಗೊಳಿಸಲು AI-ಚಾಲಿತ ಶಿಫಾರಸುಗಳನ್ನು ಪಡೆಯಿರಿ.",
-        "marketplace_card_title": "ರೈತ ಮಾರುಕಟ್ಟೆ",
-        "marketplace_card_description": "ಬೀಜಗಳು, ರಸಗೊಬ್ಬರಗಳು ಮತ್ತು ಇತರ ಕೃಷಿ ಉತ್ಪನ್ನಗಳನ್ನು ಖರೀದಿಸಿ ಮತ್ತು ಮಾರಾಟ ಮಾಡಿ.",
+        "farming_plans_card_description": "ನೀರಾವರಿ, ಗೊಬ್ಬర ಮತ್ತು ಕೀಟ ನಿಯಂತ್ರಣವನ್ನು ಉತ್ತಮಗೊಳಿಸಲು AI-ಚಾಲಿತ ಶಿಫಾರಸುಗಳನ್ನು ಪಡೆಯಿರಿ.",
         "forums_card_title": "ಸಮುದಾಯ ವೇದಿಕೆಗಳು",
         "forums_card_description": "ಇತರ ರೈತರೊಂದಿಗೆ ಸಂಪರ್ಕ ಸಾಧಿಸಿ, ಜ್ಞಾನವನ್ನು ಹಂಚಿಕೊಳ್ಳಿ ಮತ್ತು ಪ್ರಶ್ನೆಗಳನ್ನು ಕೇಳಿ.",
         "go_to_feature": "ವೈಶಿಷ್ಟ್ಯಕ್ಕೆ ಹೋಗಿ"
@@ -25,7 +24,6 @@
         "weather_alerts": "ಹವಾಮಾನ ಎಚ್ಚರಿಕೆಗಳು",
         "mandi_prices": "ಮಂಡಿ ಬೆಲೆಗಳು",
         "farming_plans": "ಕೃಷಿ ಯೋಜನೆಗಳು",
-        "marketplace": "ಮಾರುಕಟ್ಟೆ",
         "forums": "ವೇದಿಕೆಗಳು",
         "settings": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
     },
@@ -104,7 +102,7 @@
         "form_description": "ವೈಯಕ್ತಿಕಗೊಳಿಸಿದ ಯೋಜನೆಯನ್ನು ಪಡೆಯಲು ನಿಮ್ಮ ಫಾರ್ಮ್ ಬಗ್ಗೆ ವಿವರಗಳನ್ನು ಒದಗಿಸಿ.",
         "farm_details_label": "ಫಾರ್ಮ್ ವಿವರಗಳು",
         "farm_details_placeholder": "ಉದಾ., ಪಂಜಾಬ್‌ನಲ್ಲಿ 5-ಎಕರೆ ಪ್ಲಾಟ್, ಮರಳು ಮಿಶ್ರಿತ ಲೋಮ್ ಮಣ್ಣು, ಕಾಲುವೆ ನೀರಾವರಿ",
-        "crop_type_label": "ಬೆಳೆ ಪ್ರಕಾರ",
+        "crop_type_label": "ಬెಳೆ ಪ್ರಕಾರ",
         "crop_type_placeholder": "ಉದಾ., ಬಾಸಮತಿ ಅಕ್ಕಿ",
         "current_practices_label": "ಪ್ರಸ್ತುತ ಕೃಷಿ ಪದ್ಧತಿಗಳು",
         "current_practices_placeholder": "ಉದಾ., ವಾರಕ್ಕೆ ಎರಡು ಬಾರಿ ಪ್ರವಾಹ ನೀರಾವರಿ, DAP ಮತ್ತು ಯೂರಿಯಾ ಬಳಕೆ",
@@ -118,28 +116,6 @@
         "fertilization": "ಗೊಬ್ಬರ ಶಿಫಾರಸುಗಳು",
         "pest_control": "ಕೀಟ ನಿಯಂತ್ರಣ ಶಿಫಾರಸುಗಳು",
         "translation_error_title": "ಅನುವಾದ ದೋಷ"
-    },
-    "marketplace": {
-        "title": "ಮಾರುಕಟ್ಟೆ",
-        "product1_name": "ಹೈಬ್ರಿಡ್ ಮೆಕ್ಕೆಜೋಳದ ಬೀಜಗಳು",
-        "product1_price": "₹೨೫೦ / ಕೆಜಿ",
-        "category_seeds": "ಬೀಜಗಳು",
-        "product2_name": "NPK ೨೦-೨೦-೨೦ ರಸಗೊಬ್ಬರ",
-        "product2_price": "₹೧೨೦೦ / ೫೦ ಕೆಜಿ ಚೀಲ",
-        "category_fertilizers": "ರಸಗೊಬ್ಬರಗಳು",
-        "product3_name": "ಸಾವಯವ ಬೇವಿನ ಎಣ್ಣೆ",
-        "product3_price": "₹೪೫೦ / ಲೀಟರ್",
-        "category_pesticides": "ಕೀಟನಾಶಕಗಳು",
-        "product4_name": "ಉಕ್ಕಿನ ಸಲಿಕೆ",
-        "product4_price": "₹೩೦೦",
-        "category_tools": "ಉಪಕರಣಗಳು",
-        "product5_name": "ಎರೆಹುಳು ಗೊಬ್ಬರ",
-        "product5_price": "₹೫೦೦ / ೨೫ ಕೆಜಿ",
-        "category_organic": "ಸಾವಯವ",
-        "product6_name": "ಹನಿ ನೀರಾವರಿ ಕಿಟ್",
-        "product6_price": "₹೩೫೦೦",
-        "category_equipment": "ಉಪಕರಣಗಳು",
-        "add_to_cart_button": "ಕಾರ್ಟ್‌ಗೆ ಸೇರಿಸಿ"
     },
     "forums": {
         "title": "ಸಮುದಾಯ ವೇದಿಕೆಗಳು",
@@ -191,4 +167,3 @@
         "save_preferences_button": "ಆದ್ಯತೆಗಳನ್ನು ಉಳಿಸಿ"
     }
 }
-

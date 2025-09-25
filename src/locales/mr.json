@@ -1,7 +1,8 @@
 
 {
     "common": {
-        "error": "त्रुटी"
+        "error": "त्रुटी",
+        "app_name": "AgriOne"
     },
     "dashboard": {
         "title": "डॅशबोर्ड",
@@ -13,8 +14,6 @@
         "mandi_prices_card_description": "तुमच्या स्थानिक बाजारांमधून (मंडई) थेट वस्तूंचे भाव मिळवा.",
         "farming_plans_card_title": "वैयक्तिकृत शेती योजना",
         "farming_plans_card_description": "सिंचन, खत आणि कीटक नियंत्रण ऑप्टिमाइझ करण्यासाठी AI-चालित शिफारसी मिळवा.",
-        "marketplace_card_title": "शेतकरी बाजारपेठ",
-        "marketplace_card_description": "बियाणे, खते आणि इतर कृषी निविष्ठा खरेदी आणि विक्री करा.",
         "forums_card_title": "समुदाय मंच",
         "forums_card_description": "इतर शेतकऱ्यांशी संपर्क साधा, ज्ञान सामायिक करा आणि प्रश्न विचारा.",
         "go_to_feature": "वैशिष्ट्यावर जा"
@@ -25,7 +24,6 @@
         "weather_alerts": "हवामान सूचना",
         "mandi_prices": "मंडी भाव",
         "farming_plans": "शेती योजना",
-        "marketplace": "बाजारपेठ",
         "forums": "मंच",
         "settings": "सेटिंग्ज"
     },
@@ -119,28 +117,6 @@
         "pest_control": "कीटक नियंत्रण शिफारसी",
         "translation_error_title": "अनुवाद त्रुटी"
     },
-    "marketplace": {
-        "title": "बाजारपेठ",
-        "product1_name": "हायब्रीड मका बियाणे",
-        "product1_price": "₹२५० / किलो",
-        "category_seeds": "बियाणे",
-        "product2_name": "एनपीके २०-२०-२० खत",
-        "product2_price": "₹१२०० / ५० किलो बॅग",
-        "category_fertilizers": "खते",
-        "product3_name": "सेंद्रिय कडुलिंबाचे तेल",
-        "product3_price": "₹४५० / लिटर",
-        "category_pesticides": "कीटकनाशके",
-        "product4_name": "स्टीलचा फावडा",
-        "product4_price": "₹३००",
-        "category_tools": "साधने",
-        "product5_name": "गांडूळ खत",
-        "product5_price": "₹५०० / २५ किलो",
-        "category_organic": "सेंद्रिय",
-        "product6_name": "ठिबक सिंचन किट",
-        "product6_price": "₹३५००",
-        "category_equipment": "उपकरणे",
-        "add_to_cart_button": "कार्टमध्ये जोडा"
-    },
     "forums": {
         "title": "समुदाय मंच",
         "topic1_title": "कोरड्या प्रदेशात गहू लागवडीसाठी सर्वोत्तम पद्धती?",
@@ -191,4 +167,3 @@
         "save_preferences_button": "प्राधान्ये जतन करा"
     }
 }
-

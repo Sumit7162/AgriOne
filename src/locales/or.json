@@ -1,7 +1,8 @@
 
 {
     "common": {
-        "error": "ତ୍ରୁଟି"
+        "error": "ତ୍ରୁଟି",
+        "app_name": "AgriOne"
     },
     "dashboard": {
         "title": "ଡ୍ୟାଶବୋର୍ଡ",
@@ -13,8 +14,6 @@
         "mandi_prices_card_description": "ଆପଣଙ୍କ ସ୍ଥାନୀୟ ବଜାର (ମଣ୍ଡି) ରୁ ଲାଇଭ୍ କମୋଡିଟି ମୂଲ୍ୟ ପାଆନ୍ତୁ |",
         "farming_plans_card_title": "ବ୍ୟକ୍ତିଗତ ଚାଷ ଯୋଜନା",
         "farming_plans_card_description": "ଜଳସେଚନ, ସାର ଏବଂ କୀଟନାଶକ ନିୟନ୍ତ୍ରଣକୁ ଅପ୍ଟିମାଇଜ୍ କରିବାକୁ AI- ଚାଳିତ ସୁପାରିଶ ପାଆନ୍ତୁ |",
-        "marketplace_card_title": "କୃଷକ ବଜାର",
-        "marketplace_card_description": "ବିହନ, ସାର ଏବଂ ଅନ୍ୟାନ୍ୟ କୃଷି ସାମଗ୍ରୀ କିଣନ୍ତୁ ଏବଂ ବିକ୍ରୟ କରନ୍ତୁ |",
         "forums_card_title": "କମ୍ୟୁନିଟି ଫୋରମ୍",
         "forums_card_description": "ଅନ୍ୟ କୃଷକମାନଙ୍କ ସହିତ ସଂଯୋଗ କରନ୍ତୁ, ଜ୍ଞାନ ବାଣ୍ଟନ୍ତୁ ଏବଂ ପ୍ରଶ୍ନ ପଚାରନ୍ତୁ |",
         "go_to_feature": "ଫିଚର୍ କୁ ଯାଆନ୍ତୁ |"
@@ -25,7 +24,6 @@
         "weather_alerts": "ପାଣିପାଗ ସତର୍କତା",
         "mandi_prices": "ମଣ୍ଡି ମୂଲ୍ୟ",
         "farming_plans": "ଚାଷ ଯୋଜନା",
-        "marketplace": "ବଜାର",
         "forums": "ଫୋରମ୍",
         "settings": "ସେଟିଂସ"
     },
@@ -93,7 +91,7 @@
         "results_description": "ବଜାରରୁ ରିପୋର୍ଟ କରାଯାଇଥିବା ନୂତନ ମୂଲ୍ୟ |",
         "table_commodity": "କମୋଡିଟି",
         "table_min_price": "ସର୍ବନିମ୍ନ ମୂଲ୍ୟ",
-        "table_max_price": "ସର୍ବାଧିକ ମୂଲ୍ୟ",
+        "table_max_price": "ସର୍ବାଧିକ ମୂଲ્ય",
         "table_modal_price": "ମୋଡାଲ୍ ମୂଲ୍ୟ",
         "table_unit": "ଏକକ",
         "no_data": "ଏହି ବଜାର ପାଇଁ କୌଣସି କମୋଡିଟି ଡାଟା ମିଳିଲା ନାହିଁ |"
@@ -118,28 +116,6 @@
         "fertilization": "ସାର ସୁପାରିଶ",
         "pest_control": "କୀଟନାଶକ ନିୟନ୍ତ୍ରଣ ସୁପାରିଶ",
         "translation_error_title": "ଅନୁବାଦ ତ୍ରୁଟି"
-    },
-    "marketplace": {
-        "title": "ବଜାର",
-        "product1_name": "ହାଇବ୍ରିଡ୍ ମକା ବିହନ",
-        "product1_price": "₹୨୫୦ / କିଲୋଗ୍ରାମ",
-        "category_seeds": "ବିହନ",
-        "product2_name": "NPK ୨୦-୨୦-୨୦ ସାର",
-        "product2_price": "₹୧୨୦୦ / ୫୦ କିଲୋଗ୍ରାମ ବ୍ୟାଗ୍",
-        "category_fertilizers": "ସାର",
-        "product3_name": "ଜୈବିକ ନିମ୍ବ ତେଲ",
-        "product3_price": "₹୪୫୦ / ଲିଟର୍",
-        "category_pesticides": "କୀଟନାଶକ",
-        "product4_name": "ଷ୍ଟିଲ୍ ଶାବଳ",
-        "product4_price": "₹୩୦୦",
-        "category_tools": "ଉପକରଣ",
-        "product5_name": "ଜିଆ ଖତ",
-        "product5_price": "₹୫୦୦ / ୨୫ କିଲୋଗ୍ରାମ",
-        "category_organic": "ଜୈବିକ",
-        "product6_name": "ଡ୍ରିପ୍ ଜଳସେଚନ କିଟ୍",
-        "product6_price": "₹୩୫୦୦",
-        "category_equipment": "ଉପକରଣ",
-        "add_to_cart_button": "କାର୍ଟରେ ଯୋଗ କରନ୍ତୁ"
     },
     "forums": {
         "title": "କମ୍ୟୁନିଟି ଫୋରମ୍",
@@ -191,4 +167,3 @@
         "save_preferences_button": "ପସନ୍ଦ ସଞ୍ଚୟ କରନ୍ତୁ"
     }
 }
-

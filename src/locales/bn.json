@@ -1,7 +1,8 @@
 
 {
     "common": {
-        "error": "ত্রুটি"
+        "error": "ত্রুটি",
+        "app_name": "AgriOne"
     },
     "dashboard": {
         "title": "ড্যাশবোর্ড",
@@ -13,8 +14,6 @@
         "mandi_prices_card_description": "আপনার স্থানীয় বাজার (মান্ডি) থেকে লাইভ পণ্যের দাম পান।",
         "farming_plans_card_title": "ব্যক্তিগত কৃষি পরিকল্পনা",
         "farming_plans_card_description": "সেচ, সার প্রয়োগ এবং কীটপতঙ্গ নিয়ন্ত্রণের জন্য এআই-চালিত সুপারিশ পান।",
-        "marketplace_card_title": "কৃষক মার্কেটপ্লেস",
-        "marketplace_card_description": "বীজ, সার এবং অন্যান্য কৃষি উপকরণ কিনুন এবং বিক্রি করুন।",
         "forums_card_title": "কমিউনিটি ফোরাম",
         "forums_card_description": "অন্যান্য কৃষকদের সাথে সংযোগ স্থাপন করুন, জ্ঞান ভাগ করুন এবং প্রশ্ন জিজ্ঞাসা করুন।",
         "go_to_feature": "বৈশিষ্ট্যে যান"
@@ -25,7 +24,6 @@
         "weather_alerts": "আবহাওয়ার সতর্কতা",
         "mandi_prices": "মান্ডির দাম",
         "farming_plans": "কৃষি পরিকল্পনা",
-        "marketplace": "মার্কেটপ্লেস",
         "forums": "ফোরাম",
         "settings": "সেটিংস"
     },
@@ -119,28 +117,6 @@
         "pest_control": "কীটপতঙ্গ নিয়ন্ত্রণ সুপারিশ",
         "translation_error_title": "অনুবাদ ত্রুটি"
     },
-    "marketplace": {
-        "title": "মার্কেটপ্লেস",
-        "product1_name": "হাইব্রিড ভুট্টার বীজ",
-        "product1_price": "₹২৫০ / কেজি",
-        "category_seeds": "বীজ",
-        "product2_name": "এনপিকে ২০-২০-২০ সার",
-        "product2_price": "₹১২০০ / ৫০ কেজি ব্যাগ",
-        "category_fertilizers": "সার",
-        "product3_name": "জৈব নিম তেল",
-        "product3_price": "₹৪৫০ / লিটার",
-        "category_pesticides": "কীটনাশক",
-        "product4_name": "ইস্পাতের বেলচা",
-        "product4_price": "₹৩০০",
-        "category_tools": "সরঞ্জাম",
-        "product5_name": "ভার্মিকম্পোস্ট",
-        "product5_price": "₹৫০০ / ২৫ কেজি",
-        "category_organic": "জৈব",
-        "product6_name": "ড্রিপ সেচ কিট",
-        "product6_price": "₹৩৫০০",
-        "category_equipment": "সরঞ্জাম",
-        "add_to_cart_button": "কার্টে যোগ করুন"
-    },
     "forums": {
         "title": "কমিউনিটি ফোরাম",
         "topic1_title": "শুষ্ক অঞ্চলে গম চাষের জন্য সেরা অনুশীলন?",
@@ -191,4 +167,3 @@
         "save_preferences_button": "পছন্দগুলি সংরক্ষণ করুন"
     }
 }
-
