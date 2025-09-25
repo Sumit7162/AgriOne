@@ -33,12 +33,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 
 const initialState: CropHealthState = {};
 
-const voices = [
-    { value: 'Algenib', label: 'Voice 1 (English)' },
-    { value: 'hi-IN-Standard-A', label: 'आवाज 2 (हिन्दी)' },
-    { value: 'Hadar', label: 'Voice 3 (English)' },
-];
-
 const languages = [
     { value: 'en', label: 'English' },
     { value: 'hi', label: 'हिन्दी (Hindi)' },
@@ -63,7 +57,6 @@ export function CropHealthForm() {
   const [photoDataUri, setPhotoDataUri] = useState<string>('');
   const audioRef = useRef<HTMLAudioElement>(null);
   const [audioDataUri, setAudioDataUri] = useState<string | undefined>(undefined);
-  const [selectedVoice, setSelectedVoice] = useState(voices[0].value);
   const [isAudioLoading, startAudioTransition] = useTransition();
   const [loadingAudioSection, setLoadingAudioSection] = useState<string | null>(null);
   const [isTranslationLoading, startTranslationTransition] = useTransition();
@@ -157,7 +150,6 @@ export function CropHealthForm() {
     if (state.report) {
         setDisplayedReport(state.report);
         setLanguage('en');
-        setSelectedVoice(voices[0].value);
         setAudioDataUri(undefined); 
     }
     if (state.error || state.report) {
@@ -177,7 +169,8 @@ export function CropHealthForm() {
     if (isAudioLoading) return;
     setLoadingAudioSection(section);
     startAudioTransition(async () => {
-      const result = await getReportAudio(text, selectedVoice);
+      // Defaulting to the first English voice since the selector is hidden.
+      const result = await getReportAudio(text, 'Algenib');
       if (result.error) {
         toast({
           variant: "destructive",
@@ -288,18 +281,6 @@ export function CropHealthForm() {
                                 {languages.map(lang => (
                                     <SelectItem key={lang.value} value={lang.value}>
                                         {lang.label}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                        <Select value={selectedVoice} onValueChange={setSelectedVoice}>
-                            <SelectTrigger className="w-auto">
-                                <SelectValue placeholder={t('crop_health.select_voice_placeholder')} />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {voices.map(voice => (
-                                    <SelectItem key={voice.value} value={voice.value}>
-                                        {voice.label}
                                     </SelectItem>
                                 ))}
                             </SelectContent>
