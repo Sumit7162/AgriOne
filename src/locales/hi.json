@@ -9,8 +9,8 @@
         "crop_health_card_description": "अपनी फसलों में कीटों और बीमारियों का तुरंत पता लगाने के लिए एक छवि अपलोड करें।",
         "weather_alerts_card_title": "मौसम और कीट अलर्ट",
         "weather_alerts_card_description": "हाइपरलोकल मौसम अपडेट और भविष्य कहनेवाला कीट/रोग अलर्ट प्राप्त करें।",
-        "fasal_price_card_title": "कमोडिटी की कीमतें",
-        "fasal_price_card_description": "अपने स्थानीय बाजारों (मंडियों) से लाइव कमोडिटी की कीमतें प्राप्त करें।",
+        "mandi_prices_card_title": "मंडी की कीमतें",
+        "mandi_prices_card_description": "अपने स्थानीय बाजारों (मंडियों) से लाइव कमोडिटी की कीमतें प्राप्त करें।",
         "marketplace_card_title": "किसान बाज़ार",
         "marketplace_card_description": "बीज, उर्वरक और अन्य कृषि आदान खरीदें और बेचें।",
         "forums_card_title": "सामुदायिक मंच",
@@ -21,7 +21,7 @@
         "dashboard": "डैशबोर्ड",
         "crop_health": "फसल स्वास्थ्य",
         "weather_alerts": "मौसम अलर्ट",
-        "fasal_price": "कमोडिटी की कीमतें",
+        "mandi_prices": "मंडी की कीमतें",
         "marketplace": "बाज़ार",
         "forums": "मंच",
         "settings": "समायोजन"
@@ -66,8 +66,8 @@
         "humidity": "नमी",
         "precipitation": "वर्षा"
     },
-    "fasal_price": {
-        "title": "कमोडिटी की कीमतें",
+    "mandi_prices": {
+        "title": "मंडी की कीमतें",
         "form_title": "लाइव बाजार मूल्य",
         "form_description": "नवीनतम कमोडिटी मूल्य प्राप्त करने के लिए एक बाजार का नाम दर्ज करें।",
         "market_label": "बाजार का नाम",

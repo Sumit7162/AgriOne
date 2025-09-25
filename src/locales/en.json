@@ -9,8 +9,8 @@
         "crop_health_card_description": "Upload an image to detect pests and diseases in your crops instantly.",
         "weather_alerts_card_title": "Weather & Pest Alerts",
         "weather_alerts_card_description": "Receive hyperlocal weather updates and predictive pest/disease alerts.",
-        "fasal_price_card_title": "Commodity Prices",
-        "fasal_price_card_description": "Get live commodity prices from your local markets (mandis).",
+        "mandi_prices_card_title": "Mandi Prices",
+        "mandi_prices_card_description": "Get live commodity prices from your local markets (mandis).",
         "marketplace_card_title": "Farmer Marketplace",
         "marketplace_card_description": "Buy and sell seeds, fertilizers, and other agricultural inputs.",
         "forums_card_title": "Community Forums",
@@ -21,7 +21,7 @@
         "dashboard": "Dashboard",
         "crop_health": "Crop Health",
         "weather_alerts": "Weather Alerts",
-        "fasal_price": "Commodity Prices",
+        "mandi_prices": "Mandi Prices",
         "marketplace": "Marketplace",
         "forums": "Forums",
         "settings": "Settings"
@@ -66,8 +66,8 @@
         "humidity": "Humidity",
         "precipitation": "Precipitation"
     },
-    "fasal_price": {
-        "title": "Commodity Prices",
+    "mandi_prices": {
+        "title": "Mandi Prices",
         "form_title": "Live Market Prices",
         "form_description": "Enter a market name to get the latest commodity prices.",
         "market_label": "Market Name",

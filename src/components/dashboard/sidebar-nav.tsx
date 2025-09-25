@@ -30,7 +30,7 @@ export function SidebarNav() {
     { href: '/', label: t('sidebar.dashboard'), icon: LayoutDashboard },
     { href: '/crop-health', label: t('sidebar.crop_health'), icon: Leaf },
     { href: '/weather-alerts', label: t('sidebar.weather_alerts'), icon: CloudSun },
-    { href: '/fasal-price', label: t('sidebar.fasal_price'), icon: Landmark },
+    { href: '/mandi-prices', label: t('sidebar.mandi_prices'), icon: Landmark },
     { href: '/marketplace', label: t('sidebar.marketplace'), icon: Store },
     { href: '/forums', label: t('sidebar.forums'), icon: MessageSquare },
   ];

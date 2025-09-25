@@ -22,8 +22,8 @@ export const Header: FC<PropsWithChildren> = ({ children }) => {
         return t('crop_health.title');
       case 'Weather & Pest Alerts':
         return t('weather_alerts.title');
-       case 'Commodity Prices':
-        return t('fasal_price.title');
+       case 'Mandi Prices':
+        return t('mandi_prices.title');
       case 'Marketplace':
         return t('marketplace.title');
       case 'Community Forums':

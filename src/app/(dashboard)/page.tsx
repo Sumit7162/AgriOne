@@ -37,9 +37,9 @@ export default function DashboardPage() {
       icon: <CloudSun className="h-8 w-8 text-primary" />,
     },
     {
-      title: t('dashboard.fasal_price_card_title'),
-      description: t('dashboard.fasal_price_card_description'),
-      href: '/fasal-price',
+      title: t('dashboard.mandi_prices_card_title'),
+      description: t('dashboard.mandi_prices_card_description'),
+      href: '/mandi-prices',
       icon: <Landmark className="h-8 w-8 text-primary" />,
     },
     {
