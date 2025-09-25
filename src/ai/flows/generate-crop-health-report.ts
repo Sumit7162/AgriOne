@@ -59,17 +59,6 @@ const generateCropHealthReportFlow = ai.defineFlow(
     outputSchema: GenerateCropHealthReportOutputSchema,
   },
   async input => {
-    // Check if the Gemini API key is present.
-    if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY === '<YOUR_API_KEY>') {
-      console.warn("GEMINI_API_KEY is not set. Returning mock data for crop health report.");
-      // Return a realistic mock report if the key is missing.
-      return {
-        plantInfo: "This appears to be a tomato plant (Solanum lycopersicum), a popular vegetable crop. It is in its early fruiting stage. Tomato plants require ample sunlight, regular watering, and nutrient-rich soil to thrive.",
-        diseaseDiagnosis: "The yellowing leaves with dark spots are indicative of Early Blight (Alternaria solani), a common fungal disease in tomatoes. This is often exacerbated by humid weather and overhead watering.",
-        solution: "1. **Pruning:** Immediately remove and destroy the infected lower leaves to prevent the spread of spores.\n2. **Watering:** Water at the base of the plant in the morning to avoid wet foliage overnight.\n3. **Fungicide:** Apply a copper-based or bio-fungicide (like Bacillus subtilis) spray, ensuring complete coverage of the plant. Repeat every 7-10 days.\n4. **Mulching:** Add a layer of straw or mulch around the plant base to prevent fungus from splashing up from the soil."
-      };
-    }
-
     const {output} = await prompt(input);
     if (!output) {
       throw new Error("AI failed to generate a report.");

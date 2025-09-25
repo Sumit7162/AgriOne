@@ -44,16 +44,9 @@ const getFasalPriceTool = ai.defineTool(
     console.log(`Fetching commodity prices for ${market}...`);
     const apiKey = process.env.FASAL_API_KEY;
 
-    if (!apiKey || apiKey === '<YOUR_API_KEY>') {
-      console.warn('FASAL_API_KEY is not set. Using mock data.');
-      return {
-        commodities: [
-            { commodity: 'Soya Bean', min_price: 4500, max_price: 4650, modal_price: 4600, unit: 'Quintal' },
-            { commodity: 'Paddy(Dhan)(Common)', min_price: 2100, max_price: 2200, modal_price: 2183, unit: 'Quintal' },
-            { commodity: 'Maize', min_price: 2000, max_price: 2100, modal_price: 2050, unit: 'Quintal' },
-            { commodity: 'Wheat', min_price: 2200, max_price: 2300, modal_price: 2250, unit: 'Quintal' },
-        ],
-      };
+    if (!apiKey) {
+      console.error('FASAL_API_KEY is not set.');
+      throw new Error('FASAL_API_KEY is not configured.');
     }
 
     const response = await fetch(
