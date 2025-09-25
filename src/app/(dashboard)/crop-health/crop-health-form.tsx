@@ -27,7 +27,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { useTranslation } from "@/context/language-context";
+import { useLanguage, useTranslation } from "@/context/language-context";
 import type { GenerateCropHealthReportOutput } from "@/ai/flows/generate-crop-health-report";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
@@ -37,23 +37,6 @@ const voices = [
     { value: 'Algenib', label: 'Voice 1 (English)', lang: 'en' },
     { value: 'hi-IN-Standard-A', label: 'आवाज 2 (हिन्दी)', lang: 'hi' },
     { value: 'Hadar', label: 'Voice 3 (English)', lang: 'en' },
-];
-
-const languages = [
-    { value: 'en', label: 'English' },
-    { value: 'hi', label: 'हिन्दी (Hindi)' },
-    { value: 'bn', label: 'বাংলা (Bengali)' },
-    { value: 'te', label: 'తెలుగు (Telugu)' },
-    { value: 'mr', label: 'मराठी (Marathi)' },
-    { value: 'ta', label: 'தமிழ் (Tamil)' },
-    { value: 'ur', label: 'اردو (Urdu)' },
-    { value: 'gu', label: 'ગુજરાતી (Gujarati)' },
-    { value: 'kn', label: 'ಕನ್ನಡ (Kannada)' },
-    { value: 'or', label: 'ଓଡ଼ିଆ (Odia)' },
-    { value: 'pa', label: 'ਪੰਜਾਬੀ (Punjabi)' },
-    { value: 'ml', label: 'മലയാളം (Malayalam)' },
-    { value: 'as', label: 'অসমীয়া (Assamese)' },
-    { value: 'mai', label: 'मैथिली (Maithili)' },
 ];
 
 export function CropHealthForm() {
@@ -69,7 +52,7 @@ export function CropHealthForm() {
   const [isTranslationLoading, startTranslationTransition] = useTransition();
   const [isResetting, startResetTransition] = useTransition();
   const [displayedReport, setDisplayedReport] = useState<GenerateCropHealthReportOutput | undefined>(undefined);
-  const [selectedLanguage, setSelectedLanguage] = useState(languages[0].value);
+  const { setLanguage } = useLanguage();
   const { toast } = useToast();
   const { t } = useTranslation();
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -156,13 +139,14 @@ export function CropHealthForm() {
   useEffect(() => {
     if (state.report) {
         setDisplayedReport(state.report);
-        setSelectedLanguage('en');
+        setLanguage('en');
+        setSelectedVoice(voices[0].value);
         setAudioDataUri(undefined); 
     }
     if (state.error || state.report) {
         setIsSubmitting(false);
     }
-  }, [state.report, state.error]);
+  }, [state.report, state.error, setLanguage]);
 
   useEffect(() => {
     if (audioDataUri && audioRef.current) {
@@ -191,23 +175,27 @@ export function CropHealthForm() {
     });
   };
 
-  const handleLanguageChange = async (languageCode: string) => {
-      setSelectedLanguage(languageCode);
-      if (!state.report) return;
+  const handleVoiceAndLanguageChange = (voiceValue: string) => {
+    const selected = voices.find(v => v.value === voiceValue);
+    if (!selected || !state.report) return;
 
-      startTranslationTransition(async () => {
-          const result = await getTranslatedReport(state.report!, languageCode);
-          if (result.error) {
-              toast({
-                  variant: "destructive",
-                  title: t('crop_health.translation_error_title'),
-                  description: result.error,
-              });
-          } else if (result.translatedReport) {
-              setDisplayedReport(result.translatedReport);
-              setAudioDataUri(undefined);
-          }
-      });
+    setSelectedVoice(voiceValue);
+    const languageCode = selected.lang as any;
+    setLanguage(languageCode);
+
+    startTranslationTransition(async () => {
+        const result = await getTranslatedReport(state.report!, languageCode);
+        if (result.error) {
+            toast({
+                variant: "destructive",
+                title: t('crop_health.translation_error_title'),
+                description: result.error,
+            });
+        } else if (result.translatedReport) {
+            setDisplayedReport(result.translatedReport);
+            setAudioDataUri(undefined);
+        }
+    });
   };
   
   const handleReset = () => {
@@ -273,30 +261,18 @@ export function CropHealthForm() {
                         <CardTitle className="font-headline text-2xl">{t('crop_health.report_title')}</CardTitle>
                     </div>
                     <div className="flex items-center gap-2">
-                         <Select value={selectedLanguage} onValueChange={handleLanguageChange}>
+                        <Select value={selectedVoice} onValueChange={handleVoiceAndLanguageChange}>
                             <SelectTrigger className="w-auto">
                                 <SelectValue>
                                     <div className="flex items-center gap-2">
                                         <Languages className="h-4 w-4" />
-                                        <span>{languages.find(l => l.value === selectedLanguage)?.label}</span>
+                                        <span>{voices.find(v => v.value === selectedVoice)?.label}</span>
                                     </div>
                                 </SelectValue>
                             </SelectTrigger>
                             <SelectContent>
-                                {languages.map(lang => (
-                                    <SelectItem key={lang.value} value={lang.value}>
-                                        {lang.label}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                        <Select value={selectedVoice} onValueChange={setSelectedVoice}>
-                            <SelectTrigger className="w-auto">
-                                <SelectValue placeholder={t('crop_health.select_voice_placeholder')} />
-                            </SelectTrigger>
-                            <SelectContent>
                                 {voices.map(voice => (
-                                    <SelectItem key={voice.value} value={voice.value} disabled={selectedLanguage !== voice.lang && selectedLanguage !== 'en'}>
+                                    <SelectItem key={voice.value} value={voice.value}>
                                         {voice.label}
                                     </SelectItem>
                                 ))}
