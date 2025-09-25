@@ -17,7 +17,7 @@ import { getCropHealthReport, getReportAudio, getTranslatedReport, type CropHeal
 import { SubmitButton } from "@/components/ui/submit-button";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { ImageUp, ScanSearch, Volume2, Loader2, Languages, Camera, Info, Bug, CheckCircle } from "lucide-react";
+import { ImageUp, ScanSearch, Volume2, Loader2, Languages, Camera, Info, Bug, CheckCircle, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -30,6 +30,8 @@ import { useToast } from "@/hooks/use-toast";
 import { useTranslation } from "@/context/language-context";
 import type { GenerateCropHealthReportOutput } from "@/ai/flows/generate-crop-health-report";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { useIsMobile } from "@/hooks/use-mobile";
+
 
 const initialState: CropHealthState = {};
 
@@ -70,6 +72,9 @@ export function CropHealthForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [reportLanguage, setReportLanguage] = useState('en');
+  const [facingMode, setFacingMode] = useState<'user' | 'environment'>('environment');
+  const isMobile = useIsMobile();
+
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -85,15 +90,15 @@ export function CropHealthForm() {
     }
   };
 
-  const handleOpenCamera = async () => {
-    setIsCameraOpen(true);
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  const startCamera = async () => {
+     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode } });
         setHasCameraPermission(true);
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
         }
+        return stream;
       } catch (error) {
         console.error("Error accessing camera: ", error);
         setHasCameraPermission(false);
@@ -103,9 +108,40 @@ export function CropHealthForm() {
           title: t('crop_health.camera_denied_title'),
           description: t('crop_health.camera_denied_description'),
         });
+        return null;
       }
     }
+    return null;
+  }
+
+  const stopCamera = () => {
+    if (videoRef.current && videoRef.current.srcObject) {
+      const stream = videoRef.current.srcObject as MediaStream;
+      stream.getTracks().forEach(track => track.stop());
+      videoRef.current.srcObject = null;
+    }
+    setIsCameraOpen(false);
   };
+
+  const handleOpenCamera = async () => {
+    setIsCameraOpen(true);
+    await startCamera();
+  };
+  
+  const handleRotateCamera = () => {
+    setFacingMode(prev => prev === 'user' ? 'environment' : 'user');
+  };
+
+  useEffect(() => {
+    if (isCameraOpen) {
+      // stop previous stream before starting a new one
+      if (videoRef.current && videoRef.current.srcObject) {
+        const stream = videoRef.current.srcObject as MediaStream;
+        stream.getTracks().forEach(track => track.stop());
+      }
+      startCamera();
+    }
+  }, [facingMode]);
 
   const handleCapture = () => {
     if (videoRef.current) {
@@ -121,15 +157,6 @@ export function CropHealthForm() {
       }
       stopCamera();
     }
-  };
-
-  const stopCamera = () => {
-    if (videoRef.current && videoRef.current.srcObject) {
-      const stream = videoRef.current.srcObject as MediaStream;
-      stream.getTracks().forEach(track => track.stop());
-      videoRef.current.srcObject = null;
-    }
-    setIsCameraOpen(false);
   };
   
   const handleFormAction = (formData: FormData) => {
@@ -352,6 +379,7 @@ export function CropHealthForm() {
                 {isCameraOpen ? (
                      <>
                         <Button type="button" onClick={handleCapture} className="flex-1">{t('crop_health.capture_button')}</Button>
+                        {isMobile && <Button type="button" variant="outline" onClick={handleRotateCamera}><RefreshCw/></Button>}
                         <Button type="button" variant="outline" onClick={stopCamera} className="flex-1">{t('crop_health.close_camera_button')}</Button>
                      </>
                 ) : (
@@ -387,3 +415,5 @@ export function CropHealthForm() {
       </Card>
   );
 }
+
+    
