@@ -17,7 +17,7 @@ function LoginPageContent() {
          <div className="flex items-center justify-center gap-2 mb-4">
             <Tractor className="w-10 h-10 text-primary" />
             <span className="font-headline text-4xl text-foreground">
-                AgriNova
+                AgriOne
             </span>
         </div>
         <LoginForm />

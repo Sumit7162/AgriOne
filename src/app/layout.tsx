@@ -3,8 +3,8 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'AgriNova',
-  description: 'The All-in-One AI-Powered Agriculture Super App',
+  title: 'AgriOne',
+  description: 'The All-in-One AI-Powered Agriculture App',
 };
 
 export default function RootLayout({
