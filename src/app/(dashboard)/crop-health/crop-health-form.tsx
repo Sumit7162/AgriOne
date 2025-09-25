@@ -62,6 +62,7 @@ export function CropHealthForm() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [photoDataUri, setPhotoDataUri] = useState<string>('');
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [audioDataUri, setAudioDataUri] = useState<string | undefined>(undefined);
   const [selectedVoice, setSelectedVoice] = useState(voices[0].value);
   const [isAudioLoading, startAudioTransition] = useTransition();
   const [isTranslationLoading, startTranslationTransition] = useTransition();
@@ -155,6 +156,7 @@ export function CropHealthForm() {
     if (state.report) {
         setDisplayedReport(state.report);
         setSelectedLanguage('en');
+        setAudioDataUri(undefined); 
     }
     if (state.error || state.report) {
         setIsSubmitting(false);
@@ -162,16 +164,21 @@ export function CropHealthForm() {
   }, [state.report, state.error]);
 
   useEffect(() => {
-    if (state.audioDataUri && audioRef.current) {
-      audioRef.current.src = state.audioDataUri;
+    if (audioDataUri && audioRef.current) {
+      audioRef.current.src = audioDataUri;
+      audioRef.current.play().catch(e => console.error("Audio play failed:", e));
     }
-  }, [state.audioDataUri]);
+  }, [audioDataUri]);
   
   const playAudio = () => {
-    if (audioRef.current?.src) {
-      audioRef.current.play();
+    if (audioRef.current?.src && !isAudioLoading) {
+      audioRef.current.play().catch(e => console.error("Audio play failed:", e));
+    } else {
+      // If no audio is loaded yet, generate it
+      handleVoiceChange(selectedVoice);
     }
   };
+  
 
   const handleVoiceChange = async (voiceValue: string) => {
     setSelectedVoice(voiceValue);
@@ -187,11 +194,9 @@ export function CropHealthForm() {
             title: t('crop_health.audio_error_title'),
             description: result.error,
         });
+        setAudioDataUri(undefined);
       } else {
-        if (result.audioDataUri && audioRef.current) {
-          audioRef.current.src = result.audioDataUri;
-          audioRef.current.play();
-        }
+        setAudioDataUri(result.audioDataUri);
       }
     });
   };
@@ -210,20 +215,23 @@ export function CropHealthForm() {
               });
           } else if (result.translatedReport) {
               setDisplayedReport(result.translatedReport);
+              setAudioDataUri(undefined);
           }
       });
   };
   
   const handleReset = () => {
-    formRef.current?.reset();
-    setImagePreview(null);
-    setPhotoDataUri('');
-    setDisplayedReport(undefined);
     startResetTransition(() => {
-      formAction(new FormData());
+        formRef.current?.reset();
+        setImagePreview(null);
+        setPhotoDataUri('');
+        setDisplayedReport(undefined);
+        setAudioDataUri(undefined);
+        formAction(new FormData());
+        setIsSubmitting(false);
     });
-    setIsSubmitting(false);
   };
+
 
   if (isSubmitting && !state.report && !state.error) {
     return (
@@ -243,7 +251,9 @@ export function CropHealthForm() {
             <CardHeader>
                 <div className="flex items-center justify-between gap-2">
                     <CardTitle className="font-headline text-2xl">Health Report</CardTitle>
-                    <Button variant="outline" onClick={handleReset}>Analyze Another</Button>
+                    <Button variant="outline" onClick={handleReset} disabled={isResetting}>
+                        {isResetting ? <Loader2 className="animate-spin" /> : 'Analyze Another'}
+                    </Button>
                 </div>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -309,7 +319,7 @@ export function CropHealthForm() {
                     </Accordion>
                 )}
             </CardContent>
-            {state.audioDataUri && <audio ref={audioRef} src={state.audioDataUri} className="hidden" />}
+            {audioDataUri && <audio ref={audioRef} src={audioDataUri} className="hidden" />}
         </Card>
     );
   }
@@ -383,5 +393,3 @@ export function CropHealthForm() {
       </Card>
   );
 }
-
-    

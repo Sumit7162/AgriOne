@@ -36,13 +36,9 @@ export async function getCropHealthReport(
         description: description as string,
     });
     
-    // Combine report for text-to-speech
-    const fullReportText = `Plant Information: ${report.plantInfo}. Disease Diagnosis: ${report.diseaseDiagnosis}. Solution: ${report.solution}`;
-    
-    const audioResult = await textToSpeech({ text: fullReportText, voiceName: 'Algenib' });
-    const { media } = audioResult;
-
-    return { report, audioDataUri: media };
+    // The text-to-speech call is removed from here to speed up initial report generation.
+    // Audio will be generated on-demand from the client.
+    return { report };
   } catch (e) {
     console.error(e);
     const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred.';
