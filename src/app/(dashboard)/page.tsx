@@ -9,14 +9,12 @@ import {
 } from '@/components/ui/card';
 import Link from 'next/link';
 import {
-  ClipboardList,
   CloudSun,
-  KeyRound,
   Leaf,
   MessageSquare,
-  Store,
   ArrowRight,
   Landmark,
+  BotMessageSquare,
 } from 'lucide-react';
 import { Header } from '@/components/dashboard/header';
 import { useTranslation } from '@/context/language-context';
@@ -42,6 +40,12 @@ export default function DashboardPage() {
       description: t('dashboard.mandi_prices_card_description'),
       href: '/mandi-prices',
       icon: <Landmark className="h-8 w-8 text-primary" />,
+    },
+    {
+      title: t('dashboard.farming_plans_card_title'),
+      description: t('dashboard.farming_plans_card_description'),
+      href: '/farming-plans',
+      icon: <BotMessageSquare className="h-8 w-8 text-primary" />,
     },
     {
       title: t('dashboard.forums_card_title'),

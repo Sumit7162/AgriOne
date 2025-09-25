@@ -1,3 +1,4 @@
+
 'use client';
 import {
   Sidebar,
@@ -10,7 +11,7 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
-  ClipboardList,
+  BotMessageSquare,
   CloudSun,
   LayoutDashboard,
   Leaf,
@@ -31,6 +32,7 @@ export function SidebarNav() {
     { href: '/crop-health', label: t('sidebar.crop_health'), icon: Leaf },
     { href: '/weather-alerts', label: t('sidebar.weather_alerts'), icon: CloudSun },
     { href: '/mandi-prices', label: t('sidebar.mandi_prices'), icon: Landmark },
+    { href: '/farming-plans', label: t('sidebar.farming_plans'), icon: BotMessageSquare },
     { href: '/marketplace', label: t('sidebar.marketplace'), icon: Store },
     { href: '/forums', label: t('sidebar.forums'), icon: MessageSquare },
   ];

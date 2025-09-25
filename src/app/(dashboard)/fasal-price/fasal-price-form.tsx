@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useActionState, useState, useMemo } from 'react';
@@ -14,7 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { getCommodityPrices, type FasalPriceState } from './actions';
 import { SubmitButton } from '@/components/ui/submit-button';
-import { Landmark, Search, ArrowUpDown } from 'lucide-react';
+import { Search, ArrowUpDown } from 'lucide-react';
 import { useTranslation } from '@/context/language-context';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
@@ -69,16 +70,16 @@ export function FasalPriceForm() {
       <Card className="max-w-2xl mx-auto w-full">
         <form action={formAction}>
           <CardHeader>
-            <CardTitle className="font-headline">{t('fasal_price.form_title')}</CardTitle>
-            <CardDescription>{t('fasal_price.form_description')}</CardDescription>
+            <CardTitle className="font-headline">{t('mandi_prices.form_title')}</CardTitle>
+            <CardDescription>{t('mandi_prices.form_description')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="market">{t('fasal_price.market_label')}</Label>
+              <Label htmlFor="market">{t('mandi_prices.market_label')}</Label>
               <Input
                 id="market"
                 name="market"
-                placeholder={t('fasal_price.market_placeholder')}
+                placeholder={t('mandi_prices.market_placeholder')}
                 defaultValue="MP_Bhopal"
               />
             </div>
@@ -92,7 +93,7 @@ export function FasalPriceForm() {
           <CardFooter>
             <SubmitButton className="w-full">
               <Search />
-              {t('fasal_price.submit_button')}
+              {t('mandi_prices.submit_button')}
             </SubmitButton>
           </CardFooter>
         </form>
@@ -101,19 +102,19 @@ export function FasalPriceForm() {
       {state.data && (
         <Card>
           <CardHeader>
-            <CardTitle className="font-headline">{t('fasal_price.results_title', { market: state.market! })}</CardTitle>
-            <CardDescription>{t('fasal_price.results_description')}</CardDescription>
+            <CardTitle className="font-headline">{t('mandi_prices.results_title', { market: state.market! })}</CardTitle>
+            <CardDescription>{t('mandi_prices.results_description')}</CardDescription>
           </CardHeader>
           <CardContent>
              <div className="border rounded-md">
                 <Table>
                 <TableHeader>
                     <TableRow>
-                        <SortableHeader sortKey="commodity" label={t('fasal_price.table_commodity')} />
-                        <SortableHeader sortKey="min_price" label={t('fasal_price.table_min_price')} />
-                        <SortableHeader sortKey="max_price" label={t('fasal_price.table_max_price')} />
-                        <SortableHeader sortKey="modal_price" label={t('fasal_price.table_modal_price')} />
-                        <TableHead>{t('fasal_price.table_unit')}</TableHead>
+                        <SortableHeader sortKey="commodity" label={t('mandi_prices.table_commodity')} />
+                        <SortableHeader sortKey="min_price" label={t('mandi_prices.table_min_price')} />
+                        <SortableHeader sortKey="max_price" label={t('mandi_prices.table_max_price')} />
+                        <SortableHeader sortKey="modal_price" label={t('mandi_prices.table_modal_price')} />
+                        <TableHead>{t('mandi_prices.table_unit')}</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -130,7 +131,7 @@ export function FasalPriceForm() {
                     ) : (
                          <TableRow>
                             <TableCell colSpan={5} className="h-24 text-center">
-                               {t('fasal_price.no_data')}
+                               {t('mandi_prices.no_data')}
                             </TableCell>
                         </TableRow>
                     )}

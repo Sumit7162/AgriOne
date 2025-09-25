@@ -107,8 +107,8 @@ export function CropHealthForm() {
         setIsCameraOpen(false);
         toast({
           variant: "destructive",
-          title: "Camera Access Denied",
-          description: "Please enable camera permissions in your browser settings.",
+          title: t('crop_health.camera_denied_title'),
+          description: t('crop_health.camera_denied_description'),
         });
       }
     }
@@ -143,8 +143,8 @@ export function CropHealthForm() {
     if (!photoDataUri) {
         toast({
             variant: "destructive",
-            title: "Image Required",
-            description: "Please upload or capture an image before analyzing.",
+            title: t('crop_health.image_required_title'),
+            description: t('crop_health.image_required_description'),
         });
         return;
     }
@@ -200,7 +200,7 @@ export function CropHealthForm() {
           if (result.error) {
               toast({
                   variant: "destructive",
-                  title: "Translation Error",
+                  title: t('crop_health.translation_error_title'),
                   description: result.error,
               });
           } else if (result.translatedReport) {
@@ -228,8 +228,8 @@ export function CropHealthForm() {
         <Card className="max-w-2xl mx-auto w-full">
             <CardContent className="p-10 flex flex-col items-center justify-center text-center gap-4 min-h-[400px]">
                 <Loader2 className="w-16 h-16 animate-spin text-primary"/>
-                <h2 className="text-2xl font-headline">Analyzing Crop...</h2>
-                <p className="text-muted-foreground">Our AI is inspecting your image. Please wait a moment.</p>
+                <h2 className="text-2xl font-headline">{t('crop_health.analyzing_title')}</h2>
+                <p className="text-muted-foreground">{t('crop_health.analyzing_description')}</p>
             </CardContent>
         </Card>
     )
@@ -270,7 +270,7 @@ export function CropHealthForm() {
             <CardHeader>
                  <div className="flex flex-wrap items-center justify-between gap-2">
                     <div className="flex items-center justify-between gap-2">
-                        <CardTitle className="font-headline text-2xl">Health Report</CardTitle>
+                        <CardTitle className="font-headline text-2xl">{t('crop_health.report_title')}</CardTitle>
                     </div>
                     <div className="flex items-center gap-2">
                          <Select value={selectedLanguage} onValueChange={handleLanguageChange}>
@@ -292,7 +292,7 @@ export function CropHealthForm() {
                         </Select>
                         <Select value={selectedVoice} onValueChange={setSelectedVoice}>
                             <SelectTrigger className="w-auto">
-                                <SelectValue placeholder="Select voice" />
+                                <SelectValue placeholder={t('crop_health.select_voice_placeholder')} />
                             </SelectTrigger>
                             <SelectContent>
                                 {voices.map(voice => (
@@ -303,7 +303,7 @@ export function CropHealthForm() {
                             </SelectContent>
                         </Select>
                          <Button variant="outline" onClick={handleReset} disabled={isResetting}>
-                            {isResetting ? <Loader2 className="animate-spin" /> : 'Analyze Another'}
+                            {isResetting ? <Loader2 className="animate-spin" /> : t('crop_health.analyze_another_button')}
                         </Button>
                     </div>
                 </div>
@@ -311,20 +311,20 @@ export function CropHealthForm() {
             <CardContent className="space-y-6">
                 {imagePreview && (
                     <div className="relative w-full aspect-video rounded-lg overflow-hidden border">
-                         <Image src={imagePreview} alt="Analyzed crop" fill style={{ objectFit: "cover" }} />
+                         <Image src={imagePreview} alt={t('crop_health.image_preview_alt')} fill style={{ objectFit: "cover" }} />
                     </div>
                 )}
                 
                 {isTranslationLoading ? (
                      <div className="flex items-center justify-center h-[200px] border rounded-md bg-muted/20 text-muted-foreground">
                         <Loader2 className="animate-spin mr-2"/>
-                        <p>Translating...</p>
+                        <p>{t('crop_health.translating_text')}</p>
                     </div>
                 ) : (
                     <Accordion type="single" collapsible defaultValue="diagnosis" className="w-full">
-                        {renderAccordionItem("info", "Plant Information", displayedReport.plantInfo, Info)}
-                        {renderAccordionItem("diagnosis", "Disease Diagnosis", displayedReport.diseaseDiagnosis, Bug)}
-                        {renderAccordionItem("solution", "Solution", displayedReport.solution, CheckCircle)}
+                        {renderAccordionItem("info", t('crop_health.plant_info_title'), displayedReport.plantInfo, Info)}
+                        {renderAccordionItem("diagnosis", t('crop_health.diagnosis_title'), displayedReport.diseaseDiagnosis, Bug)}
+                        {renderAccordionItem("solution", t('crop_health.solution_title'), displayedReport.solution, CheckCircle)}
                     </Accordion>
                 )}
             </CardContent>
@@ -337,9 +337,9 @@ export function CropHealthForm() {
     <Card className="max-w-2xl mx-auto w-full">
         <form ref={formRef} action={handleFormAction}>
           <CardHeader className="text-center">
-            <CardTitle className="font-headline text-3xl">AI Crop Doctor</CardTitle>
+            <CardTitle className="font-headline text-3xl">{t('crop_health.form_title')}</CardTitle>
             <CardDescription>
-                Upload a photo of your crop to get an instant health diagnosis.
+                {t('crop_health.form_description')}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -350,14 +350,14 @@ export function CropHealthForm() {
                     onClick={() => fileInputRef.current?.click()}
                  >
                     {imagePreview ? (
-                        <Image src={imagePreview} alt="Image preview" fill style={{ objectFit: "cover" }} />
+                        <Image src={imagePreview} alt={t('crop_health.image_preview_alt')} fill style={{ objectFit: "cover" }} />
                     ) : isCameraOpen ? (
                         <video ref={videoRef} className="w-full h-full object-cover" autoPlay playsInline muted />
                     ) : (
                         <div className="text-center text-muted-foreground p-4">
                             <ImageUp className="w-12 h-12 mx-auto mb-2"/>
-                            <p className="font-semibold">Tap to upload</p>
-                            <p className="text-xs">PNG, JPG, or WEBP</p>
+                            <p className="font-semibold">{t('crop_health.upload_cta_strong')}</p>
+                            <p className="text-xs">{t('crop_health.upload_cta_text')}</p>
                         </div>
                     )}
                  </div>
@@ -366,23 +366,23 @@ export function CropHealthForm() {
                <div className="flex justify-center gap-4">
                 {isCameraOpen ? (
                      <>
-                        <Button type="button" onClick={handleCapture} className="flex-1">Capture Photo</Button>
-                        <Button type="button" variant="outline" onClick={stopCamera} className="flex-1">Close Camera</Button>
+                        <Button type="button" onClick={handleCapture} className="flex-1">{t('crop_health.capture_button')}</Button>
+                        <Button type="button" variant="outline" onClick={stopCamera} className="flex-1">{t('crop_health.close_camera_button')}</Button>
                      </>
                 ) : (
                     <Button type="button" variant="outline" onClick={(e) => { e.stopPropagation(); handleOpenCamera(); }}>
                         <Camera className="mr-2"/>
-                        Open Camera
+                        {t('crop_health.open_camera_button')}
                     </Button>
                 )}
                </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="description" className="sr-only">Description</Label>
+              <Label htmlFor="description">{t('crop_health.description_label')}</Label>
               <Input
                 id="description"
                 name="description"
-                placeholder="e.g. leaves are turning yellow"
+                placeholder={t('crop_health.description_placeholder')}
               />
             </div>
             {state?.error && (
@@ -395,7 +395,7 @@ export function CropHealthForm() {
           <CardFooter>
             <SubmitButton className="w-full text-lg py-6">
               <ScanSearch />
-              Analyze Crop Health
+              {t('crop_health.submit_button')}
             </SubmitButton>
           </CardFooter>
         </form>

@@ -1,3 +1,4 @@
+
 'use client';
 import type { FC, PropsWithChildren } from 'react';
 import {
@@ -24,6 +25,8 @@ export const Header: FC<PropsWithChildren> = ({ children }) => {
         return t('weather_alerts.title');
        case 'Mandi Prices':
         return t('mandi_prices.title');
+      case 'Personalized Farming Plans':
+        return t('farming_plans.title');
       case 'Marketplace':
         return t('marketplace.title');
       case 'Community Forums':
