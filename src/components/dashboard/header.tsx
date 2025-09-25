@@ -42,10 +42,6 @@ export const Header: FC<PropsWithChildren> = ({ children }) => {
       </div>
       <div className="ml-auto flex items-center gap-4">
         <LanguageSwitcher />
-        <Avatar className="h-9 w-9">
-          <AvatarImage src="https://picsum.photos/seed/user-avatar/100/100" alt="User" data-ai-hint="person avatar"/>
-          <AvatarFallback>U</AvatarFallback>
-        </Avatar>
         <Button variant="ghost" size="icon">
           <LogOut className="h-5 w-5" />
           <span className="sr-only">Logout</span>
