@@ -1,7 +1,9 @@
+
 'use server';
 
 import { getPestDiseaseAlerts } from '@/ai/flows/get-pest-disease-alerts';
 import { getWeatherData, type GetWeatherDataOutput } from '@/ai/flows/get-weather-data';
+import { translateText } from '@/ai/flows/translate-text';
 
 export interface WeatherAlertState {
   alerts?: string[];
@@ -32,5 +34,29 @@ export async function getWeatherAlerts(
   } catch (e) {
     console.error(e);
     return { error: 'Failed to fetch weather alerts. Please try again.' };
+  }
+}
+
+export async function getTranslatedAlerts(
+  alerts: string[],
+  languageCode: string
+): Promise<{ translatedAlerts?: string[]; error?: string }> {
+  if (!alerts || alerts.length === 0) {
+    return { error: 'Alerts are missing.' };
+  }
+  if (languageCode === 'en') {
+    return { translatedAlerts: alerts };
+  }
+  try {
+    const translatedAlerts = await Promise.all(
+      alerts.map(alert => 
+        translateText({ text: alert, targetLanguage: languageCode })
+        .then(res => res.translatedText)
+      )
+    );
+    return { translatedAlerts };
+  } catch (e) {
+    console.error(e);
+    return { error: 'Failed to translate alerts. Please try again.' };
   }
 }
