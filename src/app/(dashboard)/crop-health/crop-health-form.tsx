@@ -65,6 +65,7 @@ export function CropHealthForm() {
   const [selectedVoice, setSelectedVoice] = useState(voices[0].value);
   const [isAudioLoading, startAudioTransition] = useTransition();
   const [isTranslationLoading, startTranslationTransition] = useTransition();
+  const [isResetting, startResetTransition] = useTransition();
   const [displayedReport, setDisplayedReport] = useState<GenerateCropHealthReportOutput | undefined>(undefined);
   const [selectedLanguage, setSelectedLanguage] = useState(languages[0].value);
   const { toast } = useToast();
@@ -218,8 +219,9 @@ export function CropHealthForm() {
     setImagePreview(null);
     setPhotoDataUri('');
     setDisplayedReport(undefined);
-    // Reset the form action state
-    formAction(new FormData());
+    startResetTransition(() => {
+      formAction(new FormData());
+    });
     setIsSubmitting(false);
   };
 
@@ -381,3 +383,5 @@ export function CropHealthForm() {
       </Card>
   );
 }
+
+    
