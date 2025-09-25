@@ -20,8 +20,6 @@ import { useTranslation } from "@/context/language-context";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import type { GetPestDiseaseAlertsOutput } from "@/ai/flows/get-pest-disease-alerts";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-
 
 const initialState: WeatherAlertState = {};
 
@@ -179,16 +177,11 @@ export function WeatherAlertsForm() {
                         <p>Translating solutions...</p>
                     </div>
                 ) : displayedAlerts && displayedAlerts.length > 0 ? (
-                    <Accordion type="single" collapsible className="w-full">
+                    <div className="space-y-2">
                         {displayedAlerts.map((item, index) => (
-                            <AccordionItem value={`item-${index}`} key={index}>
-                                <AccordionTrigger className="text-left">{item.alert}</AccordionTrigger>
-                                <AccordionContent className="whitespace-pre-wrap text-primary-foreground bg-primary/80 p-3 rounded-md">
-                                    {item.solution}
-                                </AccordionContent>
-                            </AccordionItem>
+                            <div key={index} className="text-primary-foreground bg-primary/80 p-3 rounded-md whitespace-pre-wrap">{item.solution}</div>
                         ))}
-                    </Accordion>
+                    </div>
                 ) : (
                     <div className="flex items-center justify-center h-24 border rounded-md bg-muted/20 text-muted-foreground">
                         <p>{state.location ? 'No solutions needed.' : 'Submit details to see solutions.'}</p>
