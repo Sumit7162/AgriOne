@@ -20,7 +20,8 @@ export async function getCropHealthReport(
   formData: FormData
 ): Promise<CropHealthState> {
   const photoDataUri = formData.get('photoDataUri');
-  const description = formData.get('description') ?? '';
+  // Ensure description is a string, even if the field is not present in the form data.
+  const description = (formData.get('description') as string | null) ?? '';
 
   const validatedPhoto = PhotoSchema.safeParse(photoDataUri);
 
@@ -33,7 +34,7 @@ export async function getCropHealthReport(
   try {
     const report = await generateCropHealthReport({
         photoDataUri: validatedPhoto.data,
-        description: description as string,
+        description: description,
     });
     
     // The text-to-speech call is removed from here to speed up initial report generation.
