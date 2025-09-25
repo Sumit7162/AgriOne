@@ -1,3 +1,4 @@
+
 'use server';
 
 import { generateCropHealthReport, type GenerateCropHealthReportOutput } from '@/ai/flows/generate-crop-health-report';
@@ -12,7 +13,7 @@ export interface CropHealthState {
 }
 
 const CropHealthSchema = z.object({
-  description: z.string().min(1, { message: 'Description is required.' }),
+  description: z.string(),
   photoDataUri: z.string().min(1, { message: 'An image is required.' }),
 });
 
