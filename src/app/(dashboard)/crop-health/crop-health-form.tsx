@@ -199,7 +199,7 @@ export function CropHealthForm() {
   };
   
   const handleReset = () => {
-    startResetTransition(() => {
+    startTransition(() => {
         formRef.current?.reset();
         setImagePreview(null);
         setPhotoDataUri('');
