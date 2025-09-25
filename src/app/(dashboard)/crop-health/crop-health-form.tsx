@@ -11,15 +11,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { getCropHealthReport, getReportAudio, getTranslatedReport, type CropHealthState } from "./actions";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { ImageUp, ScanSearch, Volume2, Loader2, Languages } from "lucide-react";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ImageUp, ScanSearch, Volume2, Loader2, Languages, Camera, BotMessageSquare, Lightbulb } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -69,6 +67,10 @@ export function CropHealthForm() {
   const [selectedLanguage, setSelectedLanguage] = useState(languages[0].value);
   const { toast } = useToast();
   const { t } = useTranslation();
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -78,22 +80,94 @@ export function CropHealthForm() {
         const result = reader.result as string;
         setImagePreview(result);
         setPhotoDataUri(result);
+        setIsCameraOpen(false);
       };
       reader.readAsDataURL(file);
     }
   };
 
+  const handleOpenCamera = async () => {
+    setIsCameraOpen(true);
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        setHasCameraPermission(true);
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
+      } catch (error) {
+        console.error("Error accessing camera: ", error);
+        setHasCameraPermission(false);
+        setIsCameraOpen(false);
+        toast({
+          variant: "destructive",
+          title: "Camera Access Denied",
+          description: "Please enable camera permissions in your browser settings.",
+        });
+      }
+    }
+  };
+
+  const handleCapture = () => {
+    if (videoRef.current) {
+      const canvas = document.createElement("canvas");
+      canvas.width = videoRef.current.videoWidth;
+      canvas.height = videoRef.current.videoHeight;
+      const context = canvas.getContext("2d");
+      if (context) {
+        context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+        const dataUri = canvas.toDataURL("image/jpeg");
+        setImagePreview(dataUri);
+        setPhotoDataUri(dataUri);
+      }
+      stopCamera();
+    }
+  };
+
+  const stopCamera = () => {
+    if (videoRef.current && videoRef.current.srcObject) {
+      const stream = videoRef.current.srcObject as MediaStream;
+      stream.getTracks().forEach(track => track.stop());
+    }
+    setIsCameraOpen(false);
+  };
+  
   const handleFormAction = (formData: FormData) => {
+    if (!photoDataUri) {
+        toast({
+            variant: "destructive",
+            title: "Image Required",
+            description: "Please upload or capture an image before analyzing.",
+        });
+        return;
+    }
+    setIsSubmitting(true);
     formData.append('photoDataUri', photoDataUri);
     formAction(formData);
   };
 
+  useEffect(() => {
+    if (state.report) {
+        setDisplayedReport(state.report);
+        setSelectedLanguage('en');
+    }
+    if (state.error || state.report) {
+        setIsSubmitting(false);
+    }
+  }, [state.report, state.error]);
+
+  useEffect(() => {
+    if (state.audioDataUri && audioRef.current) {
+      audioRef.current.src = state.audioDataUri;
+    }
+  }, [state.audioDataUri]);
+  
   const playAudio = () => {
     if (audioRef.current?.src) {
       audioRef.current.play();
     }
   };
-  
+
   const handleVoiceChange = async (voiceValue: string) => {
     setSelectedVoice(voiceValue);
     if (!displayedReport) return;
@@ -132,91 +206,49 @@ export function CropHealthForm() {
           }
       });
   };
-
-  useEffect(() => {
-    if (state.report) {
-        setDisplayedReport(state.report);
-        setSelectedLanguage('en');
-        // Reset form on success
-        formRef.current?.reset();
-        setImagePreview(null);
-        setPhotoDataUri('');
-    }
-  }, [state.report]);
-
-  useEffect(() => {
-    if (state.audioDataUri && audioRef.current) {
-      audioRef.current.src = state.audioDataUri;
-    }
-  }, [state.audioDataUri]);
+  
+  const handleReset = () => {
+    formRef.current?.reset();
+    setImagePreview(null);
+    setPhotoDataUri('');
+    setDisplayedReport(undefined);
+    // Reset the action state
+    formAction(new FormData());
+  };
 
 
-  return (
-    <div className="grid gap-8 lg:grid-cols-2">
-      <Card>
-        <form ref={formRef} action={handleFormAction}>
-          <CardHeader>
-            <CardTitle className="font-headline">{t('crop_health.form_title')}</CardTitle>
-            <CardDescription>
-              {t('crop_health.form_description')}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="photo">{t('crop_health.photo_label')}</Label>
-              <div className="flex items-center justify-center w-full">
-                <label htmlFor="photo" className="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer bg-card hover:bg-muted/50">
-                  {imagePreview ? (
-                    <div className="relative w-full h-full">
-                      <Image src={imagePreview} alt={t('crop_health.image_preview_alt')} fill style={{ objectFit: "contain" }} className="rounded-lg p-2" />
+  if (isSubmitting && !state.report && !state.error) {
+    return (
+        <Card className="max-w-2xl mx-auto w-full">
+            <CardContent className="p-10 flex flex-col items-center justify-center text-center gap-4 min-h-[400px]">
+                <Loader2 className="w-16 h-16 animate-spin text-primary"/>
+                <h2 className="text-2xl font-headline">Analyzing Crop...</h2>
+                <p className="text-muted-foreground">Our AI is inspecting your image. Please wait a moment.</p>
+            </CardContent>
+        </Card>
+    )
+  }
+
+  if (state.report && displayedReport) {
+      const reportParts = displayedReport.split('Solution:');
+      const diagnosis = reportParts[0].replace('Diagnosis:', '').trim();
+      const solution = reportParts[1]?.trim() || "No solution provided.";
+
+    return (
+        <Card className="max-w-2xl mx-auto w-full">
+            <CardHeader>
+                <div className="flex items-center justify-between gap-2">
+                    <CardTitle className="font-headline text-2xl">Health Report</CardTitle>
+                    <Button variant="outline" onClick={handleReset}>Analyze Another</Button>
+                </div>
+            </CardHeader>
+            <CardContent className="space-y-6">
+                {imagePreview && (
+                    <div className="relative w-full aspect-video rounded-lg overflow-hidden border">
+                         <Image src={imagePreview} alt="Analyzed crop" fill style={{ objectFit: "cover" }} />
                     </div>
-                  ) : (
-                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                      <ImageUp className="w-8 h-8 mb-4 text-muted-foreground" />
-                      <p className="mb-2 text-sm text-muted-foreground"><span className="font-semibold">{t('crop_health.upload_cta_strong')}</span>{t('crop_health.upload_cta_text')}</p>
-                      <p className="text-xs text-muted-foreground">{t('crop_health.upload_formats')}</p>
-                    </div>
-                  )}
-                </label>
-              </div>
-              <Input id="photo" name="photo" type="file" className="sr-only" onChange={handleFileChange} accept="image/png, image/jpeg, image/webp" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="description">{t('crop_health.description_label')}</Label>
-              <Textarea
-                id="description"
-                name="description"
-                placeholder={t('crop_health.description_placeholder')}
-                rows={4}
-              />
-            </div>
-            {state?.error && (
-              <Alert variant="destructive">
-                <AlertTitle>{t('common.error')}</AlertTitle>
-                <AlertDescription>{state.error}</AlertDescription>
-              </Alert>
-            )}
-          </CardContent>
-          <CardFooter>
-            <SubmitButton className="w-full">
-              <ScanSearch />
-              {t('crop_health.submit_button')}
-            </SubmitButton>
-          </CardFooter>
-        </form>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <div className="flex items-start flex-wrap justify-between gap-2">
-            <div>
-              <CardTitle className="font-headline">{t('crop_health.report_title')}</CardTitle>
-              <CardDescription>
-                {t('crop_health.report_description')}
-              </CardDescription>
-            </div>
-            {state.report && state.audioDataUri && (
-                <div className="flex items-center gap-2">
+                )}
+                 <div className="flex items-center justify-end gap-2">
                     <Select value={selectedLanguage} onValueChange={handleLanguageChange}>
                         <SelectTrigger className="w-auto">
                             <SelectValue>
@@ -236,7 +268,7 @@ export function CropHealthForm() {
                     </Select>
                     <Select value={selectedVoice} onValueChange={handleVoiceChange}>
                         <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder={t('crop_health.select_voice_placeholder')} />
+                            <SelectValue placeholder="Select voice" />
                         </SelectTrigger>
                         <SelectContent>
                             {voices.map(voice => (
@@ -248,30 +280,88 @@ export function CropHealthForm() {
                     </Select>
                     <Button variant="ghost" size="icon" onClick={playAudio} disabled={isAudioLoading}>
                         {isAudioLoading ? <Loader2 className="animate-spin" /> : <Volume2 />}
-                        <span className="sr-only">{t('crop_health.read_aloud_sr')}</span>
                     </Button>
                 </div>
-            )}
-          </div>
-        </CardHeader>
-        <CardContent>
-          <ScrollArea className="h-[400px] w-full p-4 border rounded-md bg-muted/20">
-            {isTranslationLoading ? (
-                <div className="flex items-center justify-center h-full text-muted-foreground">
-                    <Loader2 className="animate-spin mr-2"/>
-                    <p>Translating...</p>
+                <div className="space-y-4">
+                    <div>
+                        <h3 className="font-headline text-xl flex items-center gap-2 mb-2"><BotMessageSquare className="text-primary"/> Diagnosis</h3>
+                        <p className="whitespace-pre-wrap pl-8">{isTranslationLoading ? <Loader2 className="animate-spin" /> : diagnosis}</p>
+                    </div>
+                    <div>
+                        <h3 className="font-headline text-xl flex items-center gap-2 mb-2"><Lightbulb className="text-primary"/> Solution</h3>
+                        <p className="whitespace-pre-wrap pl-8">{isTranslationLoading ? <Loader2 className="animate-spin" /> : solution}</p>
+                    </div>
                 </div>
-            ) : displayedReport ? (
-              <p className="whitespace-pre-wrap">{displayedReport}</p>
-            ) : (
-              <div className="flex items-center justify-center h-full text-muted-foreground">
-                <p>{t('crop_health.awaiting_analysis')}</p>
-              </div>
+
+            </CardContent>
+            {state.audioDataUri && <audio ref={audioRef} src={state.audioDataUri} className="hidden" />}
+        </Card>
+    );
+  }
+
+  return (
+    <Card className="max-w-2xl mx-auto w-full">
+        <form ref={formRef} action={handleFormAction}>
+          <CardHeader className="text-center">
+            <CardTitle className="font-headline text-3xl">AI Crop Doctor</CardTitle>
+            <CardDescription>
+                Upload a photo of your crop to get an instant health diagnosis.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="space-y-4">
+               <div className="flex items-center justify-center w-full">
+                 <label htmlFor="photo" className="relative w-64 h-64 rounded-full border-2 border-dashed flex flex-col items-center justify-center cursor-pointer bg-card hover:bg-muted/50 overflow-hidden">
+                    {imagePreview ? (
+                        <Image src={imagePreview} alt="Image preview" fill style={{ objectFit: "cover" }} />
+                    ) : isCameraOpen ? (
+                        <video ref={videoRef} className="w-full h-full object-cover" autoPlay playsInline muted />
+                    ) : (
+                        <div className="text-center text-muted-foreground p-4">
+                            <ImageUp className="w-12 h-12 mx-auto mb-2"/>
+                            <p className="font-semibold">Tap to upload</p>
+                            <p className="text-xs">PNG, JPG, or WEBP</p>
+                        </div>
+                    )}
+                 </label>
+               </div>
+                <Input id="photo" name="photo" type="file" className="sr-only" onChange={handleFileChange} accept="image/png, image/jpeg, image/webp" />
+               <div className="flex justify-center gap-4">
+                {isCameraOpen ? (
+                     <>
+                        <Button type="button" onClick={handleCapture} className="flex-1">Capture Photo</Button>
+                        <Button type="button" variant="outline" onClick={stopCamera} className="flex-1">Close Camera</Button>
+                     </>
+                ) : (
+                    <Button type="button" variant="outline" onClick={handleOpenCamera}>
+                        <Camera className="mr-2"/>
+                        Open Camera
+                    </Button>
+                )}
+               </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="description" className="sr-only">Description</Label>
+              <Input
+                id="description"
+                name="description"
+                placeholder="e.g. leaves are turning yellow"
+              />
+            </div>
+            {state?.error && (
+              <Alert variant="destructive">
+                <AlertTitle>{t('common.error')}</AlertTitle>
+                <AlertDescription>{state.error}</AlertDescription>
+              </Alert>
             )}
-          </ScrollArea>
-        </CardContent>
+          </CardContent>
+          <CardFooter>
+            <SubmitButton className="w-full text-lg py-6">
+              <ScanSearch />
+              Analyze Crop Health
+            </SubmitButton>
+          </CardFooter>
+        </form>
       </Card>
-      {state.audioDataUri && <audio ref={audioRef} src={state.audioDataUri} className="hidden" />}
-    </div>
   );
 }
