@@ -24,7 +24,9 @@ export type GenerateCropHealthReportInput = z.infer<
 >;
 
 const GenerateCropHealthReportOutputSchema = z.object({
-  report: z.string().describe('The AI-generated crop health report.'),
+  plantInfo: z.string().describe('A small description and knowledge about the identified plant.'),
+  diseaseDiagnosis: z.string().describe('Information and diagnosis of the disease or pest affecting the plant.'),
+  solution: z.string().describe('A complete solution and recommended course of action.'),
 });
 export type GenerateCropHealthReportOutput = z.infer<
   typeof GenerateCropHealthReportOutputSchema
@@ -40,7 +42,14 @@ const prompt = ai.definePrompt({
   name: 'generateCropHealthReportPrompt',
   input: {schema: GenerateCropHealthReportInputSchema},
   output: {schema: GenerateCropHealthReportOutputSchema},
-  prompt: `You are an expert agriculture advisor. Generate a crop health report based on the following information.\n\nDescription: {{{description}}}\nPhoto: {{media url=photoDataUri}}\n\nReport:`,
+  prompt: `You are an expert agriculture advisor. Analyze the provided image and description to generate a crop health report. The report must be in three distinct parts:
+
+1.  **plantInfo**: Provide a small description and general knowledge about the plant shown in the photo.
+2.  **diseaseDiagnosis**: Identify and provide information about the specific disease or pest affecting the plant.
+3.  **solution**: Give a complete, actionable solution and the recommended course of action to treat the issue.
+
+Description: {{{description}}}
+Photo: {{media url=photoDataUri}}`,
 });
 
 const generateCropHealthReportFlow = ai.defineFlow(
@@ -51,6 +60,9 @@ const generateCropHealthReportFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await prompt(input);
-    return {report: output!.report};
+    if (!output) {
+      throw new Error("AI failed to generate a report.");
+    }
+    return output;
   }
 );

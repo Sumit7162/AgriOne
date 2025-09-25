@@ -1,12 +1,12 @@
 'use server';
 
-import { generateCropHealthReport } from '@/ai/flows/generate-crop-health-report';
+import { generateCropHealthReport, type GenerateCropHealthReportOutput } from '@/ai/flows/generate-crop-health-report';
 import { textToSpeech } from '@/ai/flows/text-to-speech';
 import { translateText } from '@/ai/flows/translate-text';
 import { z } from 'zod';
 
 export interface CropHealthState {
-  report?: string;
+  report?: GenerateCropHealthReportOutput;
   audioDataUri?: string;
   error?: string;
 }
@@ -34,13 +34,12 @@ export async function getCropHealthReport(
   }
   
   try {
-    const reportResult = await generateCropHealthReport(validatedFields.data);
-    if (!reportResult || !reportResult.report) {
-        throw new Error("AI failed to generate a report.");
-    }
-    const { report } = reportResult;
+    const report = await generateCropHealthReport(validatedFields.data);
     
-    const audioResult = await textToSpeech({ text: report, voiceName: 'Algenib' });
+    // Combine report for text-to-speech
+    const fullReportText = `Plant Information: ${report.plantInfo}. Disease Diagnosis: ${report.diseaseDiagnosis}. Solution: ${report.solution}`;
+    
+    const audioResult = await textToSpeech({ text: fullReportText, voiceName: 'Algenib' });
      if (!audioResult || !audioResult.media) {
         throw new Error("AI failed to generate audio for the report.");
     }
@@ -76,18 +75,29 @@ export async function getReportAudio(
 }
 
 export async function getTranslatedReport(
-  report: string,
+  report: GenerateCropHealthReportOutput,
   languageCode: string
-): Promise<{ translatedText?: string; error?: string }> {
+): Promise<{ translatedReport?: GenerateCropHealthReportOutput; error?: string }> {
   if (!report) {
     return { error: 'Report text is missing.' };
   }
   if (languageCode === 'en') {
-    return { translatedText: report };
+    return { translatedReport: report };
   }
   try {
-    const { translatedText } = await translateText({ text: report, targetLanguage: languageCode });
-    return { translatedText };
+    const [plantInfo, diseaseDiagnosis, solution] = await Promise.all([
+        translateText({ text: report.plantInfo, targetLanguage: languageCode }),
+        translateText({ text: report.diseaseDiagnosis, targetLanguage: languageCode }),
+        translateText({ text: report.solution, targetLanguage: languageCode }),
+    ]);
+
+    return { 
+        translatedReport: {
+            plantInfo: plantInfo.translatedText,
+            diseaseDiagnosis: diseaseDiagnosis.translatedText,
+            solution: solution.translatedText,
+        }
+     };
   } catch (e) {
     console.error(e);
     return { error: 'Failed to translate report. Please try again.' };

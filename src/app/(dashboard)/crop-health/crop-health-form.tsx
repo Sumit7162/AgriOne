@@ -17,7 +17,7 @@ import { getCropHealthReport, getReportAudio, getTranslatedReport, type CropHeal
 import { SubmitButton } from "@/components/ui/submit-button";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { ImageUp, ScanSearch, Volume2, Loader2, Languages, Camera, BotMessageSquare, Lightbulb } from "lucide-react";
+import { ImageUp, ScanSearch, Volume2, Loader2, Languages, Camera, BotMessageSquare, Lightbulb, CheckCircle, Info, Bug } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -28,6 +28,8 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { useTranslation } from "@/context/language-context";
+import type { GenerateCropHealthReportOutput } from "@/ai/flows/generate-crop-health-report";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const initialState: CropHealthState = {};
 
@@ -63,7 +65,7 @@ export function CropHealthForm() {
   const [selectedVoice, setSelectedVoice] = useState(voices[0].value);
   const [isAudioLoading, startAudioTransition] = useTransition();
   const [isTranslationLoading, startTranslationTransition] = useTransition();
-  const [displayedReport, setDisplayedReport] = useState<string | undefined>(undefined);
+  const [displayedReport, setDisplayedReport] = useState<GenerateCropHealthReportOutput | undefined>(undefined);
   const [selectedLanguage, setSelectedLanguage] = useState(languages[0].value);
   const { toast } = useToast();
   const { t } = useTranslation();
@@ -171,9 +173,11 @@ export function CropHealthForm() {
   const handleVoiceChange = async (voiceValue: string) => {
     setSelectedVoice(voiceValue);
     if (!displayedReport) return;
-    
+
+    const fullReportText = `Plant Information: ${displayedReport.plantInfo}. Disease Diagnosis: ${displayedReport.diseaseDiagnosis}. Solution: ${displayedReport.solution}`;
+
     startAudioTransition(async () => {
-      const result = await getReportAudio(displayedReport, voiceValue);
+      const result = await getReportAudio(fullReportText, voiceValue);
        if (result.error) {
         toast({
             variant: "destructive",
@@ -201,8 +205,8 @@ export function CropHealthForm() {
                   title: "Translation Error",
                   description: result.error,
               });
-          } else if (result.translatedText) {
-              setDisplayedReport(result.translatedText);
+          } else if (result.translatedReport) {
+              setDisplayedReport(result.translatedReport);
           }
       });
   };
@@ -212,8 +216,11 @@ export function CropHealthForm() {
     setImagePreview(null);
     setPhotoDataUri('');
     setDisplayedReport(undefined);
-    // Reset the action state
-    formAction(new FormData());
+    // This is a way to reset the useActionState
+    const newFormData = new FormData();
+    newFormData.append('reset', 'true');
+    formAction(newFormData); 
+    setIsSubmitting(false);
   };
 
 
@@ -230,10 +237,6 @@ export function CropHealthForm() {
   }
 
   if (state.report && displayedReport) {
-      const reportParts = displayedReport.split('Solution:');
-      const diagnosis = reportParts[0].replace('Diagnosis:', '').trim();
-      const solution = reportParts[1]?.trim() || "No solution provided.";
-
     return (
         <Card className="max-w-2xl mx-auto w-full">
             <CardHeader>
@@ -282,17 +285,28 @@ export function CropHealthForm() {
                         {isAudioLoading ? <Loader2 className="animate-spin" /> : <Volume2 />}
                     </Button>
                 </div>
-                <div className="space-y-4">
-                    <div>
-                        <h3 className="font-headline text-xl flex items-center gap-2 mb-2"><BotMessageSquare className="text-primary"/> Diagnosis</h3>
-                        <p className="whitespace-pre-wrap pl-8">{isTranslationLoading ? <Loader2 className="animate-spin" /> : diagnosis}</p>
+                
+                {isTranslationLoading ? (
+                     <div className="flex items-center justify-center h-[200px] border rounded-md bg-muted/20 text-muted-foreground">
+                        <Loader2 className="animate-spin mr-2"/>
+                        <p>Translating...</p>
                     </div>
-                    <div>
-                        <h3 className="font-headline text-xl flex items-center gap-2 mb-2"><Lightbulb className="text-primary"/> Solution</h3>
-                        <p className="whitespace-pre-wrap pl-8">{isTranslationLoading ? <Loader2 className="animate-spin" /> : solution}</p>
-                    </div>
-                </div>
-
+                ) : (
+                    <Accordion type="single" collapsible defaultValue="diagnosis" className="w-full">
+                        <AccordionItem value="info">
+                        <AccordionTrigger className="text-lg font-semibold"><Info className="mr-2 text-primary" /> Plant Information</AccordionTrigger>
+                        <AccordionContent className="text-base pl-2 whitespace-pre-wrap">{displayedReport.plantInfo}</AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="diagnosis">
+                        <AccordionTrigger className="text-lg font-semibold"><Bug className="mr-2 text-primary" /> Disease Diagnosis</AccordionTrigger>
+                        <AccordionContent className="text-base pl-2 whitespace-pre-wrap">{displayedReport.diseaseDiagnosis}</AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="solution">
+                        <AccordionTrigger className="text-lg font-semibold"><CheckCircle className="mr-2 text-primary" /> Solution</AccordionTrigger>
+                        <AccordionContent className="text-base pl-2 whitespace-pre-wrap">{displayedReport.solution}</AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                )}
             </CardContent>
             {state.audioDataUri && <audio ref={audioRef} src={state.audioDataUri} className="hidden" />}
         </Card>
