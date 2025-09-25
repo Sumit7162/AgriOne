@@ -1,12 +1,12 @@
 
 'use server';
 
-import { getPestDiseaseAlerts } from '@/ai/flows/get-pest-disease-alerts';
+import { getPestDiseaseAlerts, type GetPestDiseaseAlertsOutput } from '@/ai/flows/get-pest-disease-alerts';
 import { getWeatherData, type GetWeatherDataOutput } from '@/ai/flows/get-weather-data';
 import { translateText } from '@/ai/flows/translate-text';
 
 export interface WeatherAlertState {
-  alerts?: string[];
+  alerts?: GetPestDiseaseAlertsOutput['alerts'];
   weather?: GetWeatherDataOutput;
   error?: string;
   location?: string;
@@ -38,9 +38,9 @@ export async function getWeatherAlerts(
 }
 
 export async function getTranslatedAlerts(
-  alerts: string[],
+  alerts: GetPestDiseaseAlertsOutput['alerts'],
   languageCode: string
-): Promise<{ translatedAlerts?: string[]; error?: string }> {
+): Promise<{ translatedAlerts?: GetPestDiseaseAlertsOutput['alerts']; error?: string }> {
   if (!alerts || alerts.length === 0) {
     return { error: 'Alerts are missing.' };
   }
@@ -49,10 +49,16 @@ export async function getTranslatedAlerts(
   }
   try {
     const translatedAlerts = await Promise.all(
-      alerts.map(alert => 
-        translateText({ text: alert, targetLanguage: languageCode })
-        .then(res => res.translatedText)
-      )
+      alerts.map(async (item) => {
+        const [translatedAlert, translatedSolution] = await Promise.all([
+          translateText({ text: item.alert, targetLanguage: languageCode }),
+          translateText({ text: item.solution, targetLanguage: languageCode }),
+        ]);
+        return {
+          alert: translatedAlert.translatedText,
+          solution: translatedSolution.translatedText,
+        };
+      })
     );
     return { translatedAlerts };
   } catch (e) {

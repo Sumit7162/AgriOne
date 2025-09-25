@@ -1,8 +1,8 @@
 'use server';
 /**
- * @fileOverview AI agent that provides predictive alerts about potential pest and disease outbreaks based on hyperlocal weather data and climate change projections.
+ * @fileOverview AI agent that provides predictive alerts and solutions about potential pest and disease outbreaks based on hyperlocal weather data and climate change projections.
  *
- * - getPestDiseaseAlerts - A function that retrieves predictive pest and disease alerts.
+ * - getPestDiseaseAlerts - A function that retrieves predictive pest and disease alerts with solutions.
  * - GetPestDiseaseAlertsInput - The input type for the getPestDiseaseAlerts function.
  * - GetPestDiseaseAlertsOutput - The return type for the getPestDiseaseAlerts function.
  */
@@ -18,10 +18,15 @@ const GetPestDiseaseAlertsInputSchema = z.object({
 });
 export type GetPestDiseaseAlertsInput = z.infer<typeof GetPestDiseaseAlertsInputSchema>;
 
+const AlertWithSolutionSchema = z.object({
+    alert: z.string().describe('A predictive pest or disease alert.'),
+    solution: z.string().describe('A recommended solution or preventive measure for the alert.'),
+});
+
 const GetPestDiseaseAlertsOutputSchema = z.object({
   alerts: z
-    .array(z.string())
-    .describe('A list of predictive pest and disease alerts.'),
+    .array(AlertWithSolutionSchema)
+    .describe('A list of predictive pest and disease alerts, each with a corresponding solution.'),
 });
 export type GetPestDiseaseAlertsOutput = z.infer<typeof GetPestDiseaseAlertsOutputSchema>;
 
@@ -35,12 +40,12 @@ const prompt = ai.definePrompt({
   name: 'getPestDiseaseAlertsPrompt',
   input: {schema: GetPestDiseaseAlertsInputSchema},
   output: {schema: GetPestDiseaseAlertsOutputSchema},
-  prompt: `You are an expert agricultural advisor. Provide predictive alerts about potential pest and disease outbreaks for a given location and crop type, based on hyperlocal weather data and climate change projections.
+  prompt: `You are an expert agricultural advisor. Provide predictive alerts about potential pest and disease outbreaks for a given location and crop type, based on hyperlocal weather data and climate change projections. For each alert, provide a clear and actionable solution or preventive measure.
 
 Location: {{{location}}}
 Crop Type: {{{cropType}}}
 
-Alerts:`,
+Generate a list of alerts and their corresponding solutions.`,
 });
 
 const getPestDiseaseAlertsFlow = ai.defineFlow(
@@ -51,6 +56,9 @@ const getPestDiseaseAlertsFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await prompt(input);
-    return output!;
+    if (!output) {
+        throw new Error("AI failed to generate alerts.");
+    }
+    return output;
   }
 );

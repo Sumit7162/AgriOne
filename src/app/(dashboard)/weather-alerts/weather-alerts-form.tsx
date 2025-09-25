@@ -15,10 +15,13 @@ import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { getWeatherAlerts, getTranslatedAlerts, type WeatherAlertState } from "./actions";
 import { SubmitButton } from "@/components/ui/submit-button";
-import { BellRing, CloudDrizzle, CloudRain, CloudSun, Siren, Thermometer, Wind, Languages, Loader2 } from "lucide-react";
+import { BellRing, CloudDrizzle, CloudRain, CloudSun, Siren, Thermometer, Wind, Languages, Loader2, Lightbulb } from "lucide-react";
 import { useTranslation } from "@/context/language-context";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import type { GetPestDiseaseAlertsOutput } from "@/ai/flows/get-pest-disease-alerts";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+
 
 const initialState: WeatherAlertState = {};
 
@@ -42,7 +45,7 @@ const languages = [
 export function WeatherAlertsForm() {
   const [state, formAction] = useActionState(getWeatherAlerts, initialState);
   const { t } = useTranslation();
-  const [displayedAlerts, setDisplayedAlerts] = useState<string[] | undefined>(undefined);
+  const [displayedAlerts, setDisplayedAlerts] = useState<GetPestDiseaseAlertsOutput['alerts'] | undefined>(undefined);
   const [selectedLanguage, setSelectedLanguage] = useState(languages[0].value);
   const [isTranslationLoading, startTranslationTransition] = useTransition();
   const { toast } = useToast();
@@ -157,14 +160,38 @@ export function WeatherAlertsForm() {
                         <p>Translating alerts...</p>
                     </div>
                 ) : displayedAlerts && displayedAlerts.length > 0 ? (
-                    <ul className="space-y-2 list-disc pl-5">
-                        {displayedAlerts.map((alert, index) => (
-                            <li key={index} className="text-destructive-foreground bg-destructive/80 p-3 rounded-md">{alert}</li>
+                    <div className="space-y-2">
+                        {displayedAlerts.map((item, index) => (
+                            <div key={index} className="text-destructive-foreground bg-destructive/80 p-3 rounded-md">{item.alert}</div>
                         ))}
-                    </ul>
+                    </div>
                 ) : (
                     <div className="flex items-center justify-center h-24 border rounded-md bg-muted/20 text-muted-foreground">
                         <p>{state.location ? t('weather_alerts.no_threats') : t('weather_alerts.submit_for_alerts')}</p>
+                    </div>
+                )}
+            </div>
+             <div>
+                <h3 className="text-lg font-semibold mb-2 flex items-center gap-2 font-headline"><Lightbulb className="text-primary"/>Recommended Solutions</h3>
+                {isTranslationLoading ? (
+                     <div className="flex items-center justify-center h-24 border rounded-md bg-muted/20 text-muted-foreground">
+                        <Loader2 className="animate-spin mr-2"/>
+                        <p>Translating solutions...</p>
+                    </div>
+                ) : displayedAlerts && displayedAlerts.length > 0 ? (
+                    <Accordion type="single" collapsible className="w-full">
+                        {displayedAlerts.map((item, index) => (
+                            <AccordionItem value={`item-${index}`} key={index}>
+                                <AccordionTrigger className="text-left">{item.alert}</AccordionTrigger>
+                                <AccordionContent className="whitespace-pre-wrap">
+                                    {item.solution}
+                                </AccordionContent>
+                            </AccordionItem>
+                        ))}
+                    </Accordion>
+                ) : (
+                    <div className="flex items-center justify-center h-24 border rounded-md bg-muted/20 text-muted-foreground">
+                        <p>{state.location ? 'No solutions needed.' : 'Submit details to see solutions.'}</p>
                     </div>
                 )}
             </div>
