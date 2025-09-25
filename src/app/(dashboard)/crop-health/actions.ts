@@ -12,30 +12,29 @@ export interface CropHealthState {
   error?: string;
 }
 
-const CropHealthSchema = z.object({
-  description: z.string(),
-  photoDataUri: z.string().min(1, { message: 'An image is required.' }),
-});
+// Zod schema for validation
+const PhotoSchema = z.string().min(1, { message: 'An image is required.' });
 
 export async function getCropHealthReport(
   prevState: CropHealthState,
   formData: FormData
 ): Promise<CropHealthState> {
-  const validatedFields = CropHealthSchema.safeParse({
-    description: formData.get('description') ?? '',
-    photoDataUri: formData.get('photoDataUri'),
-  });
+  const photoDataUri = formData.get('photoDataUri');
+  const description = formData.get('description') ?? '';
 
-  if (!validatedFields.success) {
-    const fieldErrors = validatedFields.error.flatten().fieldErrors;
-    const error = fieldErrors.description?.[0] || fieldErrors.photoDataUri?.[0];
+  const validatedPhoto = PhotoSchema.safeParse(photoDataUri);
+
+  if (!validatedPhoto.success) {
     return {
-      error: error,
+      error: validatedPhoto.error.flatten().formErrors[0],
     };
   }
   
   try {
-    const report = await generateCropHealthReport(validatedFields.data);
+    const report = await generateCropHealthReport({
+        photoDataUri: validatedPhoto.data,
+        description: description as string,
+    });
     
     // Combine report for text-to-speech
     const fullReportText = `Plant Information: ${report.plantInfo}. Disease Diagnosis: ${report.diseaseDiagnosis}. Solution: ${report.solution}`;
