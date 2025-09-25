@@ -17,7 +17,6 @@ import {
   Leaf,
   MessageSquare,
   Settings,
-  Store,
   Tractor,
   Landmark,
 } from 'lucide-react';
@@ -33,7 +32,6 @@ export function SidebarNav() {
     { href: '/weather-alerts', label: t('sidebar.weather_alerts'), icon: CloudSun },
     { href: '/mandi-prices', label: t('sidebar.mandi_prices'), icon: Landmark },
     { href: '/farming-plans', label: t('sidebar.farming_plans'), icon: BotMessageSquare },
-    { href: '/marketplace', label: t('sidebar.marketplace'), icon: Store },
     { href: '/forums', label: t('sidebar.forums'), icon: MessageSquare },
   ];
 

@@ -1,40 +1,77 @@
-{
-  "placeholderImages": [
-    {
-      "id": "seeds",
-      "description": "A variety of high-quality seeds.",
-      "imageUrl": "https://picsum.photos/seed/seeds/400/300",
-      "imageHint": "seeds packet"
-    },
-    {
-      "id": "fertilizers",
-      "description": "Nutrient-rich fertilizers for healthy crops.",
-      "imageUrl": "https://picsum.photos/seed/fertilizer/400/300",
-      "imageHint": "fertilizer bag"
-    },
-    {
-      "id": "pesticides",
-      "description": "Effective pesticides to protect your plants.",
-      "imageUrl": "https://picsum.photos/seed/pesticide/400/300",
-      "imageHint": "pesticide bottle"
-    },
-    {
-      "id": "tools",
-      "description": "Durable and efficient farming tools.",
-      "imageUrl": "https://picsum.photos/seed/tools/400/300",
-      "imageHint": "farming tools"
-    },
-    {
-      "id": "organic-compost",
-      "description": "Organic compost for sustainable farming.",
-      "imageUrl": "https://picsum.photos/seed/compost/400/300",
-      "imageHint": "compost pile"
-    },
-    {
-      "id": "irrigation-system",
-      "description": "Modern irrigation systems for efficient water use.",
-      "imageUrl": "https://picsum.photos/seed/irrigation/400/300",
-      "imageHint": "irrigation system"
-    }
-  ]
+'use client';
+import {
+  Sidebar,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarFooter,
+} from '@/components/ui/sidebar';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import {
+  BotMessageSquare,
+  CloudSun,
+  LayoutDashboard,
+  Leaf,
+  MessageSquare,
+  Settings,
+  Tractor,
+  Landmark,
+} from 'lucide-react';
+import { useTranslation } from '@/context/language-context';
+
+export function SidebarNav() {
+  const pathname = usePathname();
+  const { t } = useTranslation();
+
+  const menuItems = [
+    { href: '/', label: t('sidebar.dashboard'), icon: LayoutDashboard },
+    { href: '/crop-health', label: t('sidebar.crop_health'), icon: Leaf },
+    { href: '/weather-alerts', label: t('sidebar.weather_alerts'), icon: CloudSun },
+    { href: '/mandi-prices', label: t('sidebar.mandi_prices'), icon: Landmark },
+    { href: '/farming-plans', label: t('sidebar.farming_plans'), icon: BotMessageSquare },
+    { href: '/forums', label: t('sidebar.forums'), icon: MessageSquare },
+  ];
+
+  return (
+    <Sidebar collapsible="icon">
+      <SidebarHeader>
+        <div className="flex items-center gap-2 p-2">
+          <Tractor className="w-8 h-8 text-primary" />
+          <span className="font-headline text-2xl group-data-[collapsible=icon]:hidden">
+            AgriNova
+          </span>
+        </div>
+      </SidebarHeader>
+      <SidebarMenu className="flex-1 p-2">
+        {menuItems.map((item) => (
+          <SidebarMenuItem key={item.href}>
+            <SidebarMenuButton
+              asChild
+              isActive={pathname === item.href}
+              tooltip={item.label}
+            >
+              <Link href={item.href}>
+                <item.icon />
+                <span>{item.label}</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        ))}
+      </SidebarMenu>
+      <SidebarFooter className="p-2">
+         <SidebarMenu>
+            <SidebarMenuItem>
+                <SidebarMenuButton asChild tooltip={t('sidebar.settings')} isActive={pathname === '/settings'}>
+                    <Link href="/settings">
+                        <Settings/>
+                        <span>{t('sidebar.settings')}</span>
+                    </Link>
+                </SidebarMenuButton>
+            </SidebarMenuItem>
+         </SidebarMenu>
+      </SidebarFooter>
+    </Sidebar>
+  );
 }
