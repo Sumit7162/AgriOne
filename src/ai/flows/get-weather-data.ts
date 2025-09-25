@@ -26,7 +26,7 @@ export type GetWeatherDataOutput = z.infer<typeof GetWeatherDataOutputSchema>;
 const getWeatherDataTool = ai.defineTool(
   {
     name: 'getWeatherData',
-    description: 'Get the current weather for a location from WeatherAPI.com.',
+    description: 'Get the current weather for a location from OpenWeatherMap.',
     inputSchema: GetWeatherDataInputSchema,
     outputSchema: GetWeatherDataOutputSchema,
   },
@@ -36,7 +36,7 @@ const getWeatherDataTool = ai.defineTool(
       throw new Error('WEATHER_API_KEY is not configured.');
     }
 
-    const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${encodeURIComponent(location)}`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(location)}&appid=${apiKey}&units=metric`;
 
     try {
       const response = await fetch(url);
@@ -45,17 +45,18 @@ const getWeatherDataTool = ai.defineTool(
       }
       const data = await response.json();
 
-      if (data.error) {
-        throw new Error(data.error.message);
+      if (data.cod !== 200) {
+        throw new Error(data.message || 'An unknown error occurred with the weather API.');
       }
-
-      const { current } = data;
+      
+      const windSpeedKph = data.wind?.speed ? (data.wind.speed * 3.6).toFixed(1) : 'N/A';
+      const precipitationMm = data.rain?.['1h'] || 0;
 
       return {
-        temperature: `${current.temp_c}°C`,
-        wind: `${current.wind_kph} km/h`,
-        humidity: `${current.humidity}%`,
-        precipitation: `${current.precip_mm} mm`,
+        temperature: `${data.main?.temp?.toFixed(1) ?? 'N/A'}°C`,
+        wind: `${windSpeedKph} km/h`,
+        humidity: `${data.main?.humidity ?? 'N/A'}%`,
+        precipitation: `${precipitationMm} mm`,
       };
     } catch (error) {
       console.error('Error fetching weather data:', error);
