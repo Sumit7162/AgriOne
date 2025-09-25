@@ -17,7 +17,7 @@ import { getCropHealthReport, getReportAudio, getTranslatedReport, type CropHeal
 import { SubmitButton } from "@/components/ui/submit-button";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { ImageUp, ScanSearch, Volume2, Loader2, Languages, Camera, BotMessageSquare, Lightbulb, CheckCircle, Info, Bug } from "lucide-react";
+import { ImageUp, ScanSearch, Volume2, Loader2, Languages, Camera, Info, Bug, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -73,6 +73,7 @@ export function CropHealthForm() {
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -82,7 +83,7 @@ export function CropHealthForm() {
         const result = reader.result as string;
         setImagePreview(result);
         setPhotoDataUri(result);
-        setIsCameraOpen(false);
+        stopCamera();
       };
       reader.readAsDataURL(file);
     }
@@ -130,6 +131,7 @@ export function CropHealthForm() {
     if (videoRef.current && videoRef.current.srcObject) {
       const stream = videoRef.current.srcObject as MediaStream;
       stream.getTracks().forEach(track => track.stop());
+      videoRef.current.srcObject = null;
     }
     setIsCameraOpen(false);
   };
@@ -216,13 +218,10 @@ export function CropHealthForm() {
     setImagePreview(null);
     setPhotoDataUri('');
     setDisplayedReport(undefined);
-    // This is a way to reset the useActionState
-    const newFormData = new FormData();
-    newFormData.append('reset', 'true');
-    formAction(newFormData); 
+    // Reset the form action state
+    formAction(new FormData());
     setIsSubmitting(false);
   };
-
 
   if (isSubmitting && !state.report && !state.error) {
     return (
@@ -325,7 +324,10 @@ export function CropHealthForm() {
           <CardContent className="space-y-6">
             <div className="space-y-4">
                <div className="flex items-center justify-center w-full">
-                 <label htmlFor="photo" className="relative w-64 h-64 rounded-full border-2 border-dashed flex flex-col items-center justify-center cursor-pointer bg-card hover:bg-muted/50 overflow-hidden">
+                 <div 
+                    className="relative w-64 h-64 rounded-full border-2 border-dashed flex flex-col items-center justify-center cursor-pointer bg-card hover:bg-muted/50 overflow-hidden"
+                    onClick={() => fileInputRef.current?.click()}
+                 >
                     {imagePreview ? (
                         <Image src={imagePreview} alt="Image preview" fill style={{ objectFit: "cover" }} />
                     ) : isCameraOpen ? (
@@ -337,9 +339,9 @@ export function CropHealthForm() {
                             <p className="text-xs">PNG, JPG, or WEBP</p>
                         </div>
                     )}
-                 </label>
+                 </div>
                </div>
-                <Input id="photo" name="photo" type="file" className="sr-only" onChange={handleFileChange} accept="image/png, image/jpeg, image/webp" />
+                <Input ref={fileInputRef} id="photo" name="photo" type="file" className="sr-only" onChange={handleFileChange} accept="image/png, image/jpeg, image/webp" />
                <div className="flex justify-center gap-4">
                 {isCameraOpen ? (
                      <>
@@ -347,7 +349,7 @@ export function CropHealthForm() {
                         <Button type="button" variant="outline" onClick={stopCamera} className="flex-1">Close Camera</Button>
                      </>
                 ) : (
-                    <Button type="button" variant="outline" onClick={handleOpenCamera}>
+                    <Button type="button" variant="outline" onClick={(e) => { e.stopPropagation(); handleOpenCamera(); }}>
                         <Camera className="mr-2"/>
                         Open Camera
                     </Button>
