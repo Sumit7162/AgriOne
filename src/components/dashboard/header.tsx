@@ -4,7 +4,6 @@ import type { FC, PropsWithChildren } from 'react';
 import {
   SidebarTrigger,
 } from '@/components/ui/sidebar';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '../ui/button';
 import { LogOut } from 'lucide-react';
 import { LanguageSwitcher } from './language-switcher';

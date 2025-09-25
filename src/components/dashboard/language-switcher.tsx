@@ -29,14 +29,16 @@ const languages = [
 
 
 export function LanguageSwitcher() {
-  const { setLanguage } = useLanguage();
+  const { language, setLanguage } = useLanguage();
+
+  const selectedLanguageLabel = languages.find(lang => lang.value === language)?.label.split(' ')[0] || 'Language';
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <Languages className="h-5 w-5" />
-          <span className="sr-only">Change language</span>
+        <Button variant="outline">
+          <Languages className="h-4 w-4 mr-2" />
+          {selectedLanguageLabel}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
