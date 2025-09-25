@@ -22,7 +22,7 @@ export async function getCropHealthReport(
   formData: FormData
 ): Promise<CropHealthState> {
   const validatedFields = CropHealthSchema.safeParse({
-    description: formData.get('description'),
+    description: formData.get('description') ?? '',
     photoDataUri: formData.get('photoDataUri'),
   });
 
