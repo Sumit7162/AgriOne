@@ -1,37 +1,37 @@
 {
   "cropHealth": {
-    "src": "https://picsum.photos/seed/plant-health/600/400",
+    "src": "https://picsum.photos/seed/crop-inspection/600/400",
     "width": 600,
     "height": 400,
-    "alt": "A healthy green leaf, symbolizing crop health.",
-    "data-ai-hint": "crop leaf"
+    "alt": "A close-up of a farmer inspecting a crop leaf, symbolizing crop health.",
+    "data-ai-hint": "crop inspection"
   },
   "weather": {
-    "src": "https://picsum.photos/seed/storm-clouds/600/400",
+    "src": "https://picsum.photos/seed/farm-weather/600/400",
     "width": 600,
     "height": 400,
-    "alt": "Sun shining through clouds, representing weather alerts.",
-    "data-ai-hint": "weather farm"
+    "alt": "Clouds over a farm field, representing weather alerts for agriculture.",
+    "data-ai-hint": "farm weather"
   },
   "mandi": {
-    "src": "https://picsum.photos/seed/market-stall/600/400",
+    "src": "https://picsum.photos/seed/produce-market/600/400",
     "width": 600,
     "height": 400,
-    "alt": "A bustling market scene, representing mandi prices.",
-    "data-ai-hint": "market produce"
+    "alt": "A vibrant stall with fresh produce at an agricultural market.",
+    "data-ai-hint": "produce market"
   },
   "farmingPlans": {
-    "src": "https://picsum.photos/seed/green-field/600/400",
+    "src": "https://picsum.photos/seed/tractor-field/600/400",
     "width": 600,
     "height": 400,
-    "alt": "A farmer looking over a field, symbolizing personalized farming plans.",
-    "data-ai-hint": "farmer field"
+    "alt": "A tractor plowing a field, symbolizing personalized farming plans.",
+    "data-ai-hint": "tractor field"
   },
   "forums": {
-    "src": "https://picsum.photos/seed/community-gathering/600/400",
+    "src": "https://picsum.photos/seed/farmers-talking/600/400",
     "width": 600,
     "height": 400,
-    "alt": "A group of people talking, representing community forums.",
-    "data-ai-hint": "community discussion"
+    "alt": "A group of farmers having a discussion in a field, representing community forums.",
+    "data-ai-hint": "farmers talking"
   }
 }
