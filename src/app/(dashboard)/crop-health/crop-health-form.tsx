@@ -255,7 +255,7 @@ export function CropHealthForm() {
                 playSectionAudio(section, text);
               }}
               disabled={isAudioLoading}
-              className="mr-2"
+              className="ml-2"
             >
               {isAudioLoading && loadingAudioSection === section ? <Loader2 className="animate-spin" /> : <Volume2 />}
             </Button>

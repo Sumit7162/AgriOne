@@ -16,26 +16,19 @@ export const Header: FC<PropsWithChildren> = ({ children }) => {
   const translateTitle = (title: React.ReactNode): React.ReactNode => {
     if (typeof title !== 'string') return title;
 
-    switch (title) {
-      case 'Dashboard':
-        return t('dashboard.title');
-      case 'Crop Health':
-        return t('crop_health.title');
-      case 'Weather & Pest Alerts':
-        return t('weather_alerts.title');
-       case 'Mandi Prices':
-        return t('mandi_prices.title');
-      case 'Personalized Farming Plans':
-        return t('farming_plans.title');
-      case 'Marketplace':
-        return t('marketplace.title');
-      case 'Community Forums':
-        return t('forums.title');
-      case 'Settings':
-        return t('settings.title');
-      default:
-        return title;
-    }
+    const keyMap: { [key: string]: string } = {
+      'Dashboard': 'dashboard.title',
+      'Crop Health': 'crop_health.title',
+      'Weather & Pest Alerts': 'weather_alerts.title',
+      'Mandi Prices': 'mandi_prices.title',
+      'Personalized Farming Plans': 'farming_plans.title',
+      'Marketplace': 'marketplace.title',
+      'Community Forums': 'forums.title',
+      'Settings': 'settings.title',
+    };
+
+    const translationKey = keyMap[title];
+    return translationKey ? t(translationKey) : title;
   };
 
 
