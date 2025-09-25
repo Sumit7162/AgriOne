@@ -1,3 +1,4 @@
+
 'use client';
 import {
   Card,
@@ -41,12 +42,6 @@ export default function DashboardPage() {
       description: t('dashboard.mandi_prices_card_description'),
       href: '/mandi-prices',
       icon: <Landmark className="h-8 w-8 text-primary" />,
-    },
-    {
-      title: t('dashboard.marketplace_card_title'),
-      description: t('dashboard.marketplace_card_description'),
-      href: '/marketplace',
-      icon: <Store className="h-8 w-8 text-primary" />,
     },
     {
       title: t('dashboard.forums_card_title'),
