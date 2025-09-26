@@ -28,10 +28,15 @@ export default function DashboardPage() {
     try {
       const result = await generateTextResponse({ query: inputValue });
       setHistory(prev => [...prev, { role: 'ai', type: 'text', content: result.response }]);
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred.';
-      setHistory(prev => [...prev, { role: 'ai', type: 'error', content: `Failed to get response: ${errorMessage}` }]);
+      let errorMessage = 'An unknown error occurred while trying to get a response.';
+      if (error.message && error.message.includes('503')) {
+        errorMessage = 'The AI service is temporarily unavailable. Please try again in a few moments.';
+      } else if (error instanceof Error) {
+        errorMessage = `Failed to get response: ${error.message}`;
+      }
+      setHistory(prev => [...prev, { role: 'ai', type: 'error', content: errorMessage }]);
     } finally {
       setIsLoading(false);
     }
