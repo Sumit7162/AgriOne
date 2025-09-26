@@ -9,7 +9,6 @@ import { Bug, CheckCircle, Info, Loader2, Sparkles, User, Volume2 } from "lucide
 import Image from "next/image";
 import { useTranslation } from "@/context/language-context";
 import { getReportAudio } from "@/app/(dashboard)/crop-health/actions";
-import { getAudioForText } from "@/app/(dashboard)/actions";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 
@@ -47,35 +46,17 @@ export function ChatHistory({ history, isLoading }: ChatHistoryProps) {
     const lastMessage = history[history.length - 1];
     if (!isLoading && lastMessage?.role === 'ai' && lastMessage?.type === 'text' && lastMessage.content !== latestAiTextResponseRef.current) {
       latestAiTextResponseRef.current = lastMessage.content;
-      playTextAudio(lastMessage.content, `auto-play-${history.length-1}`);
+      playAudioForItem(lastMessage.content, `auto-play-${history.length-1}`);
     }
   }, [history, isLoading]);
 
 
-  const playReportAudio = (text: string, section: string) => {
+  const playAudioForItem = (text: string, section: string) => {
     if (isAudioLoading) return;
     setLoadingAudioItem(section);
     startAudioTransition(async () => {
+      // Consolidating to use a single, reliable server action for all TTS needs in this component.
       const result = await getReportAudio(text);
-      if (result.error) {
-        toast({
-          variant: "destructive",
-          title: t('crop_health.audio_error_title'),
-          description: result.error,
-        });
-        setAudioDataUri(undefined);
-      } else {
-        setAudioDataUri(result.audioDataUri);
-      }
-      setLoadingAudioItem(null);
-    });
-  };
-
-  const playTextAudio = (text: string, section: string) => {
-    if (isAudioLoading) return;
-    setLoadingAudioItem(section);
-    startAudioTransition(async () => {
-      const result = await getAudioForText(text);
       if (result.error) {
         toast({
           variant: "destructive",
@@ -108,7 +89,7 @@ export function ChatHistory({ history, isLoading }: ChatHistoryProps) {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => playReportAudio(text, uniqueId)}
+              onClick={() => playAudioForItem(text, uniqueId)}
               disabled={isAudioLoading}
               className="text-muted-foreground hover:bg-muted/50 hover:text-foreground"
             >
@@ -137,7 +118,7 @@ export function ChatHistory({ history, isLoading }: ChatHistoryProps) {
                          <Button
                             variant="ghost"
                             size="icon"
-                            onClick={() => playTextAudio(item.content, `text-${index}`)}
+                            onClick={() => playAudioForItem(item.content, `text-${index}`)}
                             disabled={isAudioLoading}
                             className="text-muted-foreground hover:bg-muted/50 hover:text-foreground"
                         >
