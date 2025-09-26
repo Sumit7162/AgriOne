@@ -7,18 +7,46 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { openai } from 'genkitx-openai';
+import { googleAI } from '@genkit-ai/googleai';
 import { z } from 'genkit';
+import wav from 'wav';
 
 const TextToSpeechInputSchema = z.object({
   text: z.string(),
-  voiceName: z.string().default('alloy'),
+  voiceName: z.string().default('Algenib'),
 });
 export type TextToSpeechInput = z.infer<typeof TextToSpeechInputSchema>;
 
 const TextToSpeechOutputSchema = z.object({
   media: z.string().describe('The audio data as a base64 encoded data URI.'),
 });
+
+async function toWav(
+  pcmData: Buffer,
+  channels = 1,
+  rate = 24000,
+  sampleWidth = 2
+): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const writer = new wav.Writer({
+      channels,
+      sampleRate: rate,
+      bitDepth: sampleWidth * 8,
+    });
+
+    let bufs = [] as any[];
+    writer.on('error', reject);
+    writer.on('data', function (d) {
+      bufs.push(d);
+    });
+    writer.on('end', function () {
+      resolve(Buffer.concat(bufs).toString('base64'));
+    });
+
+    writer.write(pcmData);
+    writer.end();
+  });
+}
 
 const textToSpeechFlow = ai.defineFlow(
   {
@@ -28,9 +56,14 @@ const textToSpeechFlow = ai.defineFlow(
   },
   async ({ text, voiceName }) => {
     const { media } = await ai.generate({
-      model: openai.tts1,
+      model: googleAI.model('gemini-2.5-flash-preview-tts'),
       config: {
-        voice: voiceName as any,
+        responseModalities: ['AUDIO'],
+        speechConfig: {
+          voiceConfig: {
+            prebuiltVoiceConfig: { voiceName },
+          },
+        },
       },
       prompt: text,
     });
@@ -38,11 +71,14 @@ const textToSpeechFlow = ai.defineFlow(
     if (!media) {
       throw new Error('No media was returned from the text-to-speech model.');
     }
-
-    // OpenAI returns audio in a format that can be directly used by the browser.
-    // The 'wav' conversion is no longer necessary.
+    
+    const audioBuffer = Buffer.from(
+      media.url.substring(media.url.indexOf(',') + 1),
+      'base64'
+    );
+    
     return {
-      media: media.url,
+      media: 'data:audio/wav;base64,' + (await toWav(audioBuffer)),
     };
   }
 );
