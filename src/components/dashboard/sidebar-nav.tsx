@@ -6,19 +6,14 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarFooter,
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
-  BotMessageSquare,
-  CloudSun,
-  LayoutDashboard,
-  Leaf,
-  MessageSquare,
   Settings,
   Tractor,
   Landmark,
+  Shield,
 } from 'lucide-react';
 import { useTranslation } from '@/context/language-context';
 
@@ -27,23 +22,20 @@ export function SidebarNav() {
   const { t } = useTranslation();
 
   const menuItems = [
-    { href: '/', label: t('sidebar.dashboard'), icon: LayoutDashboard },
-    { href: '/crop-health', label: t('sidebar.crop_health'), icon: Leaf },
-    { href: '/weather-alerts', label: t('sidebar.weather_alerts'), icon: CloudSun },
+    { href: '/government-schemes', label: t('sidebar.schemes'), icon: Shield },
     { href: '/mandi-prices', label: t('sidebar.mandi_prices'), icon: Landmark },
-    { href: '/farming-plans', label: t('sidebar.farming_plans'), icon: BotMessageSquare },
-    { href: '/forums', label: t('sidebar.forums'), icon: MessageSquare },
+    { href: '/settings', label: t('sidebar.settings'), icon: Settings },
   ];
 
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
-        <div className="flex items-center gap-2 p-2">
-          <Tractor className="w-8 h-8 text-primary" />
-          <span className="font-headline text-2xl group-data-[collapsible=icon]:hidden">
-            {t('common.app_name')}
-          </span>
-        </div>
+        <Link href="/" className="flex items-center gap-2 p-2">
+            <Tractor className="w-8 h-8 text-primary" />
+            <span className="font-headline text-2xl group-data-[collapsible=icon]:hidden">
+                {t('common.app_name')}
+            </span>
+        </Link>
       </SidebarHeader>
       <SidebarMenu className="flex-1 p-2">
         {menuItems.map((item) => (
@@ -61,18 +53,6 @@ export function SidebarNav() {
           </SidebarMenuItem>
         ))}
       </SidebarMenu>
-      <SidebarFooter className="p-2">
-         <SidebarMenu>
-            <SidebarMenuItem>
-                <SidebarMenuButton asChild tooltip={t('sidebar.settings')} isActive={pathname === '/settings'}>
-                    <Link href="/settings">
-                        <Settings/>
-                        <span>{t('sidebar.settings')}</span>
-                    </Link>
-                </SidebarMenuButton>
-            </SidebarMenuItem>
-         </SidebarMenu>
-      </SidebarFooter>
     </Sidebar>
   );
 }

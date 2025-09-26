@@ -24,6 +24,7 @@ export const Header: FC<PropsWithChildren> = ({ children }) => {
       'Marketplace': 'marketplace.title',
       'Community Forums': 'forums.title',
       'Settings': 'settings.title',
+      'Government Schemes': 'schemes.title',
     };
 
     const translationKey = keyMap[title];

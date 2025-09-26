@@ -6,6 +6,11 @@
     },
     "dashboard": {
         "title": "Dashboard",
+        "search_placeholder": "Ask me anything about your farm...",
+        "image_analysis_title": "Image Analysis",
+        "image_analysis_description": "Upload an image to detect pests and diseases.",
+        "weather_title": "Weather",
+        "weather_description": "Get hyperlocal forecasts and pest alerts.",
         "crop_health_card_title": "Crop Health AI",
         "crop_health_card_description": "Upload an image to detect pests and diseases in your crops instantly.",
         "weather_alerts_card_title": "Weather & Pest Alerts",
@@ -22,10 +27,25 @@
         "dashboard": "Dashboard",
         "crop_health": "Crop Health",
         "weather_alerts": "Weather Alerts",
-        "mandi_prices": "Mandi Prices",
+        "mandi_prices": "Market Prices",
         "farming_plans": "Farming Plans",
         "forums": "Forums",
-        "settings": "Settings"
+        "settings": "Settings",
+        "schemes": "Govt. Schemes"
+    },
+    "schemes": {
+        "title": "Government Schemes",
+        "scheme1_title": "Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)",
+        "scheme1_description": "Provides income support of ₹6,000 per year to all landholding farmer families.",
+        "scheme1_eligibility": "All landholding farmer families with cultivable land.",
+        "scheme2_title": "Pradhan Mantri Fasal Bima Yojana (PMFBY)",
+        "scheme2_description": "Crop insurance scheme to provide financial support to farmers suffering crop loss/damage arising out of unforeseen events.",
+        "scheme2_eligibility": "All farmers including sharecroppers and tenant farmers growing notified crops in notified areas.",
+        "scheme3_title": "Kisan Credit Card (KCC) Scheme",
+        "scheme3_description": "Provides farmers with timely access to credit for their cultivation and other needs.",
+        "scheme3_eligibility": "All farmers - individuals/joint borrowers who are owner cultivators.",
+        "eligibility_label": "Eligibility:",
+        "learn_more_button": "Learn More"
     },
     "crop_health": {
         "title": "Crop Health",
