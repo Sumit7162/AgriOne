@@ -3,6 +3,7 @@
 
 import { getPestDiseaseAlerts, type GetPestDiseaseAlertsOutput } from '@/ai/flows/get-pest-disease-alerts';
 import { getWeatherData, type GetWeatherDataOutput } from '@/ai/flows/get-weather-data';
+import { textToSpeech } from '@/ai/flows/text-to-speech';
 import { translateText } from '@/ai/flows/translate-text';
 
 export interface WeatherAlertState {
@@ -64,5 +65,28 @@ export async function getTranslatedAlerts(
   } catch (e) {
     console.error(e);
     return { error: 'Failed to translate alerts. Please try again.' };
+  }
+}
+
+export async function getAlertsAudio(
+  text: string,
+  voiceName: string
+): Promise<{ audioDataUri?: string; error?: string }> {
+  if (!text) {
+    return { error: 'Alert text is missing.' };
+  }
+  if (!voiceName) {
+    return { error: 'Voice selection is missing.' };
+  }
+
+  try {
+    const { media } = await textToSpeech({ text, voiceName });
+     if (!media) {
+      return { error: 'Audio generation is disabled. Please set your Gemini API key.' };
+    }
+    return { audioDataUri: media };
+  } catch (e) {
+    console.error(e);
+    return { error: 'Failed to generate audio. Please try again.' };
   }
 }

@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useActionState, useState, useTransition, useEffect } from "react";
+import { useActionState, useState, useTransition, useEffect, useRef } from "react";
 import {
   Card,
   CardContent,
@@ -13,13 +13,14 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { getWeatherAlerts, getTranslatedAlerts, type WeatherAlertState } from "./actions";
+import { getWeatherAlerts, getTranslatedAlerts, getAlertsAudio, type WeatherAlertState } from "./actions";
 import { SubmitButton } from "@/components/ui/submit-button";
-import { BellRing, CloudDrizzle, CloudRain, CloudSun, Siren, Thermometer, Wind, Languages, Loader2, Lightbulb } from "lucide-react";
+import { BellRing, CloudDrizzle, CloudRain, CloudSun, Siren, Thermometer, Wind, Languages, Loader2, Lightbulb, Volume2 } from "lucide-react";
 import { useTranslation } from "@/context/language-context";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import type { GetPestDiseaseAlertsOutput } from "@/ai/flows/get-pest-disease-alerts";
+import { Button } from "@/components/ui/button";
 
 const initialState: WeatherAlertState = {};
 
@@ -47,6 +48,10 @@ export function WeatherAlertsForm() {
   const [selectedLanguage, setSelectedLanguage] = useState(languages[0].value);
   const [isTranslationLoading, startTranslationTransition] = useTransition();
   const { toast } = useToast();
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [audioDataUri, setAudioDataUri] = useState<string | undefined>(undefined);
+  const [isAudioLoading, startAudioTransition] = useTransition();
+  const [loadingAudioItem, setLoadingAudioItem] = useState<string | null>(null);
 
   useEffect(() => {
     if (state.alerts) {
@@ -55,9 +60,17 @@ export function WeatherAlertsForm() {
     }
   }, [state.alerts]);
 
+  useEffect(() => {
+    if (audioDataUri && audioRef.current) {
+      audioRef.current.src = audioDataUri;
+      audioRef.current.play().catch(e => console.error("Audio play failed:", e));
+    }
+  }, [audioDataUri]);
+
   const handleLanguageChange = async (languageCode: string) => {
       setSelectedLanguage(languageCode);
       if (!state.alerts) return;
+      setAudioDataUri(undefined);
 
       startTranslationTransition(async () => {
           const result = await getTranslatedAlerts(state.alerts!, languageCode);
@@ -71,6 +84,26 @@ export function WeatherAlertsForm() {
               setDisplayedAlerts(result.translatedAlerts);
           }
       });
+  };
+
+  const playAudioForItem = (text: string, index: number, type: 'alert' | 'solution') => {
+    const uniqueId = `${type}-${index}`;
+    if (isAudioLoading) return;
+    setLoadingAudioItem(uniqueId);
+    startAudioTransition(async () => {
+      const result = await getAlertsAudio(text, 'Algenib'); // Default voice
+      if (result.error) {
+        toast({
+          variant: "destructive",
+          title: t('crop_health.audio_error_title'),
+          description: result.error,
+        });
+        setAudioDataUri(undefined);
+      } else {
+        setAudioDataUri(result.audioDataUri);
+      }
+      setLoadingAudioItem(null);
+    });
   };
 
   return (
@@ -160,7 +193,18 @@ export function WeatherAlertsForm() {
                 ) : displayedAlerts && displayedAlerts.length > 0 ? (
                     <div className="space-y-2">
                         {displayedAlerts.map((item, index) => (
-                            <div key={index} className="text-destructive-foreground bg-destructive/80 p-3 rounded-md">{item.alert}</div>
+                            <div key={`alert-${index}`} className="flex items-center gap-2 text-destructive-foreground bg-destructive/80 p-3 rounded-md">
+                              <p className="flex-1">{item.alert}</p>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => playAudioForItem(item.alert, index, 'alert')}
+                                disabled={isAudioLoading}
+                                className="text-destructive-foreground hover:bg-destructive/90 hover:text-destructive-foreground"
+                              >
+                                {isAudioLoading && loadingAudioItem === `alert-${index}` ? <Loader2 className="animate-spin" /> : <Volume2 />}
+                              </Button>
+                            </div>
                         ))}
                     </div>
                 ) : (
@@ -179,7 +223,18 @@ export function WeatherAlertsForm() {
                 ) : displayedAlerts && displayedAlerts.length > 0 ? (
                     <div className="space-y-2">
                         {displayedAlerts.map((item, index) => (
-                            <div key={index} className="text-primary-foreground bg-primary/80 p-3 rounded-md whitespace-pre-wrap">{item.solution}</div>
+                           <div key={`solution-${index}`} className="flex items-center gap-2 text-primary-foreground bg-primary/80 p-3 rounded-md">
+                              <p className="flex-1 whitespace-pre-wrap">{item.solution}</p>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => playAudioForItem(item.solution, index, 'solution')}
+                                disabled={isAudioLoading}
+                                className="text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground"
+                              >
+                                {isAudioLoading && loadingAudioItem === `solution-${index}` ? <Loader2 className="animate-spin" /> : <Volume2 />}
+                              </Button>
+                            </div>
                         ))}
                     </div>
                 ) : (
@@ -215,6 +270,7 @@ export function WeatherAlertsForm() {
             </div>
           </CardContent>
         </Card>
+        {audioDataUri && <audio ref={audioRef} src={audioDataUri} className="hidden" />}
       </div>
     </div>
   );
