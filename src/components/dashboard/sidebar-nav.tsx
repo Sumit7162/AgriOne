@@ -14,6 +14,10 @@ import {
   Tractor,
   Landmark,
   Shield,
+  HeartPulse,
+  CloudSun,
+  BotMessageSquare,
+  Users,
 } from 'lucide-react';
 import { useTranslation } from '@/context/language-context';
 
@@ -22,8 +26,11 @@ export function SidebarNav() {
   const { t } = useTranslation();
 
   const menuItems = [
-    { href: '/government-schemes', label: t('sidebar.schemes'), icon: Shield },
+    { href: '/weather-alerts', label: t('sidebar.weather_alerts'), icon: CloudSun },
     { href: '/mandi-prices', label: t('sidebar.mandi_prices'), icon: Landmark },
+    { href: '/farming-plans', label: t('sidebar.farming_plans'), icon: BotMessageSquare },
+    { href: '/forums', label: t('sidebar.forums'), icon: Users },
+    { href: '/government-schemes', label: t('sidebar.schemes'), icon: Shield },
     { href: '/settings', label: t('sidebar.settings'), icon: Settings },
   ];
 
