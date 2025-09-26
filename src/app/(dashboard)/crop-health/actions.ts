@@ -2,6 +2,7 @@
 'use server';
 
 import { generateCropHealthReport, type GenerateCropHealthReportOutput } from '@/ai/flows/generate-crop-health-report';
+import { textToSpeech } from '@/ai/flows/text-to-speech';
 import { z } from 'zod';
 
 export interface CropHealthState {
@@ -37,5 +38,25 @@ export async function getCropHealthReport(
     console.error(e);
     const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred.';
     return { error: `Failed to generate crop health report: ${errorMessage}` };
+  }
+}
+
+
+export async function getReportAudio(
+  text: string
+): Promise<{ audioDataUri?: string; error?: string }> {
+  if (!text) {
+    return { error: 'Report text is missing.' };
+  }
+
+  try {
+    const { media } = await textToSpeech({ text, voiceName: 'Algenib' });
+     if (!media) {
+      return { error: 'Audio generation is disabled. Please set your Gemini API key.' };
+    }
+    return { audioDataUri: media };
+  } catch (e) {
+    console.error(e);
+    return { error: 'Failed to generate audio. Please try again.' };
   }
 }

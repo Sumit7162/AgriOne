@@ -1,12 +1,17 @@
 
 "use client";
 
+import { useState, useTransition, useEffect, useRef } from "react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Bug, CheckCircle, Info, Loader2, Sparkles, User } from "lucide-react";
+import { Bug, CheckCircle, Info, Loader2, Sparkles, User, Volume2 } from "lucide-react";
 import Image from "next/image";
 import { useTranslation } from "@/context/language-context";
+import { getReportAudio } from "@/app/(dashboard)/crop-health/actions";
+import { useToast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
+
 
 interface ChatHistoryProps {
   history: any[];
@@ -15,18 +20,65 @@ interface ChatHistoryProps {
 
 export function ChatHistory({ history, isLoading }: ChatHistoryProps) {
   const { t } = useTranslation();
+  const { toast } = useToast();
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [audioDataUri, setAudioDataUri] = useState<string | undefined>(undefined);
+  const [isAudioLoading, startAudioTransition] = useTransition();
+  const [loadingAudioItem, setLoadingAudioItem] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (audioDataUri && audioRef.current) {
+      audioRef.current.src = audioDataUri;
+      audioRef.current.play().catch(e => console.error("Audio play failed:", e));
+    }
+  }, [audioDataUri]);
+
+
+  const playAudioForItem = (text: string, section: string) => {
+    if (isAudioLoading) return;
+    setLoadingAudioItem(section);
+    startAudioTransition(async () => {
+      const result = await getReportAudio(text);
+      if (result.error) {
+        toast({
+          variant: "destructive",
+          title: t('crop_health.audio_error_title'),
+          description: result.error,
+        });
+        setAudioDataUri(undefined);
+      } else {
+        setAudioDataUri(result.audioDataUri);
+      }
+      setLoadingAudioItem(null);
+    });
+  };
 
   const renderAccordionItem = (section: 'info' | 'diagnosis' | 'solution', title: string, text: string, icon: React.ElementType) => {
     const Icon = icon;
+    const uniqueId = section;
+
     return (
       <AccordionItem value={section}>
-        <AccordionTrigger className="flex-1">
+        <AccordionTrigger className="flex-1 text-left">
           <div className="flex items-center">
             <Icon className="mr-2 text-primary" />
             <span className="text-lg font-bold">{title}</span>
           </div>
         </AccordionTrigger>
-        <AccordionContent className="text-base pl-2 whitespace-pre-wrap">{text}</AccordionContent>
+        <AccordionContent className="text-base pl-2 whitespace-pre-wrap">
+          <div className="flex items-start gap-2">
+            <p className="flex-1">{text}</p>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => playAudioForItem(text, uniqueId)}
+              disabled={isAudioLoading}
+              className="text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+            >
+              {isAudioLoading && loadingAudioItem === uniqueId ? <Loader2 className="animate-spin" /> : <Volume2 />}
+            </Button>
+          </div>
+        </AccordionContent>
       </AccordionItem>
     );
   };
@@ -76,6 +128,7 @@ export function ChatHistory({ history, isLoading }: ChatHistoryProps) {
           </div>
         </div>
       )}
+      {audioDataUri && <audio ref={audioRef} src={audioDataUri} className="hidden" />}
     </div>
   );
 }
