@@ -36,6 +36,8 @@ const prompt = ai.definePrompt({
   output: { schema: GenerateTextResponseOutputSchema },
   prompt: `You are an expert farming assistant. Your role is to provide helpful and accurate information about farming.
 
+Detect the language of the user's query and respond in the same language.
+
 User query: {{{query}}}
 
 Provide a helpful response.`,
