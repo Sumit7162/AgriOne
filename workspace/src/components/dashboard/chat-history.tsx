@@ -55,6 +55,7 @@ export function ChatHistory({ history, isLoading }: ChatHistoryProps) {
     if (isAudioLoading) return;
     setLoadingAudioItem(section);
     startAudioTransition(async () => {
+      // Consolidating to use a single, reliable server action for all TTS needs in this component.
       const result = await getReportAudio(text);
       if (result.error) {
         toast({
@@ -112,7 +113,10 @@ export function ChatHistory({ history, isLoading }: ChatHistoryProps) {
             <p className="font-bold">{item.role === 'user' ? 'You' : 'AgriOne AI'}</p>
              {item.type === 'text' && (
                 <div className="flex items-start gap-2">
-                    <p className="whitespace-pre-wrap flex-1">{item.content}</p>
+                    <p 
+                      className="flex-1"
+                      dangerouslySetInnerHTML={{ __html: item.content.replace(/\n/g, '<br />') }}
+                    />
                     {item.role === 'ai' && (
                          <Button
                             variant="ghost"
