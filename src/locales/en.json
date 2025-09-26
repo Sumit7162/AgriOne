@@ -54,6 +54,8 @@
         "photo_label": "Crop Photo",
         "upload_cta_strong": "Tap to upload",
         "upload_cta_text": "PNG, JPG, or WEBP",
+        "upload_button": "Upload Photo",
+        "take_photo_button": "Take Photo",
         "image_preview_alt": "Image preview",
         "description_label": "Description (Optional)",
         "description_placeholder": "e.g. leaves are turning yellow",

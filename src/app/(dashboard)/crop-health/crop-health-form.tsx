@@ -17,7 +17,7 @@ import { getCropHealthReport, getReportAudio, getTranslatedReport, type CropHeal
 import { SubmitButton } from "@/components/ui/submit-button";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { ImageUp, ScanSearch, Volume2, Loader2, Languages, Camera, Info, Bug, CheckCircle, RefreshCw } from "lucide-react";
+import { ImageUp, ScanSearch, Volume2, Loader2, Languages, Camera, Info, Bug, CheckCircle, Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -30,7 +30,6 @@ import { useToast } from "@/hooks/use-toast";
 import { useTranslation } from "@/context/language-context";
 import type { GenerateCropHealthReportOutput } from "@/ai/flows/generate-crop-health-report";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 
 const initialState: CropHealthState = {};
@@ -66,14 +65,9 @@ export function CropHealthForm() {
   const [displayedReport, setDisplayedReport] = useState<GenerateCropHealthReportOutput | undefined>(undefined);
   const { toast } = useToast();
   const { t } = useTranslation();
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
-  const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [reportLanguage, setReportLanguage] = useState('en');
-  const [facingMode, setFacingMode] = useState<'user' | 'environment'>('environment');
-  const isMobile = useIsMobile();
 
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,78 +78,8 @@ export function CropHealthForm() {
         const result = reader.result as string;
         setImagePreview(result);
         setPhotoDataUri(result);
-        stopCamera();
       };
       reader.readAsDataURL(file);
-    }
-  };
-
-  const startCamera = async () => {
-     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode } });
-        setHasCameraPermission(true);
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
-        return stream;
-      } catch (error) {
-        console.error("Error accessing camera: ", error);
-        setHasCameraPermission(false);
-        setIsCameraOpen(false);
-        toast({
-          variant: "destructive",
-          title: t('crop_health.camera_denied_title'),
-          description: t('crop_health.camera_denied_description'),
-        });
-        return null;
-      }
-    }
-    return null;
-  }
-
-  const stopCamera = () => {
-    if (videoRef.current && videoRef.current.srcObject) {
-      const stream = videoRef.current.srcObject as MediaStream;
-      stream.getTracks().forEach(track => track.stop());
-      videoRef.current.srcObject = null;
-    }
-    setIsCameraOpen(false);
-  };
-
-  const handleOpenCamera = async () => {
-    setIsCameraOpen(true);
-    await startCamera();
-  };
-  
-  const handleRotateCamera = () => {
-    setFacingMode(prev => prev === 'user' ? 'environment' : 'user');
-  };
-
-  useEffect(() => {
-    if (isCameraOpen) {
-      // stop previous stream before starting a new one
-      if (videoRef.current && videoRef.current.srcObject) {
-        const stream = videoRef.current.srcObject as MediaStream;
-        stream.getTracks().forEach(track => track.stop());
-      }
-      startCamera();
-    }
-  }, [facingMode]);
-
-  const handleCapture = () => {
-    if (videoRef.current) {
-      const canvas = document.createElement("canvas");
-      canvas.width = videoRef.current.videoWidth;
-      canvas.height = videoRef.current.videoHeight;
-      const context = canvas.getContext("2d");
-      if (context) {
-        context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-        const dataUri = canvas.toDataURL("image/jpeg");
-        setImagePreview(dataUri);
-        setPhotoDataUri(dataUri);
-      }
-      stopCamera();
     }
   };
   
@@ -241,6 +165,10 @@ export function CropHealthForm() {
         setAudioDataUri(undefined);
         formAction(new FormData());
         setIsSubmitting(false);
+        // Reset the file input value
+        if (fileInputRef.current) {
+            fileInputRef.current.value = "";
+        }
     });
   };
 
@@ -358,13 +286,10 @@ export function CropHealthForm() {
             <div className="space-y-4">
                <div className="flex items-center justify-center w-full">
                  <div 
-                    className="relative w-64 h-64 rounded-full border-2 border-dashed flex flex-col items-center justify-center cursor-pointer bg-card hover:bg-muted/50 overflow-hidden"
-                    onClick={() => fileInputRef.current?.click()}
+                    className="relative w-64 h-64 rounded-full border-2 border-dashed flex flex-col items-center justify-center bg-card hover:bg-muted/50 overflow-hidden"
                  >
                     {imagePreview ? (
                         <Image src={imagePreview} alt={t('crop_health.image_preview_alt')} fill style={{ objectFit: "cover" }} />
-                    ) : isCameraOpen ? (
-                        <video ref={videoRef} className="w-full h-full object-cover" autoPlay playsInline muted />
                     ) : (
                         <div className="text-center text-muted-foreground p-4">
                             <ImageUp className="w-12 h-12 mx-auto mb-2"/>
@@ -374,21 +299,30 @@ export function CropHealthForm() {
                     )}
                  </div>
                </div>
-                <Input ref={fileInputRef} id="photo" name="photo" type="file" className="sr-only" onChange={handleFileChange} accept="image/png, image/jpeg, image/webp" />
                <div className="flex justify-center gap-4">
-                {isCameraOpen ? (
-                     <>
-                        <Button type="button" onClick={handleCapture} className="flex-1">{t('crop_health.capture_button')}</Button>
-                        {isMobile && <Button type="button" variant="outline" onClick={handleRotateCamera}><RefreshCw/></Button>}
-                        <Button type="button" variant="outline" onClick={stopCamera} className="flex-1">{t('crop_health.close_camera_button')}</Button>
-                     </>
-                ) : (
-                    <Button type="button" variant="outline" onClick={(e) => { e.stopPropagation(); handleOpenCamera(); }}>
-                        <Camera className="mr-2"/>
-                        {t('crop_health.open_camera_button')}
-                    </Button>
-                )}
+                  <Button type="button" variant="outline" onClick={() => fileInputRef.current?.click()}>
+                    <Upload className="mr-2"/>
+                    {t('crop_health.upload_button')}
+                  </Button>
+                  <Button type="button" variant="outline" onClick={() => {
+                      if(fileInputRef.current) {
+                        fileInputRef.current.setAttribute('capture', 'environment');
+                        fileInputRef.current.click();
+                      }
+                  }}>
+                    <Camera className="mr-2"/>
+                    {t('crop_health.take_photo_button')}
+                  </Button>
                </div>
+                <Input 
+                    ref={fileInputRef} 
+                    id="photo" 
+                    name="photo" 
+                    type="file" 
+                    className="sr-only" 
+                    onChange={handleFileChange} 
+                    accept="image/*" 
+                />
             </div>
             <div className="space-y-2">
               <Label htmlFor="description">{t('crop_health.description_label')}</Label>
