@@ -16,11 +16,9 @@ import { Button } from "@/components/ui/button";
 interface ChatHistoryProps {
   history: any[];
   isLoading: boolean;
-  playLatestResponse?: boolean;
-  setPlayLatestResponse?: (value: boolean) => void;
 }
 
-export function ChatHistory({ history, isLoading, playLatestResponse, setPlayLatestResponse }: ChatHistoryProps) {
+export function ChatHistory({ history, isLoading }: ChatHistoryProps) {
   const { t } = useTranslation();
   const { toast } = useToast();
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -46,12 +44,11 @@ export function ChatHistory({ history, isLoading, playLatestResponse, setPlayLat
   // Effect to handle auto-playing the latest AI response
   useEffect(() => {
     const lastMessage = history[history.length - 1];
-    if (playLatestResponse && lastMessage?.role === 'ai' && lastMessage?.type === 'text' && lastMessage.content !== latestAiTextResponseRef.current) {
+    if (!isLoading && lastMessage?.role === 'ai' && lastMessage?.type === 'text' && lastMessage.content !== latestAiTextResponseRef.current) {
       latestAiTextResponseRef.current = lastMessage.content;
       playAudioForItem(lastMessage.content, `auto-play-${history.length-1}`);
-      setPlayLatestResponse?.(false); // Reset the flag
     }
-  }, [history, playLatestResponse, setPlayLatestResponse]);
+  }, [history, isLoading]);
 
 
   const playAudioForItem = (text: string, section: string) => {

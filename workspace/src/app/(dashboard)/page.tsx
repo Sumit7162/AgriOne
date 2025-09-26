@@ -19,7 +19,6 @@ export default function DashboardPage() {
   const [isRecording, setIsRecording] = useState(false);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const { toast } = useToast();
-  const [playLatestResponse, setPlayLatestResponse] = useState(false);
 
   useEffect(() => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -67,7 +66,6 @@ export default function DashboardPage() {
     if (isRecording) {
       recognitionRef.current.stop();
     } else {
-      setPlayLatestResponse(true); // Flag that the next AI response should be spoken
       recognitionRef.current.start();
       setIsRecording(true);
     }
@@ -88,7 +86,6 @@ export default function DashboardPage() {
       setHistory(prev => [...prev, { role: 'ai', type: 'text', content: result.response }]);
     } catch (error: any) {
       console.error(error);
-      setPlayLatestResponse(false); // Don't play audio for errors
       let errorMessage = 'An unknown error occurred while trying to get a response.';
       if (error.message && error.message.includes('503')) {
         errorMessage = 'The AI service is temporarily unavailable. Please try again in a few moments.';
@@ -114,8 +111,6 @@ export default function DashboardPage() {
           <ChatHistory 
             history={history} 
             isLoading={isLoading} 
-            playLatestResponse={playLatestResponse}
-            setPlayLatestResponse={setPlayLatestResponse}
           />
         )}
       </div>
