@@ -7,3 +7,4 @@ import '@/ai/flows/text-to-speech.ts';
 import '@/ai/flows/translate-text.ts';
 import '@/ai/flows/get-weather-data.ts';
 import '@/ai/flows/get-fasal-price.ts';
+import '@/ai/flows/generate-text-response.ts';

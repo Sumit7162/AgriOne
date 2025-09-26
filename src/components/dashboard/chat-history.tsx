@@ -25,6 +25,13 @@ export function ChatHistory({ history, isLoading }: ChatHistoryProps) {
   const [audioDataUri, setAudioDataUri] = useState<string | undefined>(undefined);
   const [isAudioLoading, startAudioTransition] = useTransition();
   const [loadingAudioItem, setLoadingAudioItem] = useState<string | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [history, isLoading]);
 
   useEffect(() => {
     if (audioDataUri && audioRef.current) {
@@ -93,6 +100,7 @@ export function ChatHistory({ history, isLoading }: ChatHistoryProps) {
           </Avatar>
           <div className="flex-1 space-y-2">
             <p className="font-bold">{item.role === 'user' ? 'You' : 'AgriOne AI'}</p>
+             {item.type === 'text' && <p className="whitespace-pre-wrap">{item.content}</p>}
             {item.type === 'image' && item.content && (
               <div className="relative w-64 h-64 rounded-lg overflow-hidden border">
                 <Image src={item.content} alt="User upload" fill style={{ objectFit: 'cover' }} />
@@ -128,6 +136,7 @@ export function ChatHistory({ history, isLoading }: ChatHistoryProps) {
           </div>
         </div>
       )}
+      <div ref={scrollRef} />
       {audioDataUri && <audio ref={audioRef} src={audioDataUri} className="hidden" />}
     </div>
   );
