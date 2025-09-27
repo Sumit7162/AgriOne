@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useActionState, useState, useMemo } from 'react';
@@ -34,11 +35,13 @@ export function MandiPricesForm() {
   const [selectedMarket, setSelectedMarket] = useState<string>('');
   const [selectedCommodity, setSelectedCommodity] = useState<string>('all');
 
-  const markets = t('mandi_prices.markets', { returnObjects: true }) as Record<string, { value: string; label: string }[]>;
-  const commodities = t('mandi_prices.commodities', { returnObjects: true }) as string[];
-  const states = Object.keys(markets);
+  const marketsData = t('mandi_prices.markets', { returnObjects: true }) as Record<string, { value: string; label: string }[]>;
+  const commoditiesData = t('mandi_prices.commodities', { returnObjects: true });
+  
+  const commodities = Array.isArray(commoditiesData) ? commoditiesData : Object.keys(commoditiesData);
+  const states = Object.keys(marketsData);
 
-  const availableMarkets = selectedState ? markets[selectedState as keyof typeof markets] : [];
+  const availableMarkets = selectedState ? marketsData[selectedState as keyof typeof marketsData] : [];
 
   const filteredAndSortedCommodities = useMemo(() => {
     let filteredItems = [...(state.data?.commodities || [])];
@@ -82,6 +85,13 @@ export function MandiPricesForm() {
       </Button>
     </TableHead>
   );
+
+  const getTranslatedCommodityName = (commodity: string) => {
+    if (Array.isArray(commoditiesData) || !commoditiesData) {
+      return commodity;
+    }
+    return commoditiesData[commodity] || commodity;
+  }
 
 
   return (
@@ -135,7 +145,7 @@ export function MandiPricesForm() {
                         <SelectItem value="all">{t('mandi_prices.all_commodities')}</SelectItem>
                         {commodities.map((commodity) => (
                             <SelectItem key={commodity} value={commodity}>
-                            {commodity}
+                            {getTranslatedCommodityName(commodity)}
                             </SelectItem>
                         ))}
                     </SelectContent>
@@ -161,7 +171,7 @@ export function MandiPricesForm() {
       {state.data && (
         <Card>
           <CardHeader>
-            <CardTitle className="font-headline">{t('mandi_prices.results_title', { market: markets[selectedState as keyof typeof markets]?.find(m => m.value === state.market!)?.label || state.market! })}</CardTitle>
+            <CardTitle className="font-headline">{t('mandi_prices.results_title', { market: marketsData[selectedState as keyof typeof marketsData]?.find(m => m.value === state.market!)?.label || state.market! })}</CardTitle>
             <CardDescription>{t('mandi_prices.results_description')}</CardDescription>
           </CardHeader>
           <CardContent>
@@ -180,7 +190,7 @@ export function MandiPricesForm() {
                     {filteredAndSortedCommodities.length > 0 ? (
                         filteredAndSortedCommodities.map((item) => (
                             <TableRow key={item.commodity}>
-                                <TableCell className="font-medium">{item.commodity}</TableCell>
+                                <TableCell className="font-medium">{getTranslatedCommodityName(item.commodity)}</TableCell>
                                 <TableCell>₹{item.min_price.toLocaleString()}</TableCell>
                                 <TableCell>₹{item.max_price.toLocaleString()}</TableCell>
                                 <TableCell className="font-bold text-primary">₹{item.modal_price.toLocaleString()}</TableCell>
