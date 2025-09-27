@@ -34,7 +34,15 @@ export async function getWeatherAlerts(
     return { alerts: alertsResult.alerts, weather: weatherResult, location, cropType };
   } catch (e) {
     console.error(e);
-    return { error: 'Failed to fetch weather alerts. Please try again.' };
+    let errorMessage = 'Failed to fetch weather alerts. Please try again.';
+    if (e instanceof Error) {
+      if (e.message.includes('503') || e.message.toLowerCase().includes('service unavailable')) {
+        errorMessage = 'The AI service is temporarily unavailable. Please try again in a few moments.';
+      } else {
+        errorMessage = `Failed to fetch weather alerts: ${e.message}`;
+      }
+    }
+    return { error: errorMessage };
   }
 }
 

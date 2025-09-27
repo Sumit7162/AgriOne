@@ -1,3 +1,4 @@
+
 'use server';
 
 import { getPersonalizedFarmingAdvice, type PersonalizedFarmingAdviceOutput } from '@/ai/flows/get-personalized-farming-advice';
@@ -37,7 +38,15 @@ export async function getFarmingPlan(
     return { advice };
   } catch (e) {
     console.error(e);
-    return { error: 'Failed to generate farming plan. Please try again.' };
+    let errorMessage = 'Failed to generate farming plan. Please try again.';
+    if (e instanceof Error) {
+      if (e.message.includes('503') || e.message.toLowerCase().includes('service unavailable')) {
+        errorMessage = 'The AI service is temporarily unavailable. Please try again in a few moments.';
+      } else {
+        errorMessage = `Failed to generate farming plan: ${e.message}`;
+      }
+    }
+    return { error: errorMessage };
   }
 }
 
