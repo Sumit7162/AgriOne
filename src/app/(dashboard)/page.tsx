@@ -84,13 +84,15 @@ export default function DashboardPage() {
     try {
       const result = await generateTextResponse({ query: currentInput });
       setHistory(prev => [...prev, { role: 'ai', type: 'text', content: result.response }]);
-    } catch (error: any) {
+    } catch (error) {
       console.error(error);
       let errorMessage = 'An unknown error occurred while trying to get a response.';
-      if (error.message && (error.message.includes('503') || error.message.includes('Service Unavailable'))) {
-        errorMessage = 'The AI service is temporarily unavailable. Please try again in a few moments.';
-      } else if (error instanceof Error) {
-        errorMessage = `Failed to get response: ${error.message}`;
+      if (error instanceof Error) {
+          if (error.message.includes('503') || error.message.toLowerCase().includes('service unavailable')) {
+              errorMessage = 'The AI service is temporarily unavailable. Please try again in a few moments.';
+          } else {
+              errorMessage = `Failed to get response: ${error.message}`;
+          }
       }
       setHistory(prev => [...prev, { role: 'ai', type: 'error', content: errorMessage }]);
     } finally {
