@@ -288,10 +288,10 @@ export function MandiPricesForm() {
           <CardContent className="space-y-4">
              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="state">State</Label>
+                  <Label htmlFor="state">{t('mandi_prices.state_label')}</Label>
                   <Select onValueChange={handleStateChange} value={selectedState}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select a state" />
+                      <SelectValue placeholder={t('mandi_prices.state_placeholder')} />
                     </SelectTrigger>
                     <SelectContent>
                       {states.map((state) => (
@@ -303,10 +303,10 @@ export function MandiPricesForm() {
                   </Select>
                 </div>
                  <div className="space-y-2">
-                  <Label htmlFor="market">Market</Label>
+                  <Label htmlFor="market">{t('mandi_prices.market_label')}</Label>
                   <Select onValueChange={setSelectedMarket} value={selectedMarket} disabled={!selectedState}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select a market" />
+                      <SelectValue placeholder={t('mandi_prices.market_placeholder')} />
                     </SelectTrigger>
                     <SelectContent>
                       {availableMarkets.map((market) => (
@@ -318,13 +318,13 @@ export function MandiPricesForm() {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="commodity">Commodity (Fasal)</Label>
+                  <Label htmlFor="commodity">{t('mandi_prices.commodity_label')}</Label>
                   <Select onValueChange={setSelectedCommodity} value={selectedCommodity}>
                     <SelectTrigger>
-                      <SelectValue placeholder="All Commodities" />
+                      <SelectValue placeholder={t('mandi_prices.commodity_placeholder')} />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="all">All Commodities</SelectItem>
+                        <SelectItem value="all">{t('mandi_prices.all_commodities')}</SelectItem>
                         {commodities.map((commodity) => (
                             <SelectItem key={commodity} value={commodity}>
                             {commodity}
