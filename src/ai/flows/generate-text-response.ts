@@ -10,6 +10,7 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 import {getMarketPricesTool} from '../tools/market-prices';
+import {getFarmingPlanTool} from '../tools/farming-plans';
 
 const GenerateTextResponseInputSchema = z.object({
   query: z.string().describe('The user query about farming.'),
@@ -35,13 +36,14 @@ const prompt = ai.definePrompt({
   name: 'generateTextResponsePrompt',
   input: {schema: GenerateTextResponseInputSchema},
   output: {schema: GenerateTextResponseOutputSchema},
-  tools: [getMarketPricesTool],
+  tools: [getMarketPricesTool, getFarmingPlanTool],
   prompt: `You are an expert farming assistant named AgriOne AI. Your role is to provide helpful and accurate information about farming.
 
 Detect the language of the user's query and respond in the same language.
 
 You have access to a set of tools to answer specific questions:
 - Use 'getMarketPrices' for questions about commodity prices in specific markets.
+- Use 'getFarmingPlan' for questions about personalized farming advice.
 - For questions about government schemes, provide a general overview based on your knowledge.
 
 User query: {{{query}}}
