@@ -37,8 +37,15 @@ export async function getCropHealthReport(
     return { report };
   } catch (e) {
     console.error(e);
-    const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred.';
-    return { error: `Failed to generate crop health report: ${errorMessage}` };
+    let errorMessage = 'An unknown error occurred while trying to generate the report.';
+    if (e instanceof Error) {
+        if (e.message.includes('503') || e.message.includes('Service Unavailable')) {
+            errorMessage = 'The AI service is temporarily unavailable. Please try again in a few moments.';
+        } else {
+            errorMessage = `Failed to generate crop health report: ${e.message}`;
+        }
+    }
+    return { error: errorMessage };
   }
 }
 
