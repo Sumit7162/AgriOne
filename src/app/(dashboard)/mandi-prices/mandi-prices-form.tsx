@@ -228,14 +228,14 @@ export function MandiPricesForm() {
   const [sortConfig, setSortConfig] = useState<{ key: SortKey; direction: SortDirection } | null>({ key: 'commodity', direction: 'asc' });
   const [selectedState, setSelectedState] = useState<string>('');
   const [selectedMarket, setSelectedMarket] = useState<string>('');
-  const [selectedCommodity, setSelectedCommodity] = useState<string>('');
+  const [selectedCommodity, setSelectedCommodity] = useState<string>('all');
 
   const availableMarkets = selectedState ? markets[selectedState as keyof typeof markets] : [];
 
   const filteredAndSortedCommodities = useMemo(() => {
     let filteredItems = [...(state.data?.commodities || [])];
 
-    if (selectedCommodity) {
+    if (selectedCommodity && selectedCommodity !== 'all') {
       filteredItems = filteredItems.filter(item => item.commodity.toLowerCase() === selectedCommodity.toLowerCase());
     }
 
@@ -324,7 +324,7 @@ export function MandiPricesForm() {
                       <SelectValue placeholder="All Commodities" />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="">All Commodities</SelectItem>
+                        <SelectItem value="all">All Commodities</SelectItem>
                         {commodities.map((commodity) => (
                             <SelectItem key={commodity} value={commodity}>
                             {commodity}
