@@ -10,6 +10,24 @@ import { ChatHistory } from '@/components/dashboard/chat-history';
 import { generateTextResponse } from '@/ai/flows/generate-text-response';
 import { useToast } from '@/hooks/use-toast';
 
+// Helper function for retrying promises
+async function retry<T>(fn: () => Promise<T>, retries = 2, delay = 500): Promise<T> {
+  let lastError: Error | undefined;
+  for (let i = 0; i < retries; i++) {
+    try {
+      return await fn();
+    } catch (e) {
+      lastError = e as Error;
+      if (e instanceof Error && (e.message.includes('503') || e.message.toLowerCase().includes('service unavailable'))) {
+        await new Promise(res => setTimeout(res, delay * (i + 1)));
+      } else {
+        throw e;
+      }
+    }
+  }
+  throw lastError;
+}
+
 export default function DashboardPage() {
   const { t } = useTranslation();
   const [isPickerOpen, setPickerOpen] = useState(false);
@@ -82,7 +100,7 @@ export default function DashboardPage() {
     setIsLoading(true);
 
     try {
-      const result = await generateTextResponse({ query: currentInput });
+      const result = await retry(() => generateTextResponse({ query: currentInput }));
       setHistory(prev => [...prev, { role: 'ai', type: 'text', content: result.response }]);
     } catch (error) {
       console.error(error);

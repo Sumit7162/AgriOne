@@ -16,6 +16,25 @@ const FarmingPlanSchema = z.object({
   currentPractices: z.string().min(1, { message: 'Current practices are required.' }),
 });
 
+// Helper function for retrying promises
+async function retry<T>(fn: () => Promise<T>, retries = 2, delay = 500): Promise<T> {
+  let lastError: Error | undefined;
+  for (let i = 0; i < retries; i++) {
+    try {
+      return await fn();
+    } catch (e) {
+      lastError = e as Error;
+      if (e instanceof Error && (e.message.includes('503') || e.message.toLowerCase().includes('service unavailable'))) {
+        await new Promise(res => setTimeout(res, delay * (i + 1)));
+      } else {
+        throw e;
+      }
+    }
+  }
+  throw lastError;
+}
+
+
 export async function getFarmingPlan(
   prevState: FarmingPlanState,
   formData: FormData
@@ -34,7 +53,7 @@ export async function getFarmingPlan(
   }
 
   try {
-    const advice = await getPersonalizedFarmingAdvice(validatedFields.data);
+    const advice = await retry(() => getPersonalizedFarmingAdvice(validatedFields.data));
     return { advice };
   } catch (e) {
     console.error(e);

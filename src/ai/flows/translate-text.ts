@@ -56,6 +56,24 @@ Text to translate:
 "{{{text}}}"`,
 });
 
+// Helper function for retrying promises
+async function retry<T>(fn: () => Promise<T>, retries = 2, delay = 500): Promise<T> {
+  let lastError: Error | undefined;
+  for (let i = 0; i < retries; i++) {
+    try {
+      return await fn();
+    } catch (e) {
+      lastError = e as Error;
+      if (e instanceof Error && (e.message.includes('503') || e.message.toLowerCase().includes('service unavailable'))) {
+        await new Promise(res => setTimeout(res, delay * (i + 1)));
+      } else {
+        throw e;
+      }
+    }
+  }
+  throw lastError;
+}
+
 
 const translateTextFlow = ai.defineFlow(
   {
@@ -70,13 +88,12 @@ const translateTextFlow = ai.defineFlow(
 
     const targetLanguageName = languageNameMap[targetLanguage];
     if (!targetLanguageName) {
-      // Fallback for unsupported languages
       console.warn(`Translation to '${targetLanguage}' is not supported, returning original text.`);
       return { translatedText: text };
     }
 
     try {
-      const { output } = await prompt({ text, targetLanguageName });
+      const { output } = await retry(() => prompt({ text, targetLanguageName }));
       if (!output) {
         throw new Error('AI failed to generate a translation.');
       }

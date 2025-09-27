@@ -13,6 +13,27 @@ export interface CropHealthState {
 
 const PhotoSchema = z.string().min(1, { message: 'An image is required.' });
 
+// Helper function for retrying promises
+async function retry<T>(fn: () => Promise<T>, retries = 2, delay = 500): Promise<T> {
+  let lastError: Error | undefined;
+  for (let i = 0; i < retries; i++) {
+    try {
+      return await fn();
+    } catch (e) {
+      lastError = e as Error;
+      if (e instanceof Error && (e.message.includes('503') || e.message.toLowerCase().includes('service unavailable'))) {
+        // If it's a 503 error, wait and retry
+        await new Promise(res => setTimeout(res, delay * (i + 1)));
+      } else {
+        // If it's another type of error, don't retry
+        throw e;
+      }
+    }
+  }
+  throw lastError;
+}
+
+
 export async function getCropHealthReport(
   prevState: CropHealthState,
   formData: FormData
@@ -29,17 +50,16 @@ export async function getCropHealthReport(
   }
   
   try {
-    const report = await generateCropHealthReport({
+    const report = await retry(() => generateCropHealthReport({
         photoDataUri: validatedPhoto.data,
         description: description,
-    });
+    }));
     
     return { report };
   } catch (e) {
     console.error(e);
     let errorMessage = 'An unknown error occurred while trying to generate the report.';
     if (e instanceof Error) {
-        // More specific check for the 503 error
         if (e.message.includes('503') || e.message.toLowerCase().includes('service unavailable')) {
             errorMessage = 'The AI service is temporarily unavailable. Please try again in a few moments.';
         } else {
