@@ -1,3 +1,4 @@
+
 'use server';
 
 /**
@@ -66,7 +67,12 @@ async function queryHuggingFace(text: string, model: string): Promise<string> {
     }
 
     const result = await response.json();
-    return result[0]?.translation_text || text;
+    if (result && Array.isArray(result) && result[0] && result[0].translation_text) {
+      return result[0].translation_text;
+    }
+
+    console.warn("Hugging Face response was in an unexpected format:", result);
+    return text; // Fallback to original text
 }
 
 
