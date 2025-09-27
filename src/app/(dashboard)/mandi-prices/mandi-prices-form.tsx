@@ -151,8 +151,8 @@ export function MandiPricesForm() {
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem value="all">{t('mandi_prices.all_commodities')}</SelectItem>
-                        {commodities.map((commodity) => (
-                            <SelectItem key={commodity} value={getTranslatedCommodityName(commodity)}>
+                        {commodities.map((commodity, index) => (
+                            <SelectItem key={`${commodity}-${index}`} value={getTranslatedCommodityName(commodity)}>
                             {getTranslatedCommodityName(commodity)}
                             </SelectItem>
                         ))}
