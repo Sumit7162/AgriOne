@@ -39,7 +39,8 @@ export async function getCropHealthReport(
     console.error(e);
     let errorMessage = 'An unknown error occurred while trying to generate the report.';
     if (e instanceof Error) {
-        if (e.message.includes('503') || e.message.includes('Service Unavailable')) {
+        // More specific check for the 503 error
+        if (e.message.includes('503') || e.message.toLowerCase().includes('service unavailable')) {
             errorMessage = 'The AI service is temporarily unavailable. Please try again in a few moments.';
         } else {
             errorMessage = `Failed to generate crop health report: ${e.message}`;
