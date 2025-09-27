@@ -87,7 +87,7 @@ export default function DashboardPage() {
     } catch (error: any) {
       console.error(error);
       let errorMessage = 'An unknown error occurred while trying to get a response.';
-      if (error.message && error.message.includes('503')) {
+      if (error.message && (error.message.includes('503') || error.message.includes('Service Unavailable'))) {
         errorMessage = 'The AI service is temporarily unavailable. Please try again in a few moments.';
       } else if (error instanceof Error) {
         errorMessage = `Failed to get response: ${error.message}`;
