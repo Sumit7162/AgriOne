@@ -81,9 +81,12 @@ const translateTextFlow = ai.defineFlow(
         throw new Error('AI failed to generate a translation.');
       }
       return output;
-    } catch (error) {
-       console.error(`Translation failed for ${targetLanguage}:`, error);
-       // Fallback to the original text if translation fails
+    } catch (e) {
+       console.error(`Translation failed for ${targetLanguage}:`, e);
+       if (e instanceof Error && (e.message.includes('503') || e.message.toLowerCase().includes('service unavailable'))) {
+           throw new Error('The AI service is temporarily unavailable. Please try again in a few moments.');
+       }
+       // Fallback to the original text if translation fails for other reasons
        return { translatedText: text };
     }
   }
