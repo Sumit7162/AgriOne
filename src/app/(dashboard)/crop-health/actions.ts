@@ -3,6 +3,7 @@
 
 import { generateCropHealthReport, type GenerateCropHealthReportOutput } from '@/ai/flows/generate-crop-health-report';
 import { textToSpeech } from '@/ai/flows/text-to-speech';
+import { translateText } from '@/ai/flows/translate-text';
 import { z } from 'zod';
 
 export interface CropHealthState {
@@ -58,5 +59,35 @@ export async function getReportAudio(
   } catch (e) {
     console.error(e);
     return { error: 'Failed to generate audio. Please try again.' };
+  }
+}
+
+export async function getTranslatedReport(
+  report: GenerateCropHealthReportOutput,
+  languageCode: string
+): Promise<{ translatedReport?: GenerateCropHealthReportOutput; error?: string }> {
+  if (!report) {
+    return { error: 'Original report is missing.' };
+  }
+  if (languageCode === 'en') {
+    return { translatedReport: report };
+  }
+  try {
+    const [plantInfo, diseaseDiagnosis, solution] = await Promise.all([
+      translateText({ text: report.plantInfo, targetLanguage: languageCode }),
+      translateText({ text: report.diseaseDiagnosis, targetLanguage: languageCode }),
+      translateText({ text: report.solution, targetLanguage: languageCode }),
+    ]);
+
+    return {
+      translatedReport: {
+        plantInfo: plantInfo.translatedText,
+        diseaseDiagnosis: diseaseDiagnosis.translatedText,
+        solution: solution.translatedText,
+      },
+    };
+  } catch (e) {
+    console.error(e);
+    return { error: 'Failed to translate report. Please try again.' };
   }
 }
