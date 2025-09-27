@@ -54,7 +54,7 @@ function ReportCard({ item, index }: { item: any, index: number }) {
     }
   }, [audioDataUri]);
 
-  const handleLanguageChange = async (languageCode: string) => {
+  const handleLanguageChange = (languageCode: string) => {
       setSelectedLanguage(languageCode);
       if (!item.content) return;
       setAudioDataUri(undefined);
