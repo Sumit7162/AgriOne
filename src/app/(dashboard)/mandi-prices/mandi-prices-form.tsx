@@ -19,6 +19,120 @@ import { useTranslation } from '@/context/language-context';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import type { Commodity } from '@/ai/flows/get-fasal-price';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+
+const markets = {
+  'Andaman and Nicobar': [{ value: 'AN_Port Blair', label: 'Port Blair' }],
+  'Andhra Pradesh': [
+    { value: 'AP_Adoni', label: 'Adoni' },
+    { value: 'AP_Guntur', label: 'Guntur' },
+    { value: 'AP_Kurnool', label: 'Kurnool' },
+  ],
+  'Arunachal Pradesh': [{ value: 'AR_Itanagar', label: 'Itanagar' }],
+  'Assam': [
+    { value: 'AS_Guwahati', label: 'Guwahati' },
+    { value: 'AS_Dispur', label: 'Dispur' },
+  ],
+  'Bihar': [
+    { value: 'BR_Patna', label: 'Patna' },
+    { value: 'BR_Gaya', label: 'Gaya' },
+  ],
+  'Chandigarh': [{ value: 'CH_Chandigarh', label: 'Chandigarh' }],
+  'Chhattisgarh': [
+    { value: 'CT_Raipur', label: 'Raipur' },
+    { value: 'CT_Bhilai', label: 'Bhilai' },
+  ],
+  'Dadra and Nagar Haveli': [{ value: 'DN_Silvassa', label: 'Silvassa' }],
+  'Daman and Diu': [{ value: 'DD_Daman', label: 'Daman' }],
+  'Delhi': [{ value: 'DL_Delhi', label: 'Delhi' }],
+  'Goa': [{ value: 'GA_Panaji', label: 'Panaji' }],
+  'Gujarat': [
+    { value: 'GJ_Ahmedabad', label: 'Ahmedabad' },
+    { value: 'GJ_Surat', label: 'Surat' },
+    { value: 'GJ_Vadodara', label: 'Vadodara' },
+    { value: 'GJ_Rajkot', label: 'Rajkot' },
+  ],
+  'Haryana': [
+    { value: 'HR_Faridabad', label: 'Faridabad' },
+    { value: 'HR_Gurgaon', label: 'Gurgaon' },
+  ],
+  'Himachal Pradesh': [
+    { value: 'HP_Shimla', label: 'Shimla' },
+    { value: 'HP_Mandi', label: 'Mandi' },
+  ],
+  'Jammu and Kashmir': [
+    { value: 'JK_Srinagar', label: 'Srinagar' },
+    { value: 'JK_Jammu', label: 'Jammu' },
+  ],
+  'Jharkhand': [
+    { value: 'JH_Ranchi', label: 'Ranchi' },
+    { value: 'JH_Jamshedpur', label: 'Jamshedpur' },
+  ],
+  'Karnataka': [
+    { value: 'KA_Bangalore', label: 'Bangalore' },
+    { value: 'KA_Hubli', label: 'Hubli' },
+    { value: 'KA_Mysore', label: 'Mysore' },
+  ],
+  'Kerala': [
+    { value: 'KL_Kochi', label: 'Kochi' },
+    { value: 'KL_Thiruvananthapuram', label: 'Thiruvananthapuram' },
+  ],
+  'Lakshadweep': [{ value: 'LD_Kavaratti', label: 'Kavaratti' }],
+  'Madhya Pradesh': [
+    { value: 'MP_Bhopal', label: 'Bhopal' },
+    { value: 'MP_Indore', label: 'Indore' },
+    { value: 'MP_Jabalpur', label: 'Jabalpur' },
+  ],
+  'Maharashtra': [
+    { value: 'MH_Mumbai', label: 'Mumbai' },
+    { value: 'MH_Pune', label: 'Pune' },
+    { value: 'MH_Nagpur', label: 'Nagpur' },
+  ],
+  'Manipur': [{ value: 'MN_Imphal', label: 'Imphal' }],
+  'Meghalaya': [{ value: 'ML_Shillong', label: 'Shillong' }],
+  'Mizoram': [{ value: 'MZ_Aizawl', label: 'Aizawl' }],
+  'Nagaland': [{ value: 'NL_Kohima', label: 'Kohima' }],
+  'Odisha': [
+    { value: 'OR_Bhubaneswar', label: 'Bhubaneswar' },
+    { value: 'OR_Cuttack', label: 'Cuttack' },
+  ],
+  'Puducherry': [{ value: 'PY_Puducherry', label: 'Puducherry' }],
+  'Punjab': [
+    { value: 'PB_Ludhiana', label: 'Ludhiana' },
+    { value: 'PB_Amritsar', label: 'Amritsar' },
+  ],
+  'Rajasthan': [
+    { value: 'RJ_Jaipur', label: 'Jaipur' },
+    { value: 'RJ_Jodhpur', label: 'Jodhpur' },
+    { value: 'RJ_Kota', label: 'Kota' },
+  ],
+  'Sikkim': [{ value: 'SK_Gangtok', label: 'Gangtok' }],
+  'Tamil Nadu': [
+    { value: 'TN_Chennai', label: 'Chennai' },
+    { value: 'TN_Coimbatore', label: 'Coimbatore' },
+    { value: 'TN_Madurai', label: 'Madurai' },
+  ],
+  'Telangana': [
+    { value: 'TS_Hyderabad', label: 'Hyderabad' },
+    { value: 'TS_Warangal', label: 'Warangal' },
+  ],
+  'Tripura': [{ value: 'TR_Agartala', label: 'Agartala' }],
+  'Uttar Pradesh': [
+    { value: 'UP_Lucknow', label: 'Lucknow' },
+    { value: 'UP_Kanpur', label: 'Kanpur' },
+    { value: 'UP_Varanasi', label: 'Varanasi' },
+  ],
+  'Uttarakhand': [
+    { value: 'UT_Dehradun', label: 'Dehradun' },
+    { value: 'UT_Haridwar', label: 'Haridwar' },
+  ],
+  'West Bengal': [
+    { value: 'WB_Kolkata', label: 'Kolkata' },
+    { value: 'WB_Asansol', label: 'Asansol' },
+  ],
+};
+
+const states = Object.keys(markets);
 
 const initialState: MandiPriceState = {};
 
@@ -29,6 +143,10 @@ export function MandiPricesForm() {
   const [state, formAction] = useActionState(getCommodityPrices, initialState);
   const { t } = useTranslation();
   const [sortConfig, setSortConfig] = useState<{ key: SortKey; direction: SortDirection } | null>({ key: 'commodity', direction: 'asc' });
+  const [selectedState, setSelectedState] = useState<string>('');
+  const [selectedMarket, setSelectedMarket] = useState<string>('');
+
+  const availableMarkets = selectedState ? markets[selectedState as keyof typeof markets] : [];
 
   const sortedCommodities = useMemo(() => {
     let sortableItems = [...(state.data?.commodities || [])];
@@ -54,6 +172,11 @@ export function MandiPricesForm() {
     setSortConfig({ key, direction });
   };
   
+  const handleStateChange = (state: string) => {
+    setSelectedState(state);
+    setSelectedMarket('');
+  }
+
   const SortableHeader = ({ sortKey, label }: { sortKey: SortKey; label: string }) => (
     <TableHead>
       <Button variant="ghost" onClick={() => requestSort(sortKey)}>
@@ -68,19 +191,43 @@ export function MandiPricesForm() {
     <div className="grid gap-8">
       <Card className="max-w-2xl mx-auto w-full">
         <form action={formAction}>
+           <input type="hidden" name="market" value={selectedMarket} />
           <CardHeader>
             <CardTitle className="font-headline">{t('mandi_prices.form_title')}</CardTitle>
             <CardDescription>{t('mandi_prices.form_description')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="market">{t('mandi_prices.market_label')}</Label>
-              <Input
-                id="market"
-                name="market"
-                placeholder={t('mandi_prices.market_placeholder')}
-                defaultValue="MP_Bhopal"
-              />
+             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="state">State</Label>
+                  <Select onValueChange={handleStateChange} value={selectedState}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a state" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {states.map((state) => (
+                        <SelectItem key={state} value={state}>
+                          {state}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                 <div className="space-y-2">
+                  <Label htmlFor="market">Market</Label>
+                  <Select onValueChange={setSelectedMarket} value={selectedMarket} disabled={!selectedState}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a market" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {availableMarkets.map((market) => (
+                        <SelectItem key={market.value} value={market.value}>
+                          {market.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
             </div>
             {state?.error && (
               <Alert variant="destructive">
@@ -90,7 +237,7 @@ export function MandiPricesForm() {
             )}
           </CardContent>
           <CardFooter>
-            <SubmitButton className="w-full">
+            <SubmitButton className="w-full" disabled={!selectedMarket}>
               <Search />
               {t('mandi_prices.submit_button')}
             </SubmitButton>
