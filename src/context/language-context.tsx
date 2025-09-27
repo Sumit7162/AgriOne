@@ -53,7 +53,7 @@ export const useLanguage = () => {
   return context;
 };
 
-const getNestedTranslation = (translations: Record<string, any>, key: string): string | undefined => {
+const getNestedTranslation = (translations: Record<string, any>, key: string): any => {
     const keys = key.split('.');
     let result: any = translations;
     for (const k of keys) {
@@ -71,17 +71,26 @@ export const useTranslation = () => {
         throw new Error('useTranslation must be used within a LanguageProvider');
     }
 
-    const t = (key: string, params?: Record<string, string>): string => {
+    const t = (key: string, options?: { params?: Record<string, string>; returnObjects?: boolean }): any => {
+        const { params, returnObjects = false } = options || {};
         let translation = getNestedTranslation(context.translations, key);
 
-        // Fallback to English if translation is missing
         if (translation === undefined) {
             translation = getNestedTranslation(en, key) || key;
+        }
+        
+        if (returnObjects && typeof translation === 'object') {
+            return translation;
+        }
+
+        if (typeof translation !== 'string') {
+          // If we expected a string but got something else, return the key as a fallback.
+          return key;
         }
 
         if (params) {
             Object.keys(params).forEach(p => {
-                translation = translation!.replace(`{{${p}}}`, params[p]);
+                translation = translation!.replace(new RegExp(`{{${p}}}`, 'g'), params[p]);
             });
         }
 
